@@ -26,7 +26,7 @@
             </span>
         </a>
     </div>
-    <!-- Flash Sale -->
+    {{-- <!-- Flash Sale -->
     <div class="aiz-floating-button">
         <a href="{{ route('flash-deals') }}">
             <span class="circle">
@@ -64,7 +64,7 @@
                 </svg>
             </span>
         </a>
-    </div>
+    </div> TODO --}}
     @if(addon_is_activated('auction'))
     <!-- Auction -->
     <div class="aiz-floating-button">
