@@ -13,10 +13,10 @@
 		<div class="card">
 		    <div class="card-header row gutters-5">
 				<div class="col text-center text-md-left">
-					<h5 class="mb-md-0 h6">{{ translate('Brands') }}</h5>
+					<h5 class="mb-md-0 h6">{{ translate('Models') }}</h5>
 				</div>
 				<div class="col-md-4">
-					<form class="" id="sort_brands" action="" method="GET">
+					<form class="" id="sort_models" action="" method="GET">
 						<div class="input-group input-group-sm">
 					  		<input type="text" class="form-control" id="search" name="search" @isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Type name & Enter') }}">
 						</div>
@@ -29,26 +29,24 @@
 		                <tr>
 		                    <th>#</th>
 		                    <th>{{translate('Name')}}</th>
-		                    <th>{{translate('Logo')}}</th>
+		                    <th>{{translate('Brand')}}</th>
 		                    <th class="text-right">{{translate('Options')}}</th>
 		                </tr>
 		            </thead>
 		            <tbody>
-		                @foreach($brands as $key => $brand)
+		                @foreach($models as $key => $model)
 		                    <tr>
-		                        <td>{{ ($key+1) + ($brands->currentPage() - 1)*$brands->perPage() }}</td>
-		                        <td>{{ $brand->getTranslation('name') }}</td>
-								<td>
-		                            <img src="{{ uploaded_asset($brand->logo) }}" alt="{{translate('Brand')}}" class="h-50px">
-		                        </td>
+		                        <td>{{ ($key+1) + ($models->currentPage() - 1)*$models->perPage() }}</td>
+		                        <td>{{ translate($model->name) }}</td>
+		                        <td>{{ $model->brand ? $model->brand->name : translate('No Brand') }}</td>
 		                        <td class="text-right">
 									@can('edit_brand')
-										<a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('brands.edit', ['id'=>$brand->id, 'lang'=>env('DEFAULT_LANGUAGE')] )}}" title="{{ translate('Edit') }}">
+										<a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('models.edit', ['id'=>$model->id, 'lang'=>env('DEFAULT_LANGUAGE')] )}}" title="{{ translate('Edit') }}">
 											<i class="las la-edit"></i>
 										</a>
 									@endcan
 									@can('delete_brand')
-										<a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('brands.destroy', $brand->id)}}" title="{{ translate('Delete') }}">
+										<a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('models.destroy', $model->id)}}" title="{{ translate('Delete') }}">
 											<i class="las la-trash"></i>
 										</a>
 									@endcan
@@ -58,7 +56,7 @@
 		            </tbody>
 		        </table>
 		        <div class="aiz-pagination">
-                	{{ $brands->appends(request()->input())->links() }}
+                	{{ $models->appends(request()->input())->links() }}
             	</div>
 		    </div>
 		</div>
@@ -67,35 +65,23 @@
 		<div class="col-md-5">
 			<div class="card">
 				<div class="card-header">
-					<h5 class="mb-0 h6">{{ translate('Add New Brand') }}</h5>
+					<h5 class="mb-0 h6">{{ translate('Add New Model') }}</h5>
 				</div>
 				<div class="card-body">
-					<form action="{{ route('brands.store') }}" method="POST">
+					<form action="{{ route('models.store') }}" method="POST">
 						@csrf
 						<div class="form-group mb-3">
 							<label for="name">{{translate('Name')}}</label>
 							<input type="text" placeholder="{{translate('Name')}}" name="name" class="form-control" required>
 						</div>
 						<div class="form-group mb-3">
-							<label for="name">{{translate('Logo')}} <small>({{ translate('120x80') }})</small></label>
-							<div class="input-group" data-toggle="aizuploader" data-type="image">
-								<div class="input-group-prepend">
-										<div class="input-group-text bg-soft-secondary font-weight-medium">{{ translate('Browse')}}</div>
-								</div>
-								<div class="form-control file-amount">{{ translate('Choose File') }}</div>
-								<input type="hidden" name="logo" class="selected-files">
-							</div>
-							<div class="file-preview box sm">
-							</div>
-                            <small class="text-muted">{{ translate('Minimum dimensions required: 126px width X 100px height.') }}</small>
-						</div>
-						<div class="form-group mb-3">
-							<label for="name">{{translate('Meta Title')}}</label>
-							<input type="text" class="form-control" name="meta_title" placeholder="{{translate('Meta Title')}}">
-						</div>
-						<div class="form-group mb-3">
-							<label for="name">{{translate('Meta Description')}}</label>
-							<textarea name="meta_description" rows="5" class="form-control"></textarea>
+							<label for="brand">{{ translate('Brand') }}</label>
+							
+							<select id="brand-select" name="brand" class="select2 form-control aiz-selectpicker" data-toggle="select2" data-placeholder="Choose ..."data-live-search="true"  required>
+								@foreach ($brands as $brand)
+									<option value="{{ $brand->id }}">{{ $brand->name }}</option>
+								@endforeach
+							</select>
 						</div>
 						<div class="form-group mb-3 text-right">
 							<button type="submit" class="btn btn-primary">{{translate('Save')}}</button>
@@ -115,8 +101,8 @@
 
 @section('script')
 <script type="text/javascript">
-    function sort_brands(el){
-        $('#sort_brands').submit();
+    function sort_models(el){
+        $('#sort_models').submit();
     }
 </script>
 @endsection

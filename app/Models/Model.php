@@ -14,8 +14,8 @@ class Model extends Mod
     protected $fillable = ['name', 'slug', 'brand_id'];
     
 
-    public function brands()
+    public function brand()
     {
-        return $this->hasMany(Brand::class);
+        return $this->belongsTo(Brand::class);
     }
 }

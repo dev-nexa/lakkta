@@ -198,6 +198,24 @@
                                 </li>
                             @endcan
 
+                            @canany(['view_all_brands', 'brand_bulk_upload'])
+                                <li class="aiz-side-nav-item">
+                                    <a href="javascript:void(0);" class="aiz-side-nav-link">
+                                        <span class="aiz-side-nav-text">{{translate('Model')}}</span>
+                                        <span class="aiz-side-nav-arrow"></span>
+                                    </a>
+                                    <ul class="aiz-side-nav-list level-3">
+                                        @can('view_all_brands')
+                                            <li class="aiz-side-nav-item">
+                                                <a href="{{ route('models.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['brands.index', 'brands.create', 'brands.edit'])}}">
+                                                    <span class="aiz-side-nav-text">{{translate('All Models')}}</span>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                    </ul>
+                                </li>
+                            @endcan
+
                             @can('view_product_attributes')
                                 <li class="aiz-side-nav-item">
                                     <a href="{{route('attributes.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['attributes.index','attributes.create','attributes.edit','attributes.show','edit-attribute-value'.''])}}">

@@ -9,6 +9,7 @@ use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BrandBulkUploadController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ModelController;
 use App\Http\Controllers\BusinessSettingsController;
 use App\Http\Controllers\CarrierController;
 use App\Http\Controllers\CategoryController;
@@ -96,6 +97,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'prevent-ba
     Route::controller(BrandController::class)->group(function () {
         Route::get('/brands/edit/{id}', 'edit')->name('brands.edit');
         Route::get('/brands/destroy/{id}', 'destroy')->name('brands.destroy');
+    });
+
+    // Model
+    Route::controller(ModelController::class)->group(function () {
+        Route::get('/models', 'index')->name('models.index');
+        Route::post('/model/store', 'store')->name('models.store');
+        Route::get('/models/edit/{id}', 'edit')->name('models.edit');
+        Route::PATCH('/models/uplate/{id}', 'update')->name('models.update');
+        Route::get('/models/destroy/{id}', 'destroy')->name('models.destroy');
     });
 
     // Warranty
