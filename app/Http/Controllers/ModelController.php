@@ -26,13 +26,14 @@ class ModelController extends Controller
     public function index(Request $request)
     {
         $sort_search =null;
-        $models = Model::orderBy('name', 'asc');
+        $models = Model::with('brand')->orderBy('name', 'asc');
         if ($request->has('search')){
             $sort_search = $request->search;
             $models = $models->where('name', 'like', '%'.$sort_search.'%');
         }
         $models = $models->paginate(15);
-        return view('backend.product.models.index', compact('models', 'sort_search'));
+        $brands = Brand::all();
+        return view('backend.product.models.index', compact('models', 'brands', 'sort_search'));
     }
 
     /**
@@ -52,27 +53,28 @@ class ModelController extends Controller
      */
     public function store(Request $request)
     {
-        $brand = new Brand;
-        $brand->name = $request->name;
-        $brand->meta_title = $request->meta_title;
-        $brand->meta_description = $request->meta_description;
-        if ($request->slug != null) {
-            $brand->slug = str_replace(' ', '-', $request->slug);
+        if ($request->has('brand') && $request->brand != null) {
+            $model = new Model;
+            $model->name = $request->name;
+
+            
+            if ($request->slug != null) {
+                $model->slug = str_replace(' ', '-', $request->slug);
+            }
+            else {
+                $model->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)).'-'.Str::random(5);
+            }            
+            $model->brand_id = $request->brand; 
+
+            $model->save();
+            //$model->brand()->attach($request->brands);
+
+            flash(translate('Model has been inserted successfully'))->success();
+            return redirect()->route('models.index');
         }
-        else {
-            $brand->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)).'-'.Str::random(5);
-        }
 
-        $brand->logo = $request->logo;
-        $brand->save();
-
-        $brand_translation = BrandTranslation::firstOrNew(['lang' => env('DEFAULT_LANGUAGE'), 'brand_id' => $brand->id]);
-        $brand_translation->name = $request->name;
-        $brand_translation->save();
-
-        flash(translate('Brand has been inserted successfully'))->success();
-        return redirect()->route('brands.index');
-
+        flash(translate('Brand is required'))->error();
+        return back();
     }
 
     /**
@@ -94,9 +96,9 @@ class ModelController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $lang   = $request->lang;
-        $brand  = Brand::findOrFail($id);
-        return view('backend.product.brands.edit', compact('brand','lang'));
+        $model  = Model::findOrFail($id);
+        $brands = Brand::all();
+        return view('backend.product.models.edit', compact('model', 'brands'));
     }
 
     /**
@@ -108,26 +110,21 @@ class ModelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $brand = Brand::findOrFail($id);
-        if($request->lang == env("DEFAULT_LANGUAGE")){
-            $brand->name = $request->name;
-        }
-        $brand->meta_title = $request->meta_title;
-        $brand->meta_description = $request->meta_description;
+        $model = Model::findOrFail($id);
+
+        $model->name = $request->name;
+
         if ($request->slug != null) {
-            $brand->slug = strtolower($request->slug);
+            $model->slug = strtolower($request->slug);
         }
         else {
-            $brand->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)).'-'.Str::random(5);
+            $model->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)).'-'.Str::random(5);
         }
-        $brand->logo = $request->logo;
-        $brand->save();
 
-        $brand_translation = BrandTranslation::firstOrNew(['lang' => $request->lang, 'brand_id' => $brand->id]);
-        $brand_translation->name = $request->name;
-        $brand_translation->save();
+        $model->brand_id = $request->brand;
+        $model->save();
 
-        flash(translate('Brand has been updated successfully'))->success();
+        flash(translate('Model has been updated successfully'))->success();
         return back();
 
     }
@@ -140,13 +137,13 @@ class ModelController extends Controller
      */
     public function destroy($id)
     {
-        $brand = Brand::findOrFail($id);
-        $brand->brand_translations()->delete();
-        Product::where('brand_id', $brand->id)->update(['brand_id' => null]);
-        Brand::destroy($id);
+        $model = Model::findOrFail($id);
+        // TODO ALI
+        // Product::where('brand_id', $brand->id)->update(['brand_id' => null]);
+        Model::destroy($id);
 
-        flash(translate('Brand has been deleted successfully'))->success();
-        return redirect()->route('brands.index');
+        flash(translate('Model has been deleted successfully'))->success();
+        return redirect()->route('models.index');
 
     }
 }
