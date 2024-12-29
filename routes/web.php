@@ -115,7 +115,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/seller/login', 'login')->name('seller.login')->middleware('handle-demo-login');
     Route::get('/deliveryboy/login', 'login')->name('deliveryboy.login')->middleware('handle-demo-login');
     Route::get('/users/registration', 'registration')->name('user.registration')->middleware('handle-demo-login');
-    Route::post('/users/login/cart', 'cart_login')->name('cart.login.submit')->middleware('handle-demo-login');
+    // TOTO Route::post('/users/login/cart', 'cart_login')->name('cart.login.submit')->middleware('handle-demo-login');
 
     Route::post('/import-data', 'import_data');
 
@@ -194,15 +194,15 @@ Route::controller(SearchController::class)->group(function () {
     Route::get('/brand/{brand_slug}', 'listingByBrand')->name('products.brand');
 });
 
-// Cart
-Route::controller(CartController::class)->group(function () {
-    Route::get('/cart', 'index')->name('cart');
-    Route::post('/cart/show-cart-modal', 'showCartModal')->name('cart.showCartModal');
-    Route::post('/cart/addtocart', 'addToCart')->name('cart.addToCart');
-    Route::post('/cart/removeFromCart', 'removeFromCart')->name('cart.removeFromCart');
-    Route::post('/cart/updateQuantity', 'updateQuantity')->name('cart.updateQuantity');
-    Route::post('/cart/updateCartStatus', 'updateCartStatus')->name('cart.updateCartStatus');
-});
+// Cart TODO
+// Route::controller(CartController::class)->group(function () {
+//     Route::get('/cart', 'index')->name('cart');
+//     Route::post('/cart/show-cart-modal', 'showCartModal')->name('cart.showCartModal');
+//     Route::post('/cart/addtocart', 'addToCart')->name('cart.addToCart');
+//     Route::post('/cart/removeFromCart', 'removeFromCart')->name('cart.removeFromCart');
+//     Route::post('/cart/updateQuantity', 'updateQuantity')->name('cart.updateQuantity');
+//     Route::post('/cart/updateCartStatus', 'updateCartStatus')->name('cart.updateCartStatus');
+// });
 
 //Paypal START
 Route::controller(PaypalController::class)->group(function () {
@@ -229,7 +229,7 @@ Route::controller(SslcommerzController::class)->group(function () {
 //Stipe Start
 Route::controller(StripeController::class)->group(function () {
     Route::get('stripe', 'stripe');
-    Route::post('/stripe/create-checkout-session', 'create_checkout_session')->name('stripe.get_token');
+    // TODO Route::post('/stripe/create-checkout-session', 'create_checkout_session')->name('stripe.get_token');
     Route::any('/stripe/payment/callback', 'callback')->name('stripe.callback');
     Route::get('/stripe/success', 'success')->name('stripe.success');
     Route::get('/stripe/cancel', 'cancel')->name('stripe.cancel');
@@ -265,25 +265,25 @@ Route::group(['middleware' => ['user', 'verified', 'unbanned']], function () {
     });
 });
 
-// Checkout Routs
-Route::group(['prefix' => 'checkout'], function () {
-    Route::controller(CheckoutController::class)->group(function () {
-        // Route::get('/', 'get_shipping_info')->name('checkout.shipping_info');
-        Route::get('/', 'index')->name('checkout');
-        Route::any('/delivery-info', 'store_shipping_info')->name('checkout.store_shipping_infostore');
-        Route::post('/payment-select', 'store_delivery_info')->name('checkout.store_delivery_info');
-        Route::post('/payment', 'checkout')->name('payment.checkout');
-        Route::get('/order-confirmed', 'order_confirmed')->name('order_confirmed');
-        Route::post('/apply-coupon-code', 'apply_coupon_code')->name('checkout.apply_coupon_code');
-        Route::post('/remove-coupon-code', 'remove_coupon_code')->name('checkout.remove_coupon_code');
-        Route::post('/guest-customer-info-check', 'guestCustomerInfoCheck')->name('guest_customer_info_check');
-        Route::post('/updateDeliveryAddress', 'updateDeliveryAddress')->name('checkout.updateDeliveryAddress');
-        Route::post('/updateDeliveryInfo', 'updateDeliveryInfo')->name('checkout.updateDeliveryInfo');
-        //Club point
-        // Route::post('/apply-club-point', 'apply_club_point')->name('checkout.apply_club_point');
-        // Route::post('/remove-club-point', 'remove_club_point')->name('checkout.remove_club_point');
-    });
-});
+// Checkout Routs TODO
+// Route::group(['prefix' => 'checkout'], function () {
+//     Route::controller(CheckoutController::class)->group(function () {
+//         // Route::get('/', 'get_shipping_info')->name('checkout.shipping_info');
+//         Route::get('/', 'index')->name('checkout');
+//         Route::any('/delivery-info', 'store_shipping_info')->name('checkout.store_shipping_infostore');
+//         Route::post('/payment-select', 'store_delivery_info')->name('checkout.store_delivery_info');
+//         Route::post('/payment', 'checkout')->name('payment.checkout');
+//         Route::get('/order-confirmed', 'order_confirmed')->name('order_confirmed');
+//         Route::post('/apply-coupon-code', 'apply_coupon_code')->name('checkout.apply_coupon_code');
+//         Route::post('/remove-coupon-code', 'remove_coupon_code')->name('checkout.remove_coupon_code');
+//         Route::post('/guest-customer-info-check', 'guestCustomerInfoCheck')->name('guest_customer_info_check');
+//         Route::post('/updateDeliveryAddress', 'updateDeliveryAddress')->name('checkout.updateDeliveryAddress');
+//         Route::post('/updateDeliveryInfo', 'updateDeliveryInfo')->name('checkout.updateDeliveryInfo');
+//         //Club point
+//         // Route::post('/apply-club-point', 'apply_club_point')->name('checkout.apply_club_point');
+//         // Route::post('/remove-club-point', 'remove_club_point')->name('checkout.remove_club_point');
+//     });
+// });
 
 Route::group(['middleware' => ['customer', 'verified', 'unbanned']], function () {
 
@@ -334,7 +334,7 @@ Route::group(['middleware' => ['customer', 'verified', 'unbanned']], function ()
     // Product Review
     Route::post('/product-review-modal', [ReviewController::class, 'product_review_modal'])->name('product_review_modal');
 
-    Route::post('/order/re-payment', [CheckoutController::class, 'orderRePayment'])->name('order.re_payment');
+    // TODO Route::post('/order/re-payment', [CheckoutController::class, 'orderRePayment'])->name('order.re_payment');
 });
 
 
@@ -403,36 +403,36 @@ Route::any('/iyzico/payment/callback/{payment_type}/{amount?}/{payment_method?}/
 
 Route::get('/customer-products/admin', [IyzicoController::class, 'initPayment'])->name('profile.edit');
 
-//payhere below
-Route::controller(PayhereController::class)->group(function () {
-    Route::get('/payhere/checkout/testing', 'checkout_testing')->name('payhere.checkout.testing');
-    Route::get('/payhere/wallet/testing', 'wallet_testing')->name('payhere.checkout.testing');
-    Route::get('/payhere/customer_package/testing', 'customer_package_testing')->name('payhere.customer_package.testing');
+//payhere below TODO
+// Route::controller(PayhereController::class)->group(function () {
+//     Route::get('/payhere/checkout/testing', 'checkout_testing')->name('payhere.checkout.testing');
+//     Route::get('/payhere/wallet/testing', 'wallet_testing')->name('payhere.checkout.testing');
+//     Route::get('/payhere/customer_package/testing', 'customer_package_testing')->name('payhere.customer_package.testing');
 
-    Route::any('/payhere/checkout/notify', 'checkout_notify')->name('payhere.checkout.notify');
-    Route::any('/payhere/checkout/return', 'checkout_return')->name('payhere.checkout.return');
-    Route::any('/payhere/checkout/cancel', 'chekout_cancel')->name('payhere.checkout.cancel');
+//     Route::any('/payhere/checkout/notify', 'checkout_notify')->name('payhere.checkout.notify');
+//     Route::any('/payhere/checkout/return', 'checkout_return')->name('payhere.checkout.return');
+//     Route::any('/payhere/checkout/cancel', 'chekout_cancel')->name('payhere.checkout.cancel');
 
-    Route::any('/payhere/order-re-payment/notify', 'orderRepaymentNotify')->name('payhere.order_re_payment.notify');
-    Route::any('/payhere/order-re-payment/return', 'orderRepaymentReturn')->name('payhere.order_re_payment.return');
-    Route::any('/payhere/order-re-payment/cancel', 'orderRepaymentCancel')->name('payhere.order_re_payment.cancel');
+//     Route::any('/payhere/order-re-payment/notify', 'orderRepaymentNotify')->name('payhere.order_re_payment.notify');
+//     Route::any('/payhere/order-re-payment/return', 'orderRepaymentReturn')->name('payhere.order_re_payment.return');
+//     Route::any('/payhere/order-re-payment/cancel', 'orderRepaymentCancel')->name('payhere.order_re_payment.cancel');
 
-    Route::any('/payhere/wallet/notify', 'wallet_notify')->name('payhere.wallet.notify');
-    Route::any('/payhere/wallet/return', 'wallet_return')->name('payhere.wallet.return');
-    Route::any('/payhere/wallet/cancel', 'wallet_cancel')->name('payhere.wallet.cancel');
+//     Route::any('/payhere/wallet/notify', 'wallet_notify')->name('payhere.wallet.notify');
+//     Route::any('/payhere/wallet/return', 'wallet_return')->name('payhere.wallet.return');
+//     Route::any('/payhere/wallet/cancel', 'wallet_cancel')->name('payhere.wallet.cancel');
 
-    Route::any('/payhere/seller_package_payment/notify', 'sellerPackageNotify')->name('payhere.seller_package_payment.notify');
-    Route::any('/payhere/seller_package_payment/return', 'sellerPackageReturn')->name('payhere.seller_package_payment.return');
-    Route::any('/payhere/seller_package_payment/cancel', 'sellerPackageCancel')->name('payhere.seller_package_payment.cancel');
+//     Route::any('/payhere/seller_package_payment/notify', 'sellerPackageNotify')->name('payhere.seller_package_payment.notify');
+//     Route::any('/payhere/seller_package_payment/return', 'sellerPackageReturn')->name('payhere.seller_package_payment.return');
+//     Route::any('/payhere/seller_package_payment/cancel', 'sellerPackageCancel')->name('payhere.seller_package_payment.cancel');
 
-    Route::any('/payhere/customer_package_payment/notify', 'customer_package_notify')->name('payhere.customer_package_payment.notify');
-    Route::any('/payhere/customer_package_payment/return', 'customer_package_return')->name('payhere.customer_package_payment.return');
-    Route::any('/payhere/customer_package_payment/cancel', 'customer_package_cancel')->name('payhere.customer_package_payment.cancel');
-});
+//     Route::any('/payhere/customer_package_payment/notify', 'customer_package_notify')->name('payhere.customer_package_payment.notify');
+//     Route::any('/payhere/customer_package_payment/return', 'customer_package_return')->name('payhere.customer_package_payment.return');
+//     Route::any('/payhere/customer_package_payment/cancel', 'customer_package_cancel')->name('payhere.customer_package_payment.cancel');
+// });
 
 //N-genius
 Route::controller(NgeniusController::class)->group(function () {
-    Route::any('ngenius/cart_payment_callback', 'cart_payment_callback')->name('ngenius.cart_payment_callback');
+    // TODO Route::any('ngenius/cart_payment_callback', 'cart_payment_callback')->name('ngenius.cart_payment_callback');
     Route::any('ngenius/order_re_payment_callback', 'order_re_payment_callback')->name('ngenius.order_re_payment_callback');
     Route::any('ngenius/wallet_payment_callback', 'wallet_payment_callback')->name('ngenius.wallet_payment_callback');
     Route::any('ngenius/customer_package_payment_callback', 'customer_package_payment_callback')->name('ngenius.customer_package_payment_callback');
@@ -445,7 +445,7 @@ Route::controller(BkashController::class)->group(function () {
     Route::get('/bkash/success', 'success')->name('bkash.success');
 });
 
-Route::get('/checkout-payment-detail', [StripeController::class, 'checkout_payment_detail']);
+// TODO Route::get('/checkout-payment-detail', [StripeController::class, 'checkout_payment_detail']);
 
 //Nagad
 Route::get('/nagad/callback', [NagadController::class, 'verify'])->name('nagad.callback');
