@@ -359,7 +359,7 @@
                                 <a href="{{ route('user.registration') }}"
                                     class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block py-2 pl-2">{{ translate('Registration') }}</a> -->
                                 <a href="{{ route('shops.create') }}"
-                                    class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block py-2 pl-2">{{ translate('Sell now5 !') }}</a>
+                                    class="text-reset opacity-60 hov-opacity-100 hov-text-primary fs-12 d-inline-block py-2 pl-2">{{ translate('Sell now !') }}</a>
                             </span>
                         @endauth
                     </div>
