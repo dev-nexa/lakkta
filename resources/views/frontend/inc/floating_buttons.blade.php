@@ -1,4 +1,4 @@
-<div class="floating-buttons-section">
+{{-- <div class="floating-buttons-section">
     <div class="position-relative">
         <a class="floating-buttons-section-control d-lg-none" onclick="showFloatingButtons()">
             <i class="las la-2x la-angle-double-right"></i>
@@ -25,7 +25,7 @@
                 </svg>
             </span>
         </a>
-    </div>
+    </div> TODO --}}
     {{-- <!-- Flash Sale -->
     <div class="aiz-floating-button">
         <a href="{{ route('flash-deals') }}">
@@ -65,7 +65,7 @@
             </span>
         </a>
     </div> TODO --}}
-    @if(addon_is_activated('auction'))
+    {{-- @if(addon_is_activated('auction'))
     <!-- Auction -->
     <div class="aiz-floating-button">
         <a href="{{ route('auction_products.all') }}">
@@ -96,5 +96,5 @@
         </a>
     </div>
     @endif
-</div>
+</div> TODO --}}
 

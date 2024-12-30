@@ -405,8 +405,7 @@ $min_bid_amount = $highest_bid != null ? $highest_bid+1 : $detailedProduct->star
 
     function product_review(product_id) {
         @if(isCustomer())
-        $.post('{{ route('
-            product_review_modal ') }}', {
+        $.post('{{ route('product_review_modal') }}', {
                 _token: '{{ @csrf_token() }}',
                 product_id: product_id
             },

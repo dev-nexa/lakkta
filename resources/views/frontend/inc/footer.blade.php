@@ -618,7 +618,7 @@
             @php
                 $count = count(get_user_cart());
             @endphp
-            <div class="col-auto">
+            {{-- <div class="col-auto">
                 <a href="{{ route('cart') }}" class="text-secondary d-block text-center pb-2 pt-3 px-3 {{ areActiveRoutes(['cart'],'svg-active')}}">
                     <span class="d-inline-block position-relative px-2">
                         <svg id="Group_25499" data-name="Group 25499" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16.001" height="16" viewBox="0 0 16.001 16">
@@ -642,7 +642,7 @@
                         (<span class="cart-count">{{$count}}</span>)
                     </span>
                 </a>
-            </div>
+            </div> TODO --}}
 
             <!-- Notifications -->
             <div class="col">
