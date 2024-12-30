@@ -1,5 +1,5 @@
 @extends('seller.layouts.app')
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @section('panel_content')
     <div class="page-content mx-0">
         <div class="aiz-titlebar mt-2 mb-4">
@@ -46,18 +46,44 @@
                                         placeholder="{{ translate('Product Name') }}" onchange="update_sku()" required>
                                 </div>
                             </div>
-                            <div class="form-group row" id="brand">
-                                <label class="col-md-3 col-from-label">{{ translate('Brand') }}</label>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-from-label">{{ translate('Category') }}</label>
                                 <div class="col-md-8">
-                                    <select class="form-control aiz-selectpicker" name="brand_id" id="brand_id"
-                                        data-live-search="true">
-                                        <option value="">{{ translate('Select Brand') }}</option>
-                                        @foreach (\App\Models\Brand::all() as $brand)
-                                            <option value="{{ $brand->id }}">{{ $brand->getTranslation('name') }}</option>
+                                    <select class="form-control aiz-selectpicker" name="category_id" id="category_id" data-live-search="true" required>
+                                        <option value="">{{ translate('Select Category') }}</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}" class="category-option" data-parent-id="{{ $category->parent_id }}">
+                                                {{ $category->getTranslation('name') }}
+                                            </option>
+                                            
+                                            @foreach ($category->childrenCategories as $childCategory)
+                                                <option value="{{ $childCategory->id }}" class="subcategory-option" data-parent-id="{{ $category->id }}">
+                                                    &nbsp;&nbsp;&nbsp;-- {{ $childCategory->getTranslation('name') }}
+                                                </option>
+                                            @endforeach
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group row" id="brand">
+                                <label class="col-md-3 col-from-label">{{ translate('Brand') }}</label>
+                                <div class="col-md-8">
+                                    <select class="form-control aiz-selectpicker" name="brand_id" id="brand-select" data-live-search="true">
+                                        <option value="">{{ translate('Select Brand') }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row" id="model">
+                                <label class="col-md-3 col-from-label">{{ translate('Model') }}</label>
+                                <div class="col-md-8">
+                                    <select class="form-control aiz-selectpicker" name="model_id" id="model-select" data-live-search="true">
+                                        <option value="">{{ translate('Select Model') }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" name="category_id" id="category_id_hidden">
+                            <input type="hidden" name="category_ids[]" id="category_ids_hidden">
+                            
                             {{-- <div class="form-group row">
                                 <label class="col-md-3 col-from-label">{{ translate('Unit') }} <span class="text-danger">*</span></label>
                                 <div class="col-md-8">
@@ -545,30 +571,37 @@
 
                 <div class="col-lg-4">
 
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-header">
                             <h5 class="mb-0 h6">{{ translate('Product Category') }}</h5>
                             <h6 class="float-right fs-13 mb-0">
                                 {{ translate('Select Main') }}
                                 <span class="position-relative main-category-info-icon">
                                     <i class="las la-question-circle fs-18 text-info"></i>
-                                    <span class="main-category-info bg-soft-info p-2 position-absolute d-none border">{{ translate('This will be used for commission based calculations and homepage category wise product Show.') }}</span>
+                                    <span class="main-category-info bg-soft-info p-2 position-absolute d-none border">
+                                        {{ translate('This will be used for commission based calculations and homepage category wise product Show.') }}
+                                    </span>
                                 </span>
                             </h6>
                         </div>
                         <div class="card-body">
                             <div class="h-300px overflow-auto c-scrollbar-light">
-                                <ul class="hummingbird-treeview-converter list-unstyled" data-checkbox-name="category_ids[]" data-radio-name="category_id">
+                                <ul class="hummingbird-treeview-converter list-unstyled" data-checkbox-name="category_ids[]" data-radio-name="category_id" id="category-tree">
                                     @foreach ($categories as $category)
-                                    <li id="{{ $category->id }}">{{ $category->getTranslation('name') }}</li>
-                                        @foreach ($category->childrenCategories as $childCategory)
-                                            @include('backend.product.products.child_category', ['child_category' => $childCategory])
-                                        @endforeach
+                                        <li id="category-{{ $category->id }}" data-id="{{ $category->id }}">{{ $category->getTranslation('name') }}
+                                            @if ($category->childrenCategories->isNotEmpty())
+                                                <ul>
+                                                    @foreach ($category->childrenCategories as $childCategory)
+                                                        @include('backend.product.products.child_category', ['child_category' => $childCategory])
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     {{-- <div class="card">
                         <div class="card-header">
@@ -780,6 +813,120 @@
 <script src="{{ static_asset('assets/js/hummingbird-treeview.js') }}"></script>
 
 <script type="text/javascript">
+$(document).ready(function () {
+    $('#category_id').on('change', function () {
+        const categoryId = $(this).val(); 
+
+            if (categoryId) {
+                $('#category_id_hidden').val(categoryId);
+
+                $('#category_ids_hidden').val(categoryId);
+            } else {
+                $('#category_id_hidden').val('');
+                $('#category_ids_hidden').val('');
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('#category_id').on('change', function () {
+            const categoryId = $(this).val();
+                                    
+            if (categoryId) {
+                $.ajax({
+                    url: '{{ route('get-brands-by-category') }}',
+                    method: 'GET',
+                    data: { category_id: categoryId },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            $('#brand-select').empty();
+                            $('#brand-select').append('<option value="">{{ translate('Select Brand') }}</option>');
+                        
+                            data.forEach(function (brand) {
+                                $('#brand-select').append('<option value="' + brand.id + '">' + brand.name + '</option>');
+                            });
+                        
+                            $('#brand-select').selectpicker('refresh');
+                        } else {
+                            $('#brand-select').empty().append('<option value="">{{ translate('No Brands Available') }}</option>');
+                            $('#brand-select').selectpicker('refresh');
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            } else {
+                $('#brand-select').empty().append('<option value="">{{ translate('Select Brand') }}</option>');
+                $('#brand-select').selectpicker('refresh');
+            }
+
+            const brandId = $(this).val();
+        
+            if (brandId) {
+                $.ajax({
+                    url: '{{ route('get-models-by-brand') }}',
+                    method: 'GET',
+                    data: { brand_id: brandId },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            $('#model-select').empty();
+                            $('#model-select').append('<option value="">{{ translate('Select Model') }}</option>');
+                        
+                            data.forEach(function (model) {
+                                $('#model-select').append('<option value="' + model.id + '">' + model.name + '</option>');
+                            });
+                        
+                            $('#model-select').selectpicker('refresh');
+                        } else {
+                            $('#model-select').empty().append('<option value="">{{ translate('No Models Available') }}</option>');
+                            $('#model-select').selectpicker('refresh');
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            } else {
+                $('#model-select').empty().append('<option value="">{{ translate('Select Model') }}</option>');
+                $('#model-select').selectpicker('refresh');
+            }
+        });
+                                
+        $('#brand-select').on('change', function () {
+            const brandId = $(this).val();
+        
+            if (brandId) {
+                $.ajax({
+                    url: '{{ route('get-models-by-brand') }}',
+                    method: 'GET',
+                    data: { brand_id: brandId },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            $('#model-select').empty();
+                            $('#model-select').append('<option value="">{{ translate('Select Model') }}</option>');
+                        
+                            data.forEach(function (model) {
+                                $('#model-select').append('<option value="' + model.id + '">' + model.name + '</option>');
+                            });
+                        
+                            $('#model-select').selectpicker('refresh');
+                        } else {
+                            $('#model-select').empty().append('<option value="">{{ translate('No Models Available') }}</option>');
+                            $('#model-select').selectpicker('refresh');
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            } else {
+                $('#model-select').empty().append('<option value="">{{ translate('Select Model') }}</option>');
+                $('#model-select').selectpicker('refresh');
+            }
+        });
+    });
+
     $(document).ready(function() {
         $("#treeview").hummingbird();
 

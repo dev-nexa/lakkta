@@ -13,7 +13,7 @@ class ProductUtility
         if (
             isset($collection['colors_active']) &&
             $collection['colors_active'] &&
-            $collection['colors'] &&
+            isset($collection['colors']) &&
             count($collection['colors']) > 0
         ) {
             $colors_active = 1;

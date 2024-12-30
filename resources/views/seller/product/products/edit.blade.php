@@ -1,5 +1,5 @@
 @extends('seller.layouts.app')
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @section('panel_content')
 
 <div class="aiz-titlebar mt-2 mb-4">
@@ -52,18 +52,43 @@
                                 required>
                         </div>
                     </div>
-                    <div class="form-group row" id="brand">
-                        <label class="col-lg-3 col-from-label">{{translate('Brand')}}</label>
-                        <div class="col-lg-8">
-                            <select class="form-control aiz-selectpicker" name="brand_id" id="brand_id">
-                                <option value="">{{ translate('Select Brand') }}</option>
-                                @foreach (\App\Models\Brand::all() as $brand)
-                                <option value="{{ $brand->id }}" @if($product->brand_id == $brand->id) selected
-                                    @endif>{{ $brand->getTranslation('name') }}</option>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-from-label">{{ translate('Category') }}</label>
+                        <div class="col-md-8">
+                            <select class="form-control aiz-selectpicker" name="category_id" id="category_id" data-live-search="true" required>
+                                <option value="">{{ translate('Select Category') }}</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" class="category-option" data-parent-id="{{ $category->parent_id }}">
+                                        {{ $category->getTranslation('name') }}
+                                    </option>
+                                    
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        <option value="{{ $childCategory->id }}" class="subcategory-option" data-parent-id="{{ $category->id }}">
+                                            &nbsp;&nbsp;&nbsp;-- {{ $childCategory->getTranslation('name') }}
+                                        </option>
+                                    @endforeach
                                 @endforeach
                             </select>
                         </div>
                     </div>
+                    <div class="form-group row" id="brand">
+                        <label class="col-md-3 col-from-label">{{ translate('Brand') }}</label>
+                        <div class="col-md-8">
+                            <select class="form-control aiz-selectpicker" name="brand_id" id="brand-select" data-live-search="true">
+                                <option value="">{{ translate('Select Brand') }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row" id="model">
+                        <label class="col-md-3 col-from-label">{{ translate('Model') }}</label>
+                        <div class="col-md-8">
+                            <select class="form-control aiz-selectpicker" name="model_id" id="model-select" data-live-search="true">
+                                <option value="">{{ translate('Select Model') }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="hidden" name="category_id" id="category_id_hidden">
+                    <input type="hidden" name="category_ids[]" id="category_ids_hidden">
                     {{-- <div class="form-group row">
                         <label class="col-lg-3 col-from-label">{{translate('Unit')}} <i class="las la-language text-danger" title="{{translate('Translatable')}}"></i></label>
                         <div class="col-lg-8">
@@ -661,7 +686,7 @@
         </div>
 
         <div class="col-lg-4">
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">{{ translate('Product Category') }}</h5>
                     <h6 class="float-right fs-13 mb-0">
@@ -687,7 +712,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- <div class="card">
                 <div class="card-header">
@@ -922,12 +947,126 @@
 <script src="{{ static_asset('assets/js/hummingbird-treeview.js') }}"></script>
 
 <script type="text/javascript">
+$(document).ready(function () {
+    $('#category_id').on('change', function () {
+        const categoryId = $(this).val(); 
+
+            if (categoryId) {
+                $('#category_id_hidden').val(categoryId);
+
+                $('#category_ids_hidden').val(categoryId);
+            } else {
+                $('#category_id_hidden').val('');
+                $('#category_ids_hidden').val('');
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('#category_id').on('change', function () {
+            const categoryId = $(this).val();
+                                    
+            if (categoryId) {
+                $.ajax({
+                    url: '{{ route('get-brands-by-category') }}',
+                    method: 'GET',
+                    data: { category_id: categoryId },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            $('#brand-select').empty();
+                            $('#brand-select').append('<option value="">{{ translate('Select Brand') }}</option>');
+                        
+                            data.forEach(function (brand) {
+                                $('#brand-select').append('<option value="' + brand.id + '">' + brand.name + '</option>');
+                            });
+                        
+                            $('#brand-select').selectpicker('refresh');
+                        } else {
+                            $('#brand-select').empty().append('<option value="">{{ translate('No Brands Available') }}</option>');
+                            $('#brand-select').selectpicker('refresh');
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            } else {
+                $('#brand-select').empty().append('<option value="">{{ translate('Select Brand') }}</option>');
+                $('#brand-select').selectpicker('refresh');
+            }
+
+            const brandId = $(this).val();
+        
+            if (brandId) {
+                $.ajax({
+                    url: '{{ route('get-models-by-brand') }}',
+                    method: 'GET',
+                    data: { brand_id: brandId },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            $('#model-select').empty();
+                            $('#model-select').append('<option value="">{{ translate('Select Model') }}</option>');
+                        
+                            data.forEach(function (model) {
+                                $('#model-select').append('<option value="' + model.id + '">' + model.name + '</option>');
+                            });
+                        
+                            $('#model-select').selectpicker('refresh');
+                        } else {
+                            $('#model-select').empty().append('<option value="">{{ translate('No Models Available') }}</option>');
+                            $('#model-select').selectpicker('refresh');
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            } else {
+                $('#model-select').empty().append('<option value="">{{ translate('Select Model') }}</option>');
+                $('#model-select').selectpicker('refresh');
+            }
+        });
+                                
+        $('#brand-select').on('change', function () {
+            const brandId = $(this).val();
+        
+            if (brandId) {
+                $.ajax({
+                    url: '{{ route('get-models-by-brand') }}',
+                    method: 'GET',
+                    data: { brand_id: brandId },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            $('#model-select').empty();
+                            $('#model-select').append('<option value="">{{ translate('Select Model') }}</option>');
+                        
+                            data.forEach(function (model) {
+                                $('#model-select').append('<option value="' + model.id + '">' + model.name + '</option>');
+                            });
+                        
+                            $('#model-select').selectpicker('refresh');
+                        } else {
+                            $('#model-select').empty().append('<option value="">{{ translate('No Models Available') }}</option>');
+                            $('#model-select').selectpicker('refresh');
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            } else {
+                $('#model-select').empty().append('<option value="">{{ translate('Select Model') }}</option>');
+                $('#model-select').selectpicker('refresh');
+            }
+        });
+    });
+
     $(document).ready(function (){
         show_hide_shipping_div();
 
         $("#treeview").hummingbird();
         var main_id = '{{ $product->category_id != null ? $product->category_id : 0 }}';
-        var selected_ids = '{{ implode(",",$old_categories) }}';
+        
         if (selected_ids != '') {
             const myArray = selected_ids.split(",");
             for (let i = 0; i < myArray.length; i++) {

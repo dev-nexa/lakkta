@@ -10,7 +10,8 @@ use Illuminate\Support\Str;
 
 class BrandController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         // Staff Permission Check
         $this->middleware(['permission:view_all_brands'])->only('index');
         $this->middleware(['permission:add_brand'])->only('create');
@@ -24,24 +25,35 @@ class BrandController extends Controller
      */
     public function index(Request $request)
     {
-        $sort_search =null;
-        $brands = Brand::orderBy('name', 'asc');
-        if ($request->has('search')){
+        $sort_search = null;
+        $brands = Brand::with('models')->orderBy('name', 'asc');
+        if ($request->has('search')) {
             $sort_search = $request->search;
-            $brands = $brands->where('name', 'like', '%'.$sort_search.'%');
+            $brands = $brands->where('name', 'like', '%' . $sort_search . '%');
         }
         $brands = $brands->paginate(15);
         return view('backend.product.brands.index', compact('brands', 'sort_search'));
     }
+
+    public function getBrandsByCategory(Request $request)
+    {
+        $categoryId = $request->input('category_id');
+        if (!$categoryId) {
+            return response()->json(['error' => 'Category ID is required'], 400);
+        }
+
+        $brands = Brand::where('category_id', $categoryId)->get();
+
+        return response()->json($brands);
+    }   
+
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -57,9 +69,8 @@ class BrandController extends Controller
         $brand->meta_description = $request->meta_description;
         if ($request->slug != null) {
             $brand->slug = str_replace(' ', '-', $request->slug);
-        }
-        else {
-            $brand->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)).'-'.Str::random(5);
+        } else {
+            $brand->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)) . '-' . Str::random(5);
         }
 
         $brand->logo = $request->logo;
@@ -71,7 +82,6 @@ class BrandController extends Controller
 
         flash(translate('Brand has been inserted successfully'))->success();
         return redirect()->route('brands.index');
-
     }
 
     /**
@@ -95,7 +105,7 @@ class BrandController extends Controller
     {
         $lang   = $request->lang;
         $brand  = Brand::findOrFail($id);
-        return view('backend.product.brands.edit', compact('brand','lang'));
+        return view('backend.product.brands.edit', compact('brand', 'lang'));
     }
 
     /**
@@ -108,16 +118,15 @@ class BrandController extends Controller
     public function update(Request $request, $id)
     {
         $brand = Brand::findOrFail($id);
-        if($request->lang == env("DEFAULT_LANGUAGE")){
+        if ($request->lang == env("DEFAULT_LANGUAGE")) {
             $brand->name = $request->name;
         }
         $brand->meta_title = $request->meta_title;
         $brand->meta_description = $request->meta_description;
         if ($request->slug != null) {
             $brand->slug = strtolower($request->slug);
-        }
-        else {
-            $brand->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)).'-'.Str::random(5);
+        } else {
+            $brand->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)) . '-' . Str::random(5);
         }
         $brand->logo = $request->logo;
         $brand->save();
@@ -128,7 +137,6 @@ class BrandController extends Controller
 
         flash(translate('Brand has been updated successfully'))->success();
         return back();
-
     }
 
     /**
@@ -146,6 +154,5 @@ class BrandController extends Controller
 
         flash(translate('Brand has been deleted successfully'))->success();
         return redirect()->route('brands.index');
-
     }
 }

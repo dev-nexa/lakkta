@@ -11,7 +11,8 @@ use Illuminate\Support\Str;
 
 class ModelController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         // Staff Permission Check
         $this->middleware(['permission:view_all_brands'])->only('index');
         $this->middleware(['permission:add_brand'])->only('create');
@@ -25,11 +26,11 @@ class ModelController extends Controller
      */
     public function index(Request $request)
     {
-        $sort_search =null;
+        $sort_search = null;
         $models = Model::with('brand')->orderBy('name', 'asc');
-        if ($request->has('search')){
+        if ($request->has('search')) {
             $sort_search = $request->search;
-            $models = $models->where('name', 'like', '%'.$sort_search.'%');
+            $models = $models->where('name', 'like', '%' . $sort_search . '%');
         }
         $models = $models->paginate(15);
         $brands = Brand::all();
@@ -41,9 +42,7 @@ class ModelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -57,14 +56,13 @@ class ModelController extends Controller
             $model = new Model;
             $model->name = $request->name;
 
-            
+
             if ($request->slug != null) {
                 $model->slug = str_replace(' ', '-', $request->slug);
+            } else {
+                $model->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)) . '-' . Str::random(5);
             }
-            else {
-                $model->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)).'-'.Str::random(5);
-            }            
-            $model->brand_id = $request->brand; 
+            $model->brand_id = $request->brand;
 
             $model->save();
             //$model->brand()->attach($request->brands);
@@ -76,6 +74,20 @@ class ModelController extends Controller
         flash(translate('Brand is required'))->error();
         return back();
     }
+
+    public function getModelsByBrand(Request $request)
+    {
+        $brandId = $request->input('brand_id');
+
+        // استرجاع الموديلات المرتبطة بالبراند
+        $models = Model::where('brand_id', $brandId)->get();
+
+        return response()->json($models);
+    }
+
+
+
+
 
     /**
      * Display the specified resource.
@@ -116,9 +128,8 @@ class ModelController extends Controller
 
         if ($request->slug != null) {
             $model->slug = strtolower($request->slug);
-        }
-        else {
-            $model->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)).'-'.Str::random(5);
+        } else {
+            $model->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)) . '-' . Str::random(5);
         }
 
         $model->brand_id = $request->brand;
@@ -126,7 +137,6 @@ class ModelController extends Controller
 
         flash(translate('Model has been updated successfully'))->success();
         return back();
-
     }
 
     /**
@@ -144,6 +154,5 @@ class ModelController extends Controller
 
         flash(translate('Model has been deleted successfully'))->success();
         return redirect()->route('models.index');
-
     }
 }

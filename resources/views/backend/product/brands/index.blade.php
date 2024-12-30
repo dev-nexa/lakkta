@@ -30,6 +30,7 @@
 		                    <th>#</th>
 		                    <th>{{translate('Name')}}</th>
 		                    <th>{{translate('Logo')}}</th>
+							<th>{{translate('Models')}}</th>
 		                    <th class="text-right">{{translate('Options')}}</th>
 		                </tr>
 		            </thead>
@@ -41,6 +42,17 @@
 								<td>
 		                            <img src="{{ uploaded_asset($brand->logo) }}" alt="{{translate('Brand')}}" class="h-50px">
 		                        </td>
+								<td>
+									@if($brand->models->isNotEmpty())
+										<ul class="list-unstyled">
+											@foreach($brand->models as $model)
+												<li>{{ $model->name }}</li>
+											@endforeach
+										</ul>
+									@else
+										<span>{{ translate('No models available') }}</span>
+									@endif
+								</td>
 		                        <td class="text-right">
 									@can('edit_brand')
 										<a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('brands.edit', ['id'=>$brand->id, 'lang'=>env('DEFAULT_LANGUAGE')] )}}" title="{{ translate('Edit') }}">
