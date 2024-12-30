@@ -535,13 +535,13 @@
             @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
             <div class="attribute d-flex align-items-center mr-3 mb-3">
                 <i class="attribute-icon {{ get_single_attribute_icon($choice->attribute_id) }}"></i>
-                <span class="attribute-type ml-2">{{ get_single_attribute_name($choice->attribute_id) }}</span>
+                <span class="attribute-type ml-2">{{ translate({{ get_single_attribute_name($choice->attribute_id) }}) }}</span>
                 <div class="attribute-values ml-2 d-flex">
                     @foreach ($choice->values as $key => $value)
                     <label class="attribute-label mr-2 mb-0">
                         <input type="radio" name="attribute_id_{{ $choice->attribute_id }}" value="{{ $value }}" @if ($key==0) checked @endif>
                         <span class="attribute-value d-flex align-items-center justify-content-center">
-                            {{ $value }}
+                            {{ translate({{ $value }}) }}
                         </span>
                     </label>
                     @endforeach
