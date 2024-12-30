@@ -36,11 +36,11 @@
 							{{ translate('Flash Deals') }}
 						</a>
 					</li>
-					<!-- Today's Deal -->
+					<!-- Categories TODO -->
 					<li class="nav-item">
 						<a class="nav-link" id="todays-deal-tab" href="#todays_deal"
 							data-toggle="tab" data-target="#todays_deal" type="button" role="tab" aria-controls="todays_deal" aria-selected="false">
-							{{ translate("Today's Deal") }}
+							{{ translate("Categories") }}
 						</a>
 					</li>
 					<!-- New Products -->
@@ -331,20 +331,20 @@
 						</form>
 					</div>
 
-					<!-- Today's Deal -->
+					<!-- Categories's Deal -->
 					<div class="tab-pane fade" id="todays_deal" role="tabpanel" aria-labelledby="todays-deal-tab">
 						<form action="{{ route('business_settings.update') }}" method="POST" enctype="multipart/form-data">
 							@csrf
 							<input type="hidden" name="tab" value="todays_deal">
 							<div class="bg-white p-3 p-sm-2rem">
 								<div class="row gutters-16">
-									<!-- Today's Deal Settings -->
+									<!-- Categories Settings -->
 									<div class="col-lg-6">
 										<div class="p-4 border" style="background: #fcfcfc;">
-											<p class="fs-14 fw-500 mb-3">{{ translate("Today's Deal Card Settings") }}</p>
+											<p class="fs-14 fw-500 mb-3">{{ translate("Categories Card Settings") }}</p>
 											<!-- Background Image -->
 											<div class="form-group">
-												<label class="col-from-label fs-13 fw-500">{{ translate("Background Image") }} (<small>{{ translate("Will be shown in Today's Deal Card into Slider section") }}</small>)</label>
+												<label class="col-from-label fs-13 fw-500">{{ translate("Background Image") }} (<small>{{ translate("Will be shown in Categories Card into Slider section") }}</small>)</label>
 												<div class="input-group " data-toggle="aizuploader" data-type="image">
 													<div class="input-group-prepend">
 														<div class="input-group-text bg-soft-secondary">{{ translate('Browse') }}</div>

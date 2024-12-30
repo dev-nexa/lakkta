@@ -95,9 +95,9 @@
                                         </span>
                                     </a>
                                 </div>
-                                <!-- Today's deal -->
+                                <!-- Today's deal TODO -->
                                 <div class="carousel-box overflow-hidden hov-scale-img">
-                                    <a href="{{ route('todays-deal') }}"
+                                    <a href="{{ route('categories.all') }}"
                                         class="d-block text-reset overflow-hidden position-relative">
                                         <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}"
                                             data-src="{{ uploaded_asset(get_setting('todays_deal_card_bg_image', null, $lang)) }}" alt="{{ env('APP_NAME') }} promo"
