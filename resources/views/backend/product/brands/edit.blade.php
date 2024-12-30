@@ -45,6 +45,55 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="categories">{{translate('Categories')}}</label>
+                    <div class="col-md-9">
+                        <div id="current-categories" class="mb-3">
+                            @foreach ($brand->categories as $category)
+                                <div class="form-check d-flex align-items-center mb-2">
+                                    <input type="checkbox" class="form-check-input" name="existing_categories[]" value="{{ $category->id }}" checked>
+                                    <label class="form-check-label mx-2">{{ $category->getTranslation('name') }}</label>
+                                    <button type="button" class="btn btn-danger btn-sm remove-category ml-2" data-category-id="{{ $category->id }}">
+                                        <i class="las la-times"></i>
+                                    </button>
+                                </div>
+                            @endforeach
+                        </div>
+                        
+                        <select class="form-control aiz-selectpicker" name="categories[]" id="categories" data-live-search="true" multiple>
+                            <option value="">{{ translate('Select Categories') }}</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">
+                                    {{ $category->getTranslation('name') }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <style>
+                    #current-categories .form-check {
+                        border: 1px solid #ddd;
+                        border-radius: 5px;
+                        padding: 5px 10px;
+                    }
+
+                    #current-categories .form-check:hover {
+                        background-color: #f1f1f1;
+                    }
+
+                    .remove-category {
+                        border: none;
+                        background-color: transparent;
+                        color: #dc3545;
+                        cursor: pointer;
+                    }
+
+                    .remove-category:hover {
+                        color: #b02a37;
+                    }
+                </style>
+                
+                <div class="form-group row">
                     <label class="col-sm-3 col-from-label">{{translate('Meta Title')}}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control" name="meta_title" value="{{ $brand->meta_title }}" placeholder="{{translate('Meta Title')}}">

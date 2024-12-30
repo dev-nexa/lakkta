@@ -30,6 +30,7 @@
 		                    <th>#</th>
 		                    <th>{{translate('Name')}}</th>
 		                    <th>{{translate('Logo')}}</th>
+		                    <th>{{translate('CAtegoies')}}</th>
 							<th>{{translate('Models')}}</th>
 		                    <th class="text-right">{{translate('Options')}}</th>
 		                </tr>
@@ -42,6 +43,17 @@
 								<td>
 		                            <img src="{{ uploaded_asset($brand->logo) }}" alt="{{translate('Brand')}}" class="h-50px">
 		                        </td>
+								<td>
+									@if($brand->categories->isNotEmpty())
+										<ul class="list-unstyled">
+											@foreach($brand->categories as $category)
+												<li>{{ $category->getTranslation('name') }}</li>
+											@endforeach
+										</ul>
+									@else
+										<span>{{ translate('No categories available') }}</span>
+									@endif
+								</td>
 								<td>
 									@if($brand->models->isNotEmpty())
 										<ul class="list-unstyled">
@@ -100,6 +112,24 @@
 							<div class="file-preview box sm">
 							</div>
                             <small class="text-muted">{{ translate('Minimum dimensions required: 126px width X 100px height.') }}</small>
+						</div>
+						<div class="form-group mb-3">
+							<label for="category_ids">{{ translate('Categories') }}</label>
+							<select class="form-control aiz-selectpicker" name="category_ids[]" id="category_ids" data-live-search="true" multiple>
+								@foreach ($categories as $category)
+									<option value="{{ $category->id }}" 
+										@if(in_array($category->id, old('category_ids', []))) selected @endif>
+										{{ $category->getTranslation('name') }}
+									</option>
+						
+									@foreach ($category->childrenCategories as $childCategory)
+										<option value="{{ $childCategory->id }}" 
+											@if(in_array($childCategory->id, old('category_ids', []))) selected @endif>
+											&nbsp;&nbsp;&nbsp;-- {{ $childCategory->getTranslation('name') }}
+										</option>
+									@endforeach
+								@endforeach
+							</select>
 						</div>
 						<div class="form-group mb-3">
 							<label for="name">{{translate('Meta Title')}}</label>

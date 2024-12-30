@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\BrandTranslation;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Str;
 
@@ -32,7 +33,8 @@ class BrandController extends Controller
             $brands = $brands->where('name', 'like', '%' . $sort_search . '%');
         }
         $brands = $brands->paginate(15);
-        return view('backend.product.brands.index', compact('brands', 'sort_search'));
+        $categories = Category::all();
+        return view('backend.product.brands.index', compact('brands', 'sort_search', 'categories'));
     }
 
     public function getBrandsByCategory(Request $request)
@@ -75,6 +77,7 @@ class BrandController extends Controller
 
         $brand->logo = $request->logo;
         $brand->save();
+        $brand->categories()->sync($request->category_ids);
 
         $brand_translation = BrandTranslation::firstOrNew(['lang' => env('DEFAULT_LANGUAGE'), 'brand_id' => $brand->id]);
         $brand_translation->name = $request->name;
@@ -105,7 +108,8 @@ class BrandController extends Controller
     {
         $lang   = $request->lang;
         $brand  = Brand::findOrFail($id);
-        return view('backend.product.brands.edit', compact('brand', 'lang'));
+        $categories = Category::all();
+        return view('backend.product.brands.edit', compact('brand', 'lang','categories'));
     }
 
     /**
@@ -130,6 +134,14 @@ class BrandController extends Controller
         }
         $brand->logo = $request->logo;
         $brand->save();
+
+        if ($request->has('existing_categories')) {
+            $brand->categories()->sync($request->existing_categories);
+        }
+    
+        if ($request->has('categories')) {
+            $brand->categories()->syncWithoutDetaching($request->categories);
+        }
 
         $brand_translation = BrandTranslation::firstOrNew(['lang' => $request->lang, 'brand_id' => $brand->id]);
         $brand_translation->name = $request->name;

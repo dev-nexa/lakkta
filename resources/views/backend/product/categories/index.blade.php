@@ -38,6 +38,7 @@
                 <tr>
                     <th data-breakpoints="lg">#</th>
                     <th>{{translate('Name')}}</th>
+                    <th>{{translate('Brands')}}</th>
                     <th data-breakpoints="lg">{{ translate('Parent Category') }}</th>
                     <th data-breakpoints="lg">{{ translate('Order Level') }}</th>
                     <th data-breakpoints="lg">{{ translate('Level') }}</th>
@@ -60,7 +61,18 @@
                             @if($category->digital == 1)
                                 <img src="{{ static_asset('assets/img/digital_tag.png') }}" alt="{{translate('Digital')}}" class="ml-2 h-25px" style="cursor: pointer;" title="DIgital">
                             @endif
-                         </td>
+                        </td>
+                        <td>
+                            @if($category->brands->isNotEmpty())
+                                <ul class="list-unstyled">
+                                    @foreach($category->brands as $brand)
+                                        <li>{{ $brand->getTranslation('name') }}</li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <span>{{ translate('No categories available') }}</span>
+                            @endif
+                        </td>
                         <td>
                             @php
                                 $parent = \App\Models\Category::where('id', $category->parent_id)->first();
