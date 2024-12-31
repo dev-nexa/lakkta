@@ -454,7 +454,7 @@
 
     .attribute-icon {
         font-size: 18px;
-        color: #007bff;
+        color: #007665;
         margin-right: 8px;
     }
 
@@ -485,7 +485,7 @@
     }
 
     .attribute-value:hover {
-        border-color: #007bff;
+        border-color: #007665;
         background-color: #f1f8ff;
     }
 
@@ -494,9 +494,9 @@
     }
 
     input[type="radio"]:checked + .attribute-value {
-        background-color: #007bff;
+        background-color: #007665;
         color: #fff;
-        border-color: #007bff;
+        border-color: #007665;
     }
 
     @media (max-width: 768px) {

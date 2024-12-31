@@ -58,7 +58,7 @@
                                     <a class="fs-13 fw-500 text-center text-reset hov-text-primary"
                                         href="{{ route('products.category', $category->slug) }}"
                                         style="width: max-content;">
-                                        {{ $category_name }}
+                                        {{ $category_name }} 
                                     </a>
                                 </div>
                             </div>
