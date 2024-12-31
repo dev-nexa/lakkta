@@ -183,7 +183,7 @@
                                     <div class="w-100 d-flex align-items-center justify-content-center bg-overlay">
                                         <a class="home-category-name animate-underline-white fs-16 fw-700 text-white py-2 px-3 text-truncate custom-font-size"
                                             href="{{ route('products.category', $category->slug) }}">
-                                            {{ $category_name }}
+                                            {{ translate($category_name) }}
                                         </a>
                                     </div>
                                 </div>

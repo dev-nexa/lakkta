@@ -74,14 +74,6 @@
     @endif
 
     <!-- Sliders -->
-    <style>
-        .img-fit {
-            object-fit: contain;
-            /* لضمان أن الصورة تظهر بالكامل */
-            width: 100%;
-            height: 100%;
-        }
-    </style>
     <div class="home-banner-area mb-3" style="background-color: {{ get_setting('slider_section_bg_color', '#dedede') }}">
         <div class="@if (get_setting('slider_section_full_width') == 1) p-0 @else container @endif">
             <!-- Sliders -->
