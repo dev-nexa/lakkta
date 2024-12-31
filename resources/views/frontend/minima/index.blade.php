@@ -68,9 +68,17 @@
                                 <a
                                     href="{{ isset(json_decode($home_slider_links, true)[$key]) ? json_decode($home_slider_links, true)[$key] : '' }}">
                                     <!-- Image -->
+                                    <style>
+                                        .img-fit {
+                                            object-fit: contain !important;
+                                            width: 100%;
+                                            height: 50%;
+                                            aspect-ratio: auto !important;
+                                        }
+                                    </style>
                                     <div
-                                        class="d-block mw-100 img-fit overflow-hidden h-180px h-md-320px h-lg-460px h-xl-553px h-xxl-800px overflow-hidden">
-                                        <img class="img-fit h-100 m-auto has-transition ls-is-cached lazyloaded"
+                                        class="d-block mw-100 img-fit overflow-hidden h-180px h-sm-200px h-md-250px h-lg-300px h-xl-370px">
+                                        <img class="img-fit w-100 h-100 has-transition ls-is-cached lazyloaded"
                                             src="{{ $slider ? my_asset($slider->file_name) : static_asset('assets/img/placeholder.jpg') }}"
                                             alt="{{ env('APP_NAME') }} promo"
                                             onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder-rect.jpg') }}';">
