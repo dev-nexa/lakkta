@@ -305,8 +305,8 @@
                             </div>
                         </div>
                         <div class="pb-5 pt-4 px-3 px-md-2rem">
-                            <h1 class="fs-30 fw-700 text-dark">{{ $dynamic_popup->title }}</h1>
-                            <p class="fs-14 fw-400 mt-3 mb-4">{{ $dynamic_popup->summary }}</p>
+                            <h1 class="fs-30 fw-700 text-dark">{{ translate($dynamic_popup->title) }}</h1>
+                            <p class="fs-14 fw-400 mt-3 mb-4">{{ translate($dynamic_popup->summary) }}</p>
                             @if ($dynamic_popup->show_subscribe_form == 'on')
                                 <form class="" method="POST" action="{{ route('subscribers.store') }}">
                                     @csrf
@@ -314,7 +314,7 @@
                                         <input type="email" class="form-control" placeholder="{{ translate('Your Email Address') }}" name="email" required>
                                     </div>
                                     <button type="submit" class="btn btn-block mt-3 rounded-0 text-{{ $dynamic_popup->btn_text_color }}" style="background: {{ $dynamic_popup->btn_background_color }};">
-                                        {{ $dynamic_popup->btn_text }}
+                                        {{ translate($dynamic_popup->btn_text) }}
                                     </button>
                                 </form>
                             @endif
