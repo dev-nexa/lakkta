@@ -629,6 +629,7 @@
                                                             <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}"
                                                                 data-src="{{ uploaded_asset($seller->logo) }}"
                                                                 alt="{{ $seller->name }}"
+                                                                style="height: auto !important; width: auto !important; aspect-ratio: 1 / 1 !important; object-fit: cover !important"
                                                                 class="img-fit lazyload has-transition"
                                                                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder-rect.jpg') }}';">
                                                         </a>
