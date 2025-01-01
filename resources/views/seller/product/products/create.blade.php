@@ -1,3 +1,5 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
 @extends('seller.layouts.app')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @section('panel_content')
@@ -6,6 +8,10 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <h1 class="h3">{{ translate('Add Your Product') }}</h1>
+                    <p class="text-muted mt-2">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        {{ translate('The more detailed and clear your cars information, the higher the chances of attracting interested buyers') }}
+                    </p>
                 </div>
                 <div class="col text-right">
                     <a class="btn btn-xs btn-soft-primary" href="javascript:void(0);" onclick="clearTempdata()">
@@ -14,6 +20,7 @@
                 </div>
             </div>
         </div>
+        
 
         <!-- Error Meassages -->
         @if ($errors->any())
@@ -39,15 +46,24 @@
                             <h5 class="mb-0 h6">{{ translate('Product Information') }}</h5>
                         </div>
                         <div class="card-body">
+                            <!-- Product Name -->
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Product Name') }} <span class="text-danger">*</span></label>
+                                <label class="col-md-3 col-from-label">
+                                    <i class="fas fa-car-side mr-2"></i> <!-- أيقونة اسم المنتج -->
+                                    {{ translate('Product Name') }} <span class="text-danger">*</span>
+                                </label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" name="name"
                                         placeholder="{{ translate('Product Name') }}" onchange="update_sku()" required>
                                 </div>
                             </div>
+                        
+                            <!-- Category -->
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Category') }}</label>
+                                <label class="col-md-3 col-from-label">
+                                    <i class="fas fa-th-list mr-2"></i> <!-- أيقونة الفئة -->
+                                    {{ translate('Category') }}
+                                </label>
                                 <div class="col-md-8">
                                     <select class="form-control aiz-selectpicker" name="category_id" id="category_id" data-live-search="true" required>
                                         <option value="">{{ translate('Select Category') }}</option>
@@ -65,57 +81,43 @@
                                     </select>
                                 </div>
                             </div>
+                        
+                            <!-- Brand -->
                             <div class="form-group row" id="brand">
-                                <label class="col-md-3 col-from-label">{{ translate('Brand') }}</label>
+                                <label class="col-md-3 col-from-label">
+                                    <i class="fas fa-industry mr-2"></i> <!-- أيقونة العلامة التجارية -->
+                                    {{ translate('Brand') }}
+                                </label>
                                 <div class="col-md-8">
                                     <select class="form-control aiz-selectpicker" name="brand_id" id="brand-select" data-live-search="true">
                                         <option value="">{{ translate('Select Brand') }}</option>
                                     </select>
                                 </div>
                             </div>
+                        
+                            <!-- Model -->
                             <div class="form-group row" id="model">
-                                <label class="col-md-3 col-from-label">{{ translate('Model') }}</label>
+                                <label class="col-md-3 col-from-label">
+                                    <i class="fas fa-car-alt mr-2"></i> <!-- أيقونة النموذج -->
+                                    {{ translate('Model') }}
+                                </label>
                                 <div class="col-md-8">
                                     <select class="form-control aiz-selectpicker" name="model_id" id="model-select" data-live-search="true">
                                         <option value="">{{ translate('Select Model') }}</option>
                                     </select>
                                 </div>
                             </div>
+                        
                             <input type="hidden" name="category_id" id="category_id_hidden">
                             <input type="hidden" name="category_ids[]" id="category_ids_hidden">
-                            
-                            {{-- <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Unit') }} <span class="text-danger">*</span></label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" name="unit"
-                                        placeholder="{{ translate('Unit (e.g. KG, Pc etc)') }}" required>
-                                </div>
-                            </div> --}}
-                            {{-- <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Weight') }}
-                                    <small>({{ translate('In Kg') }})</small></label>
-                                <div class="col-md-8">
-                                    <input type="number" class="form-control" name="weight" step="0.01" value="0.00"
-                                        placeholder="0.00">
-                                </div>
-                            </div> --}}
-                            {{-- <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Minimum Purchase Qty') }} <span class="text-danger">*</span></label>
-                                <div class="col-md-8">
-                                    <input type="number" lang="en" class="form-control" name="min_qty" value="1"
-                                        min="1" required>
-                                </div>
-                            </div> --}}
-                            {{-- <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Tags') }}</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control aiz-tag-input" name="tags[]"
-                                        placeholder="{{ translate('Type and hit enter to add a tag') }}">
-                                </div>
-                            </div> --}}
+                        
                             @if (addon_is_activated('pos_system'))
+                                <!-- Barcode -->
                                 <div class="form-group row">
-                                    <label class="col-md-3 col-from-label">{{ translate('Barcode') }}</label>
+                                    <label class="col-md-3 col-from-label">
+                                        <i class="fas fa-barcode mr-2"></i> <!-- أيقونة الباركود -->
+                                        {{ translate('Barcode') }}
+                                    </label>
                                     <div class="col-md-8">
                                         <input type="text" class="form-control" name="barcode"
                                             placeholder="{{ translate('Barcode') }}">
@@ -123,65 +125,112 @@
                                 </div>
                             @endif
                         </div>
+                        
                     </div>
+                    
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="mb-0 h6">{{ translate('Product Images') }}</h5>
+                            <h5 class="mb-0 h6">
+                                <i class="fas fa-images mr-2"></i> <!-- أيقونة الصور -->
+                                {{ translate('Product Images') }}
+                            </h5>
                         </div>
                         <div class="card-body">
+                            <p class="text-muted mb-3">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                {{ translate('Upload multiple clear and high-quality images to showcase your car effectively.') }}
+                            </p>
+                            
+                            <!-- Gallery Images -->
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="signinSrEmail">{{ translate('Gallery Images') }}</label>
+                                <label class="col-md-3 col-form-label" for="signinSrEmail">
+                                    <i class="fas fa-image mr-2"></i> <!-- أيقونة معرض الصور -->
+                                    {{ translate('Gallery Images') }}
+                                </label>
                                 <div class="col-md-8">
-                                    <div class="input-group" data-toggle="aizuploader" data-type="image"
-                                        data-multiple="true">
+                                    <div class="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text bg-soft-secondary font-weight-medium">
-                                                {{ translate('Browse') }}</div>
+                                                {{ translate('Browse') }}
+                                            </div>
                                         </div>
                                         <div class="form-control file-amount">{{ translate('Choose File') }}</div>
                                         <input type="hidden" name="photos" class="selected-files">
                                         <input type="hidden" name="meta_img" class="selected-files">
                                     </div>
-                                    <div class="file-preview box sm">
-                                    </div>
-                                    <small class="text-muted">{{translate('These images are visible in product details page gallery. Minimum dimensions required: 900px width X 900px height.')}}</small>
+                                    <div class="file-preview box sm"></div>
+                                    <small class="text-muted">
+                                        {{ translate('Recommended dimensions: 900px X 900px.') }}
+                                    </small>
                                 </div>
                             </div>
+                    
+                            <!-- Thumbnail Image -->
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="signinSrEmail">{{ translate('Thumbnail Image') }}</label>
+                                <label class="col-md-3 col-form-label" for="signinSrEmail">
+                                    <i class="fas fa-file-image mr-2"></i> <!-- أيقونة الصورة المصغرة -->
+                                    {{ translate('Thumbnail Image') }}
+                                </label>
                                 <div class="col-md-8">
                                     <div class="input-group" data-toggle="aizuploader" data-type="image">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text bg-soft-secondary font-weight-medium">
-                                                {{ translate('Browse') }}</div>
+                                                {{ translate('Browse') }}
+                                            </div>
                                         </div>
                                         <div class="form-control file-amount">{{ translate('Choose File') }}</div>
                                         <input type="hidden" name="thumbnail_img" class="selected-files">
                                     </div>
-                                    <div class="file-preview box sm">
-                                    </div>
-                                    <small class="text-muted">{{translate("This image is visible in all product box. Minimum dimensions required: 195px width X 195px height. Keep some blank space around main object of your image as we had to crop some edge in different devices to make it responsive.")}}</small>
+                                    <div class="file-preview box sm"></div>
+                                    <small class="text-muted">
+                                        {{ translate('Recommended dimensions: 195px X 195px. Leave some blank space around the object.') }}
+                                    </small>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
+                    
+                    
+                    
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="mb-0 h6">{{ translate('Product Videos') }}</h5>
+                            <h5 class="mb-0 h6">
+                                <i class="fas fa-video mr-2"></i> <!-- أيقونة الفيديو -->
+                                {{ translate('Product Videos') }}
+                            </h5>
                         </div>
                         <div class="card-body">
+                            <!-- Video Provider -->
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Video Provider') }}</label>
+                                <label class="col-md-3 col-from-label">
+                                    <i class="fas fa-play-circle mr-2"></i> <!-- أيقونة مقدم الفيديو -->
+                                    {{ translate('Video Provider') }}
+                                </label>
                                 <div class="col-md-8">
                                     <select class="form-control aiz-selectpicker" name="video_provider" id="video_provider">
-                                        <option value="youtube">{{ translate('Youtube') }}</option>
-                                        <option value="dailymotion">{{ translate('Dailymotion') }}</option>
-                                        <option value="vimeo">{{ translate('Vimeo') }}</option>
+                                        <option value="youtube">
+                                            <i class="fab fa-youtube mr-2"></i> <!-- أيقونة YouTube -->
+                                            {{ translate('Youtube') }}
+                                        </option>
+                                        <option value="dailymotion">
+                                            <i class="fab fa-dailymotion mr-2"></i> <!-- أيقونة Dailymotion -->
+                                            {{ translate('Dailymotion') }}
+                                        </option>
+                                        <option value="vimeo">
+                                            <i class="fab fa-vimeo mr-2"></i> <!-- أيقونة Vimeo -->
+                                            {{ translate('Vimeo') }}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
+                    
+                            <!-- Video Link -->
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Video Link') }}</label>
+                                <label class="col-md-3 col-from-label">
+                                    <i class="fas fa-link mr-2"></i> <!-- أيقونة رابط الفيديو -->
+                                    {{ translate('Video Link') }}
+                                </label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" name="video_link"
                                         placeholder="{{ translate('Video Link') }}">
@@ -189,15 +238,21 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="mb-0 h6">{{ translate('Product Variation') }}</h5>
+                            <h5 class="mb-0 h6">
+                                <i class="fas fa-layer-group mr-2"></i> <!-- أيقونة التباين -->
+                                {{ translate('Product Variation') }}
+                            </h5>
                         </div>
                         <div class="card-body">
+                            <!-- Colors -->
                             <div class="form-group row">
-                                <div class="col-md-3">
-                                    <input type="text" class="form-control" value="{{ translate('Colors') }}" disabled>
-                                </div>
+                                <label class="col-md-3 col-form-label">
+                                    <i class="fas fa-palette mr-2"></i> <!-- أيقونة الألوان -->
+                                    {{ translate('Colors') }}
+                                </label>
                                 <div class="col-md-8">
                                     <select class="form-control aiz-selectpicker" data-live-search="true" name="colors[]"
                                         data-selected-text-format="count" id="colors" multiple disabled>
@@ -215,61 +270,85 @@
                                     </label>
                                 </div>
                             </div>
-
+                    
+                            <!-- Attributes -->
                             <div class="form-group row">
-                                <div class="col-md-3">
-                                    <input type="text" class="form-control" value="{{ translate('Attributes') }}"
-                                        disabled>
-                                </div>
+                                <label class="col-md-3 col-form-label">
+                                    <i class="fas fa-cogs mr-2"></i> <!-- أيقونة الخصائص -->
+                                    {{ translate('Attributes') }}
+                                </label>
                                 <div class="col-md-8">
                                     <select name="choice_attributes[]" id="choice_attributes"
                                         class="form-control aiz-selectpicker" data-live-search="true"
                                         data-selected-text-format="count" multiple
                                         data-placeholder="{{ translate('Choose Attributes') }}">
                                         @foreach (\App\Models\Attribute::all() as $key => $attribute)
-                                            <option value="{{ $attribute->id }}">{{ $attribute->getTranslation('name') }}
-                                            </option>
+                                            <option value="{{ $attribute->id }}">{{ $attribute->getTranslation('name') }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
+                    
+                            <!-- Help Text -->
                             <div>
-                                <p>{{ translate('Choose the attributes of this product and then input values of each attribute') }}
+                                <p>
+                                    <i class="fas fa-info-circle mr-2"></i> <!-- أيقونة معلومات -->
+                                    {{ translate('Choose the attributes of this product and then input values of each attribute') }}
                                 </p>
                                 <br>
                             </div>
-
+                    
+                            <!-- Dynamic Attributes Section -->
                             <div class="customer_choice_options" id="customer_choice_options">
-
+                                <!-- خيارات الخصائص الديناميكية ستظهر هنا -->
                             </div>
                         </div>
                     </div>
+                    
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="mb-0 h6">{{ translate('Product price + stock') }}</h5>
+                            <h5 class="mb-0 h6">
+                                <i class="fas fa-money-bill-alt mr-2"></i> <!-- أيقونة السعر -->
+                                {{ translate('Product price') }}
+                            </h5>
+                            <p class="text-muted mt-1">
+                                {{ translate('Set a competitive price to attract buyers and ensure a quick sale.') }}
+                            </p>
                         </div>
                         <div class="card-body">
+                            <!-- Unit Price -->
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Unit price') }} <span class="text-danger">*</span></label>
+                                <label class="col-md-3 col-from-label">
+                                    <i class="fas fa-dollar-sign mr-2"></i> <!-- أيقونة السعر -->
+                                    {{ translate('Unit price') }} <span class="text-danger">*</span>
+                                </label>
                                 <div class="col-md-6">
                                     <input type="number" lang="en" min="0" value="0" step="0.01"
                                         placeholder="{{ translate('Unit price') }}" name="unit_price" class="form-control"
                                         required>
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-3 control-label"
-                                    for="start_date">{{ translate('Discount Date Range') }} </label>
+                    
+                            <!-- Discount Date Range -->
+                            {{-- TODO --}}
+                            {{-- <div class="form-group row">
+                                <label class="col-md-3 control-label" for="start_date">
+                                    <i class="fas fa-calendar-alt mr-2"></i> <!-- أيقونة التاريخ -->
+                                    {{ translate('Discount Date Range') }}
+                                </label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control aiz-date-range" name="date_range"
                                         placeholder="{{ translate('Select Date') }}" data-time-picker="true"
                                         data-format="DD-MM-Y HH:mm:ss" data-separator=" to " autocomplete="off">
                                 </div>
-                            </div>
-
+                            </div> --}}
+                    
+                            <!-- Discount -->
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Discount') }} <span class="text-danger">*</span></label>
+                                <label class="col-md-3 col-from-label">
+                                    <i class="fas fa-percent mr-2"></i> <!-- أيقونة الخصم -->
+                                    {{ translate('Discount') }} <span class="text-danger">*</span>
+                                </label>
                                 <div class="col-md-6">
                                     <input type="number" lang="en" min="0" value="0" step="0.01"
                                         placeholder="{{ translate('Discount') }}" name="discount" class="form-control"
@@ -282,29 +361,33 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <div id="show-hide-div">
+                    
+                            <!-- Quantity -->
+                            {{-- TODO --}}
+                            {{-- <div id="show-hide-div">
                                 <div class="form-group row">
-                                    <label class="col-md-3 col-from-label">{{ translate('Quantity') }} <span class="text-danger">*</span></label>
+                                    <label class="col-md-3 col-from-label">
+                                        <i class="fas fa-boxes mr-2"></i> <!-- أيقونة الكمية -->
+                                        {{ translate('Quantity') }} <span class="text-danger">*</span>
+                                    </label>
                                     <div class="col-md-6">
                                         <input type="number" lang="en" min="0" value="0" step="1"
                                             placeholder="{{ translate('Quantity') }}" name="current_stock"
                                             class="form-control" required>
                                     </div>
                                 </div>
-                                {{-- <div class="form-group row">
-                                    <label class="col-md-3 col-from-label">
-                                        {{ translate('SKU') }}
-                                    </label>
-                                    <div class="col-md-6">
-                                        <input type="text" placeholder="{{ translate('SKU') }}" name="sku"
-                                            class="form-control">
-                                    </div>
-                                </div> --}}
-                            </div>
+                            </div> --}}
+                        <div id="show-hide-div" style="display: none;">
+                            <input type="hidden" name="current_stock" value="1"> <!-- القيمة الافتراضية -->
+                        </div>
+                                
+                    
+                            <!-- External Link -->
+                            {{-- TODO
                             @if(get_setting('product_external_link_for_seller') == 1)
                                 <div class="form-group row">
                                     <label class="col-md-3 col-from-label">
+                                        <i class="fas fa-external-link-alt mr-2"></i> <!-- أيقونة الرابط الخارجي -->
                                         {{ translate('External link') }}
                                     </label>
                                     <div class="col-md-9">
@@ -316,6 +399,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 col-from-label">
+                                        <i class="fas fa-link mr-2"></i> <!-- أيقونة نص الزر -->
                                         {{ translate('External link button text') }}
                                     </label>
                                     <div class="col-md-9">
@@ -326,25 +410,33 @@
                                     </div>
                                 </div>
                             @endif
-                            <br>
-                            <div class="sku_combination" id="sku_combination">
-
-                            </div>
+                     --}}
+                            <!-- SKU Combination -->
+                            <div class="sku_combination" id="sku_combination"></div>
                         </div>
                     </div>
+                    
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="mb-0 h6">{{ translate('Product Description') }}</h5>
+                            <h5 class="mb-0 h6">
+                                <i class="fas fa-align-left mr-2"></i> <!-- أيقونة الوصف -->
+                                {{ translate('Product Description') }}
+                            </h5>
                         </div>
                         <div class="card-body">
+                            <!-- Description -->
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Description') }}</label>
+                                <label class="col-md-3 col-from-label">
+                                    <i class="fas fa-pen-nib mr-2"></i> <!-- أيقونة النص -->
+                                    {{ translate('Description') }}
+                                </label>
                                 <div class="col-md-8">
-                                    <textarea class="aiz-text-editor" name="description"></textarea>
+                                    <textarea class="aiz-text-editor" name="description" placeholder="{{ translate('Write product description...') }}"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
 
                     {{-- <div class="card">
                         <div class="card-header">
@@ -512,11 +604,11 @@
 
                     {{-- Frequently Bought Products --}}
                     <div class="card">
-                        <div class="card-header">
-                            <h5 class="mb-0 h6">{{ translate('Frequently Bought') }}</h5>
-                        </div>
+                            {{-- <div class="card-header">
+                                <h5 class="mb-0 h6">{{ translate('Frequently Bought') }}</h5>
+                            </div> --}}
                         <div class="w-100">
-                            <div class="d-flex my-3">
+                            {{-- <div class="d-flex my-3">
                                 <div class="align-items-center d-flex mar-btm ml-4 mr-5 radio">
                                     <input id="fq_bought_select_products" type="radio" name="frequently_bought_selection_type" value="product" onchange="fq_bought_product_selection_type()" checked >
                                     <label for="fq_bought_select_products" class="fs-14 fw-500 mb-0 ml-2">{{translate('Select Product')}}</label>
@@ -525,10 +617,11 @@
                                     <input id="fq_bought_select_category" type="radio" name="frequently_bought_selection_type" value="category" onchange="fq_bought_product_selection_type()">
                                     <label for="fq_bought_select_category" class="fs-14 fw-500 mb-0 ml-2">{{translate('Select Category')}}</label>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="px-3 px-md-4">
-                                <div class="card">
+                               {{-- TODO --}}
+                                {{-- <div class="card">
                                     <div class="card-body">
                                         <div class="fq_bought_select_product_div">
 
@@ -545,7 +638,6 @@
                                             </button>
                                         </div>
 
-                                        {{-- Select Category for Frequently Bought Product --}}
                                         <div class="fq_bought_select_category_div d-none">
                                             <div class="form-group row">
                                                 <label class="col-md-2 col-from-label">{{translate('Category')}}</label>
@@ -563,7 +655,7 @@
                                         </div>
 
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
