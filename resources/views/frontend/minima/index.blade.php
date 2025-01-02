@@ -159,36 +159,56 @@
     </div>
 
     <!-- Featured Categories -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
     @if (count($featured_categories) > 0)
         <section class="mb-2 mb-md-3 mt-2 mt-md-3">
             <div class="container">
+                <h3 class="text-center mb-4">{{ translate('Categories') }}</h3>
                 <!-- الفئات -->
                 <div class="bg-white px-sm-3">
-                    <div class="aiz-carousel sm-gutters-17" data-items="8" data-xxl-items="8" data-xl-items="6"
-                        data-lg-items="5" data-md-items="4" data-sm-items="4" data-xs-items="4" data-arrows="true"
-                        data-dots="false" data-autoplay="false" data-infinite="true">
-                        @foreach ($featured_categories as $key => $category)
-                            @php
-                                $category_name = $category->getTranslation('name');
-                            @endphp
-                            <div
-                                class="carousel-box position-relative p-2 has-transition border-right border-top border-bottom @if ($key == 0) border-left @endif">
-                                <div class="h-100 d-flex flex-column justify-content-between">
-                                    <div class="position-relative hov-scale-img overflow-hidden">
-                                        <img src="{{ isset($category->coverImage->file_name) ? my_asset($category->coverImage->file_name) : static_asset('assets/img/placeholder.jpg') }}"
-                                            alt="{{ $category_name }}" class="img-fit w-100 h-100 has-transition"
-                                            style="aspect-ratio: 1/1;"
-                                            onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
-                                    </div>
-                                    <div class="w-100 d-flex align-items-center justify-content-center bg-overlay">
-                                        <a class="home-category-name animate-underline-white fs-16 fw-700 text-white py-2 px-3 text-truncate custom-font-size"
-                                            href="{{ route('products.category', $category->slug) }}">
-                                            {{ translate($category_name) }}
-                                        </a>
+                    <div class="swiper swiper-container-1">
+                        <div class="swiper-wrapper">
+                            @foreach ($featured_categories as $key => $category)
+                                @php
+                                    $category_name = $category->getTranslation('name');
+                                @endphp
+                                <div class="swiper-slide">
+                                    <div class="carousel-box-1 position-relative p-1 has-transition-1 border">
+                                        <div class="h-100 d-flex flex-column justify-content-between">
+                                            <div class="position-relative hov-scale-img-1 overflow-hidden">
+                                                <img src="{{ isset($category->coverImage->file_name) ? my_asset($category->coverImage->file_name) : static_asset('assets/img/placeholder.jpg') }}"
+                                                    alt="{{ $category_name }}"
+                                                    class="img-fit-1 w-100 h-100 has-transition-1"
+                                                    style="aspect-ratio: 1/1;"
+                                                    onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
+                                            </div>
+                                            <div
+                                                class="w-100 d-flex align-items-center justify-content-center bg-overlay-1 text-center">
+                                                <a class="home-category-name-1 animate-underline-white fs-14 fw-600 text-white py-1 px-2 text-truncate"
+                                                    href="{{ route('products.category', $category->slug) }}">
+                                                    {{ translate($category_name) }}
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
+                        <!-- أزرار التنقل -->
+                        <button type="button" class="custom-button-prev slick-arrow position-absolute"
+                            aria-disabled="false">
+                            <i class="las la-arrow-left"></i>
+                        </button>
+                        <button type="button" class="custom-button-next slick-arrow position-absolute"
+                            aria-disabled="false">
+                            <i class="las la-arrow-right"></i>
+                        </button>
+                        <!-- نقاط التنقل -->
+                        <br />
+                        <br />
+                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
             </div>
@@ -197,96 +217,185 @@
 
 
     <style>
-        .aiz-carousel .carousel-box {
-            margin-right: 10px;
+        .swiper-slide {
+            flex: 0 0 auto;
+            width: 130px;
+            /* حجم ثابت للشرائح */
+            max-width: 150px;
+            text-align: center;
         }
 
-        .bg-overlay {
-            background-color: #007665;
-            padding: 5px 0;
-        }
-
-        .img-fit {
+        .carousel-box-1 img {
+            width: 100%;
+            height: auto;
             object-fit: cover;
             aspect-ratio: 1/1;
         }
 
-        .has-transition {
+        .bg-overlay-1 {
+            background-color: #007665;
+            padding: 3px 0;
+        }
+
+        .has-transition-1 {
             transition: all 0.3s ease;
         }
 
-        .hov-scale-img:hover {
+        .hov-scale-img-1:hover {
             transform: scale(1.05);
         }
 
-        .home-category-name {
+        .home-category-name-1 {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            font-size: 0.8rem;
+            padding: 0 4px;
         }
 
-        .custom-font-size {
-            font-size: 0.75rem;
+        .swiper-wrapper {
+            gap: 10px;
         }
 
-        @media (max-width: 767px) {
-            .aiz-carousel .carousel-box {
-                margin-right: 5px;
+        .custom-button-next,
+        .custom-button-prev {
+            width: 25px;
+            height: 60px;
+            background: rgb(177 174 174 / 30%) !important;
+            border-radius: 0;
+            color: #fff;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            border: none;
+        }
+
+        .custom-button-next {
+            right: 10px;
+        }
+
+        .custom-button-prev {
+            left: 10px;
+        }
+
+        .custom-button-next:hover,
+        .custom-button-prev:hover {
+            background-color: rgb(150 150 150 / 50%);
+        }
+
+        .aiz-carousel.arrow-x-15 .custom-button-next {
+            right: 15px !important;
+        }
+
+        .aiz-carousel.arrow-dark .slick-arrow {
+            width: 25px;
+            height: 60px;
+            background: rgb(177 174 174 / 30%) !important;
+            border-radius: 0;
+            color: #fff;
+            box-shadow: none;
+        }
+
+        .aiz-carousel .custom-button-next {
+            right: 10px;
+        }
+
+        .swiper-pagination {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .swiper-pagination-bullet {
+            background-color: #007665;
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: #005a4c;
+            opacity: 1;
+        }
+
+        @media (max-width: 576px) {
+            .home-category-name-1 {
+                font-size: 0.7rem;
+                /* تصغير حجم النص للأجهزة الصغيرة */
             }
 
-            .home-category-name.custom-font-size {
-                font-size: 0.5rem !important;
+            .custom-button-next,
+            .custom-button-prev {
+                width: 25px;
+                height: 25px;
+                font-size: 16px;
             }
 
-            .aiz-carousel .carousel-box {
-                width: 100%;
-                height: auto;
+            .swiper-slide {
+                width: 110px;
+                /* حجم ثابت للأجهزة الصغيرة */
+                max-width: 110px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .home-category-name-1 {
+                font-size: 0.75rem;
+                /* تعديل حجم النص للأجهزة المتوسطة */
             }
 
-            .img-fit {
-                height: auto;
+            .swiper-slide {
+                width: 120px;
+                /* حجم ثابت للأجهزة المتوسطة */
+                max-width: 120px;
             }
         }
     </style>
-
     <script>
-        $(document).ready(function() {
-            $('.aiz-carousel').slick({
-                slidesToShow: 4,
-                slidesToScroll: 1,
-                arrows: true,
-                dots: false,
-                infinite: true,
-                autoplay: false,
-                responsive: [{
-                        breakpoint: 1200,
-                        settings: {
-                            slidesToShow: 6,
-                        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const swiper = new Swiper('.swiper-container-1', {
+                direction: 'horizontal',
+                loop: true, // لضمان التمرير المستمر
+                slidesPerView: 'auto',
+                spaceBetween: 10, // زيادة المسافة بين الشرائح
+                centeredSlides: true, // لضمان التمركز
+                navigation: {
+                    nextEl: '.custom-button-next',
+                    prevEl: '.custom-button-prev',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                touchRatio: 1,
+                grabCursor: true,
+                breakpoints: {
+                    1200: {
+                        slidesPerView: 6,
                     },
-                    {
-                        breakpoint: 992,
-                        settings: {
-                            slidesToShow: 5,
-                        }
+                    992: {
+                        slidesPerView: 5,
                     },
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 4,
-                        }
+                    768: {
+                        slidesPerView: 4,
                     },
-                    {
-                        breakpoint: 576,
-                        settings: {
-                            slidesToShow: 4,
-                        }
-                    }
-                ]
+                    576: {
+                        slidesPerView: 3,
+                    },
+                },
             });
         });
     </script>
-
     <!-- Banner section 1 -->
     @php $homeBanner1Images = get_setting('home_banner1_images', null, $lang);   @endphp
     @if ($homeBanner1Images != null)
