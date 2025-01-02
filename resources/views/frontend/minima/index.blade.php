@@ -165,7 +165,7 @@
     @if (count($featured_categories) > 0)
         <section class="mb-2 mb-md-3 mt-2 mt-md-3">
             <div class="container">
-                <h3 class="text-center fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">{{ translate('Categories') }}</h3>
+                <h3 class="text-center fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">{{ translate('Our categories') }}</h3>
                 <br/>
                 <!-- الفئات -->
                 <div class="bg-white px-sm-3">
