@@ -10,7 +10,7 @@
                     <img class="cat-image lazyload mr-2 opacity-60" src="{{ static_asset('assets/img/placeholder.jpg') }}"
                         data-src="{{ isset($category->catIcon->file_name) ? my_asset($category->catIcon->file_name) : static_asset('assets/img/placeholder.jpg') }}" width="16" alt="{{ $category_name }}"
                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
-                    <span class="cat-name has-transition">{{ $category_name }}</span>
+                    <span class="cat-name has-transition">{{ translate($category_name) }}</span>
                 </a>
                 
                 <div class="sub-cat-menu more c-scrollbar-light border p-4 shadow-none">

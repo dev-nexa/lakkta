@@ -30,8 +30,8 @@
 		                    <th>#</th>
 		                    <th>{{translate('Name')}}</th>
 		                    <th>{{translate('Logo')}}</th>
-		                    <th>{{translate('CAtegoies')}}</th>
-							<th>{{translate('Models')}}</th>
+		                    <th>{{translate('Categoies')}}</th>
+					  <th>{{translate('Models')}}</th>
 		                    <th class="text-right">{{translate('Options')}}</th>
 		                </tr>
 		            </thead>
