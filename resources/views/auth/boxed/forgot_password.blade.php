@@ -7,7 +7,7 @@
                     <div class="row no-gutters">
                         <!-- Left Side Image-->
                         <div class="col-lg-6">
-                            <img src="{{ uploaded_asset(get_setting('forgot_password_page_image')) }}" alt="{{ translate('Forgot Password Page Image') }}" class="img-fit h-100">
+                            <img src="{{ uploaded_asset(get_setting('forgot_password_page_image')) }}" alt="{{ translate('Forgot Password Page Image') }}" class="img-fit h-100" style="object-fit: contain !important;">
                         </div>
 
                         <div class="col-lg-6 p-4 p-lg-5 d-flex flex-column justify-content-center border right-content" style="height: auto;">

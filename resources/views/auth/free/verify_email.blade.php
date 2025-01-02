@@ -7,7 +7,7 @@
                 <!-- Left Side Image-->
                 <div class="col-xxl-6 col-lg-7">
                     <div class="h-100">
-                        <img src="{{ uploaded_asset(get_setting('password_reset_page_image')) }}" alt="{{ translate('Password Reset Page Image') }}" class="img-fit h-100">
+                        <img src="{{ uploaded_asset(get_setting('password_reset_page_image')) }}" alt="{{ translate('Password Reset Page Image') }}" class="img-fit h-100" style="object-fit: contain !important;">
                     </div>
                 </div>
                 

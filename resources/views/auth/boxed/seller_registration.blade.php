@@ -10,7 +10,7 @@
                         <div class="row no-gutters">
                             <!-- Left Side Image-->
                             <div class="col-lg-6">
-                                    <img src="{{ uploaded_asset(get_setting('seller_register_page_image')) }}" alt="" class="img-fit h-100">
+                                    <img src="{{ uploaded_asset(get_setting('seller_register_page_image')) }}" alt="" class="img-fit h-100" style="object-fit: contain !important;">
                                 </div>
                                     
                                 <!-- Right Side -->

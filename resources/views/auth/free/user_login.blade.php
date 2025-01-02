@@ -8,7 +8,7 @@
                 <!-- Left Side Image-->
                 <div class="col-xxl-6 col-lg-7">
                     <div class="h-100">
-                        <img src="{{ uploaded_asset(get_setting('customer_login_page_image')) }}" alt="" class="img-fit h-100">
+                        <img src="{{ uploaded_asset(get_setting('customer_login_page_image')) }}" alt="" class="img-fit h-100" style="object-fit: contain !important;">
                     </div>
                 </div>
                 
