@@ -209,6 +209,7 @@
                             <div class="category-image-wrapper">
                                 <img src="{{ isset($category->coverImage->file_name) ? my_asset($category->coverImage->file_name) : static_asset('assets/img/placeholder.jpg') }}"
                                     alt="{{ $category_name }}" class="category-image"
+                                    loading="lazy"  <!-- تأخير تحميل الصورة -->
                                     onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
                             </div>
                             <div class="category-overlay">
@@ -230,161 +231,7 @@
     </div>
 </section>
 @endif
-<style>
-    /* القاعدة الأساسية لتصميم الشرائح */
-.car-categories-section {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
 
-.car-categories-title {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-    transition: none; /* إزالة التأثيرات البطيئة */
-}
-
-.car-categories-title:hover {
-    color: #007665;
-}
-
-/* تصميم وعرض الصور */
-.category-carousel-container {
-    background-color: #fff;
-    padding: 20px 10px;
-    width: 100%;
-    overflow: hidden;
-    /* منع العناصر من تجاوز الحدود */
-}
-
-.category-card {
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease; /* تسريع التأثير */
-}
-
-.category-card:hover {
-    transform: scale(1.05);
-}
-
-.category-image-wrapper {
-    position: relative;
-    padding-bottom: 100%;
-    overflow: hidden;
-}
-
-.category-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 0.3s ease; /* تحسين التفاعل */
-}
-
-.category-card:hover .category-image {
-    opacity: 0.8;
-}
-
-/* تمركز النص على الصورة */
-.category-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px;
-    background: rgba(0, 118, 98, 0.7);
-    text-align: center;
-}
-
-.category-link {
-    font-size: 16px;
-    font-weight: 600;
-    color: #fff;
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    display: inline-block;
-    transition: background 0.2s ease; /* تسريع التأثير */
-}
-
-.category-link:hover {
-    background: #005a4c;
-}
-
-/* تحسين التباعد بين الشرائح */
-.swiper-wrapper {
-    gap: 20px;
-}
-
-/* تحسين أزرار التنقل */
-.swiper-button-next,
-.swiper-button-prev {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    font-size: 18px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.2s ease; /* تسريع التأثير */
-}
-
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-/* تحسين عرض الشريط على الشاشات الصغيرة */
-@media (max-width: 768px) {
-    .swiper-container-1 {
-        padding: 0 10px; /* إضافة هامش للتأكد من أن الشرائح تتناسب مع الجهاز */
-    }
-}
-    </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-   if (document.querySelector('.swiper-container-1')) {
-       const swiper = new Swiper('.swiper-container-1', {
-           direction: 'horizontal',
-           loop: true,
-           slidesPerView: 'auto',
-           spaceBetween: 20,
-           centeredSlides: true,
-           autoplay: {
-               delay: 3000,  // التمرير التلقائي كل 3 ثواني
-           },
-           navigation: {
-               nextEl: '.swiper-button-next',
-               prevEl: '.swiper-button-prev',
-           },
-           breakpoints: {
-               1200: {
-                   slidesPerView: 6,
-               },
-               992: {
-                   slidesPerView: 5,
-               },
-               768: {
-                   slidesPerView: 4,
-               },
-               576: {
-                   slidesPerView: 3,
-               },
-           },
-       });
-   }
-});
-
-    </script>
 
 <!-- Banner section 1 -->
 @php $homeBanner1Images = get_setting('home_banner1_images', null, $lang); @endphp
@@ -813,3 +660,265 @@ $classified_products = get_home_page_classified_products(6);
         /* تقليل حجم النص */
     }
 </style>
+<style>
+/* القاعدة الأساسية لتصميم الشرائح */
+.car-categories-section {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.car-categories-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.car-categories-title:hover {
+    color: #007665;
+}
+
+/* تصميم وعرض الصور */
+.category-carousel-container {
+    background-color: #fff;
+    padding: 20px 10px;
+    width: 100%;
+    overflow: hidden;
+    position: relative; /* لضمان وضع الأزرار داخل الحاوية */
+}
+
+.category-card {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+}
+
+.category-image-wrapper {
+    position: relative;
+    padding-bottom: 100%;
+    overflow: hidden;
+}
+
+.category-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.category-card:hover .category-image {
+    opacity: 0.8;
+}
+
+/* تمركز النص على الصورة */
+.category-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background: rgba(0, 118, 98, 0.7);
+    text-align: center;
+}
+
+.category-link {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    display: inline-block;
+    transition: background 0.3s ease;
+}
+
+.category-link:hover {
+    background: #005a4c;
+}
+
+/* تحسين التباعد بين الشرائح */
+.swiper-wrapper {
+    gap: 10px;  /* تقليل المسافة بين الشرائح */
+    display: flex;
+}
+
+/* تحسين عرض الشرائح */
+.swiper-slide {
+    width: 100%;  /* جعل الشرائح تأخذ العرض الكامل */
+    max-width: 120px; /* تحديد الحد الأقصى لعرض الشريحة */
+}
+
+/* تحسين أزرار التنقل */
+.swiper-button-next,
+.swiper-button-prev {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    transform: translateY(-50%);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* إضافة تأثير الظل */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* تسريع التأثيرات */
+    cursor: pointer;
+}
+
+.swiper-button-next {
+    right: 10px; /* وضع زر "التالي" في اليمين */
+}
+
+.swiper-button-prev {
+    left: 10px; /* وضع زر "السابق" في اليسار */
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1); /* تكبير الأزرار عند التمرير */
+}
+
+/* استخدام أيقونات لتحديث الأزرار */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-family: 'FontAwesome'; /* إضافة أيقونات الخط */
+    font-size: 20px;
+    content: '\f061'; /* رمز السهم لزر التالي */
+    color: white;
+}
+
+.swiper-button-prev::after {
+    content: '\f060'; /* رمز السهم لزر السابق */
+}
+
+/* تحسين النقاط */
+.swiper-pagination {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    z-index: 10;
+}
+
+.swiper-pagination-bullet {
+    background-color: #007665;
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    border-radius: 50%;
+    opacity: 0.7;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #005a4c;
+    opacity: 1;
+}
+
+/* تحسين النقاط للأجهزة الصغيرة */
+@media (max-width: 768px) {
+    .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        margin: 0 3px;
+    }
+
+    .swiper-container-1 {
+        padding: 0 10px;
+    }
+
+    .swiper-pagination {
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .swiper-slide {
+        width: 80%; /* تصغير الشرائح في الجوال */
+        max-width: 90px; /* تصغير الحجم بشكل أكبر في الجوال */
+    }
+}
+
+/* تحسين النقاط للأجهزة الصغيرة جدًا */
+@media (max-width: 576px) {
+    .swiper-pagination-bullet {
+        width: 8px;
+        height: 8px;
+        margin: 0 2px;
+    }
+
+    .swiper-slide {
+        width: 90%;
+        /* تصغير الشرائح في الأجهزة الصغيرة */
+        max-width: 80px;
+    }
+}
+
+/* تحسين النقاط في نسخة الكمبيوتر */
+@media (min-width: 1024px) {
+    .swiper-pagination {
+        display: block;
+        bottom: -20px;
+    }
+
+    .swiper-slide {
+        width: 120px;
+    }
+}
+
+</style>
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+    if (document.querySelector('.swiper-container-1')) {
+        const swiper = new Swiper('.swiper-container-1', {
+            direction: 'horizontal',
+            loop: true,  // التأكد من التكرار
+            slidesPerView: 'auto',  // عرض الشرائح بشكل ديناميكي
+            spaceBetween: 20, // المسافة بين الشرائح
+            centeredSlides: true, // تمركز الشرائح
+            autoplay: {
+                delay: 3000,  // التمرير التلقائي كل 3 ثواني
+            },
+            navigation: {
+                nextEl: '.swiper-button-next', // زر التالي
+                prevEl: '.swiper-button-prev', // زر السابق
+            },
+            breakpoints: {
+                1200: {
+                    slidesPerView: 6, // عرض 6 شرائح في الشاشات الكبيرة
+                },
+                992: {
+                    slidesPerView: 5, // عرض 5 شرائح في الأجهزة متوسطة الحجم
+                },
+                768: {
+                    slidesPerView: 4, // عرض 4 شرائح في الأجهزة المتوسطة
+                },
+                576: {
+                    slidesPerView: 3, // عرض 3 شرائح في الهواتف الصغيرة
+                },
+            },
+        });
+    }
+});
+
+</script>
