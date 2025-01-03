@@ -172,6 +172,7 @@
         }
 
         .pac-container { z-index: 100000; }
+        
     </style>
 
 @if (get_setting('google_analytics') == 1)

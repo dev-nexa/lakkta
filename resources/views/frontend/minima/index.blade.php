@@ -784,9 +784,10 @@
                                 </div>
                             </div>
                             <!-- Brands Section -->
-                            <div class="aiz-carousel arrow-x-0 arrow-inactive-none" data-rows="3" data-items="3"
+                            <div class="aiz-carousel brand-carousel arrow-x-0 arrow-inactive-none" data-rows="3" data-items="3"
                             data-xxl-items="3" data-xl-items="3" data-lg-items="4" data-md-items="3"
                             data-sm-items="2" data-xs-items="1" data-arrows="true" data-dots="false">
+                        
                           
                                 @php
                                     $top_brands = json_decode(get_setting('top_brands'));
@@ -816,4 +817,17 @@
         </div>
     </div>
 @endsection
+<style>
+   /* تخصيص الكلاس brand-carousel لتعديل خصائصه فقط */
+.brand-carousel .carousel-box img {
+    max-height: 80px;  /* تحديد ارتفاع أصغر للصور */
+    height: auto;      /* الحفاظ على التناسب */
+    width: auto;       /* الحفاظ على التناسب */
+}
 
+/* تخصيص النصوص أسفل الصور */
+.brand-carousel .carousel-box p {
+    font-size: 12px;   /* تقليل حجم النص */
+}
+
+ </style>
