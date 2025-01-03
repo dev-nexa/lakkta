@@ -263,15 +263,22 @@
                 <div>
                     <img src="{{ uploaded_asset($custom_alert->banner) }}" alt="custom_alert" style="width: 120px; height: 140px;">
                 </div>
-                <div style="background: {{ $custom_alert->background_color }}; padding: 1rem 1rem; width: 100%; height: 140px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="background: {{ $custom_alert->background_color }}; padding: 1rem; width: 100%; height: 140px; display: flex; flex-direction: column; justify-content: center;">
                     <div class="text-{{ $custom_alert->text_color }}" style="font-size: 12px; text-align: left;">
                         {!! translate($custom_alert->description) !!}
                     </div>
-                    <button class="btn btn-primary aiz-cookie-accept mt-2" style="font-size: 10px; align-self: flex-start;">
+                    <button class="btn btn-primary aiz-cookie-accept mt-2" style="font-size: 10px; align-self: flex-start;" onclick="handleCookieAccept()">
                         {{ translate('Ok, I understand') }}
                     </button>
                 </div>
             </div>
+            <script>
+                function handleCookieAccept() {
+                    console.log('Cookie accepted');
+                    document.querySelector('.aiz-cookie-alert').style.display = 'none';
+                }
+                document.querySelector('.aiz-cookie-accept').addEventListener('click', handleCookieAccept);
+            </script>
             @else
                 <div class="mb-3 custom-alert-box removable-session d-none" data-key="custom-alert-box-{{ $custom_alert->id }}" data-value="removed" style="box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.24);">
                     <div class="rounded-0 position-relative" style="background: {{ $custom_alert->background_color }};">
