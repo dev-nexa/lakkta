@@ -234,7 +234,7 @@
 
     </div>
 
-    @if(get_setting('use_floating_buttons') == 1)
+    @if (get_setting('use_floating_buttons') == 1)
         <!-- Floating Buttons -->
         @include('frontend.inc.floating_buttons')
     @endif
@@ -244,7 +244,7 @@
     </div>
 
 
-    @if (env("DEMO_MODE") == "On")
+    @if (env('DEMO_MODE') == 'On')
         <!-- demo nav -->
         @include('frontend.inc.demo_nav')
     @endif
@@ -258,27 +258,22 @@
 
     <div class="aiz-custom-alert {{ get_setting('custom_alert_location') }}">
         @foreach ($custom_alerts as $custom_alert)
-            @if($custom_alert->id == 1)
-            <div class="aiz-cookie-alert mb-3" style="box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.24); display: flex; width: 350px; height: 140px; align-items: center;">
-                <div>
-                    <img src="{{ uploaded_asset($custom_alert->banner) }}" alt="custom_alert" style="width: 120px; height: 140px;">
-                </div>
-                <div style="background: {{ $custom_alert->background_color }}; padding: 1rem; width: 100%; height: 140px; display: flex; flex-direction: column; justify-content: center;">
-                    <div class="text-{{ $custom_alert->text_color }}" style="font-size: 12px; text-align: left;">
-                        {!! translate($custom_alert->description) !!}
+            @if ($custom_alert->id == 1)
+            <div class="aiz-cookie-alert mb-3" style="box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.24);">
+                <div class="p-3 px-lg-2rem rounded-0" style="background: {{ $custom_alert->background_color }}; display: flex; align-items: center; height: 170px;">
+                    <div style="flex-shrink: 0; margin-right: 1rem;">
+                        <img src="{{ uploaded_asset($custom_alert->banner) }}" alt="custom_alert" style="width: 120px; height: 140px;">
                     </div>
-                    <button class="btn btn-primary aiz-cookie-accept mt-2" style="font-size: 10px; align-self: flex-start;" onclick="handleCookieAccept()">
-                        {{ translate('Ok, I understand') }}
-                    </button>
+                    <div style="flex-grow: 1; height: 100%; display: flex; flex-direction: column;">
+                        <div class="text-{{ $custom_alert->text_color }}" style="margin: 0; font-size: 14px; text-align: left;">
+                            {!! translate($custom_alert->description) !!}
+                        </div>
+                        <button class="btn btn-primary aiz-cookie-accept" style="margin-top: -5px; font-size: 10px; padding: 4px 8px; border-radius: 15px; align-self: flex-start;">
+                            {{ translate('Ok. I Understood') }}
+                        </button>
+                    </div>
                 </div>
             </div>
-            <script>
-                function handleCookieAccept() {
-                    console.log('Cookie accepted');
-                    document.querySelector('.aiz-cookie-alert').style.display = 'none';
-                }
-                document.querySelector('.aiz-cookie-accept').addEventListener('click', handleCookieAccept);
-            </script>
             @else
                 <div class="mb-3 custom-alert-box removable-session d-none" data-key="custom-alert-box-{{ $custom_alert->id }}" data-value="removed" style="box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.24);">
                     <div class="rounded-0 position-relative" style="background: {{ $custom_alert->background_color }};">
@@ -304,7 +299,7 @@
         $dynamic_popups = App\Models\DynamicPopup::where('status', 1)->orderBy('id', 'asc')->get();
     @endphp
     @foreach ($dynamic_popups as $key => $dynamic_popup)
-        @if($dynamic_popup->id == 1)
+        @if ($dynamic_popup->id == 1)
             <div class="modal website-popup removable-session d-none" data-key="website-popup" data-value="removed">
                 <div class="absolute-full bg-black opacity-60"></div>
                 <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-md mx-4 mx-md-auto">
@@ -886,7 +881,7 @@
         }
     </script>
 
-    @if (env("DEMO_MODE") == "On")
+    @if (env('DEMO_MODE') == 'On')
         <script>
             var demoNav = document.querySelector('.aiz-demo-nav');
             var menuBtn = document.querySelector('.aiz-demo-nav-toggler');
@@ -933,14 +928,12 @@
                     $('header').delay(800).removeClass('z-1').addClass('z-1020');
                 }
             }
-        </script>
-    @endif
+        </script> @endif
 
     @yield('script')
 
     @php
-        echo get_setting('footer_script');
-    @endphp
+echo get_setting('footer_script'); @endphp
 
 </body>
 </html>
