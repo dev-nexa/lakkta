@@ -172,7 +172,6 @@
         }
 
         .pac-container { z-index: 100000; }
-        
     </style>
 
 @if (get_setting('google_analytics') == 1)
@@ -259,17 +258,20 @@
 
     <div class="aiz-custom-alert {{ get_setting('custom_alert_location') }}">
         @foreach ($custom_alerts as $custom_alert)
-            @if($custom_alert->id == 2)
-                <div class="aiz-cookie-alert mb-3" style="box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.24);">
-                    <div class="p-3 px-lg-2rem rounded-0" style="background: {{ $custom_alert->background_color }};">
-                        <div class="text-{{ $custom_alert->text_color }} mb-3">
-                            {!! translate($custom_alert->description) !!}
-                        </div>
-                        <button class="btn btn-block btn-primary rounded-0 aiz-cookie-accept">
-                            {{ translate('Ok. I Understood') }}
-                        </button>
-                    </div>
+            @if($custom_alert->id == 1)
+            <div class="aiz-cookie-alert mb-3" style="box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.24); display: flex; width: 350px; height: 140px; align-items: center;">
+                <div>
+                    <img src="{{ uploaded_asset($custom_alert->banner) }}" alt="custom_alert" style="width: 120px; height: 140px;">
                 </div>
+                <div style="background: {{ $custom_alert->background_color }}; padding: 1rem 1rem; width: 100%; height: 140px; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="text-{{ $custom_alert->text_color }}" style="font-size: 12px; text-align: left;">
+                        {!! translate($custom_alert->description) !!}
+                    </div>
+                    <button class="btn btn-primary aiz-cookie-accept mt-2" style="font-size: 10px; align-self: flex-start;">
+                        {{ translate('Ok, I understand') }}
+                    </button>
+                </div>
+            </div>
             @else
                 <div class="mb-3 custom-alert-box removable-session d-none" data-key="custom-alert-box-{{ $custom_alert->id }}" data-value="removed" style="box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.24);">
                     <div class="rounded-0 position-relative" style="background: {{ $custom_alert->background_color }};">
