@@ -171,7 +171,7 @@
             <div class="d-flex align-items-center justify-content-center position-relative">
                 <span class="line-right"></span>
                 <h3 class="text-center fs-16 fs-md-20 fw-700 mb-2 mb-sm-0 car-categories-title">
-                    {{ translate('Car Categories') }}
+                    {{ translate('Cars Categories') }}
                 </h3>
                 <span class="line-left"></span>
             </div>
@@ -199,7 +199,7 @@
                                             <div
                                                 class="w-100 d-flex align-items-center justify-content-center bg-overlay-1 text-center">
                                                 <span class="home-category-name-1 animate-underline-white fs-14 fw-600 text-white py-1 px-2 text-truncate">
-                                                    {{ translate($category_name) }}
+                                                    {{ $category_name }}
                                                 </span>
                                             </div>
                                         </div>
