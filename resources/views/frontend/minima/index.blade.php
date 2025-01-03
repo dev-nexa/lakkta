@@ -241,25 +241,7 @@
         color: #4a90e2; /* تأثير لون عند التمرير */
     }
 
-    .line-right,
-    .line-left {
-        content: '';
-        width: 40px;
-        height: 2px;
-        background-color: black;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .line-right {
-        right: -60px; /* المسافة من العنوان إلى الخط الأيمن */
-    }
-
-    .line-left {
-        left: -60px; /* المسافة من العنوان إلى الخط الأيسر */
-    }
-
+   
 
     .swiper-slide {
         flex: 0 0 auto;
