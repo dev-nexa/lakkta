@@ -260,20 +260,22 @@
         @foreach ($custom_alerts as $custom_alert)
             @if ($custom_alert->id == 1)
             <div class="aiz-cookie-alert mb-3" style="box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.24);">
-                <div class="p-3 px-lg-2rem rounded-0" style="background: {{ $custom_alert->background_color }}; display: flex; align-items: center; height: 170px;">
-                    <div style="flex-shrink: 0; margin-right: 1rem;">
+                <div class="p-3 px-lg-2rem rounded-0" style="background: {{ $custom_alert->background_color }}; display: flex; align-items: center; height: 170px; direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }};">
+                    <!-- Image container -->
+                    <div style="flex-shrink: 0; margin-right: 1rem; text-align: {{ app()->getLocale() == 'ar' ? 'right' : 'left' }};">
                         <img src="{{ uploaded_asset($custom_alert->banner) }}" alt="custom_alert" style="width: 120px; height: 140px;">
                     </div>
-                    <div style="flex-grow: 1; height: 100%; display: flex; flex-direction: column;">
-                        <div class="text-{{ $custom_alert->text_color }}" style="margin: 0; font-size: 14px; text-align: left;">
+                    <!-- Content container -->
+                    <div style="flex-grow: 1; height: 100%; display: flex; flex-direction: column; text-align: {{ app()->getLocale() == 'ar' ? 'right' : 'left' }};">
+                        <div class="text-{{ $custom_alert->text_color }}" style="margin: 0; font-size: 14px;">
                             {!! $custom_alert->description !!}
                         </div>
-                        <button class="btn btn-primary aiz-cookie-accept" style="margin-top: -5px; font-size: 10px; padding: 4px 8px; border-radius: 15px; align-self: flex-start;">
-                            Ok. I Understood
+                        <button class="btn btn-primary aiz-cookie-accept" style="margin-top: -5px; font-size: 10px; padding: 4px 8px; border-radius: 15px; align-self: flex-start; min-width: 120px;">
+                            {{ translate('Ok. I Understood') }}
                         </button>
                     </div>
                 </div>
-            </div>
+            </div>                      
             @else
                 <div class="mb-3 custom-alert-box removable-session d-none" data-key="custom-alert-box-{{ $custom_alert->id }}" data-value="removed" style="box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.24);">
                     <div class="rounded-0 position-relative" style="background: {{ $custom_alert->background_color }};">
