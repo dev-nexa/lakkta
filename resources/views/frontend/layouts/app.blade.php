@@ -266,10 +266,10 @@
                     </div>
                     <div style="flex-grow: 1; height: 100%; display: flex; flex-direction: column;">
                         <div class="text-{{ $custom_alert->text_color }}" style="margin: 0; font-size: 14px; text-align: left;">
-                            {!! translate($custom_alert->description) !!}
+                            {!! $custom_alert->description !!}
                         </div>
                         <button class="btn btn-primary aiz-cookie-accept" style="margin-top: -5px; font-size: 10px; padding: 4px 8px; border-radius: 15px; align-self: flex-start;">
-                            {{ translate('Ok. I Understood') }}
+                            Ok. I Understood
                         </button>
                     </div>
                 </div>
