@@ -110,7 +110,31 @@
                         
                             <input type="hidden" name="category_id" id="category_id_hidden">
                             <input type="hidden" name="category_ids[]" id="category_ids_hidden">
-                        
+                            
+                            <div class="form-group row">
+                                <label class="col-md-3 col-from-label">
+                                    <i class="fas fa-calendar-alt mr-2"></i>
+                                    {{ translate('Year of manufacture') }} <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-md-6">
+                                    <input type="number" lang="en" min="1900" value="1900" step="1"
+                                        placeholder="{{ translate('Year of manufacture') }}" name="manufacture" class="form-control"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-from-label">
+                                    <i class="fas fa-book mr-2"></i>
+                                    {{ translate('Registration year') }} <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-md-6">
+                                    <input type="number" lang="en" min="1900" value="1900" step="1"
+                                        placeholder="{{ translate('Registration year') }}" name="registration" class="form-control"
+                                        required>
+                                </div>
+                            </div>
+
                             @if (addon_is_activated('pos_system'))
                                 <!-- Barcode -->
                                 <div class="form-group row">
@@ -965,9 +989,9 @@ $(document).ready(function () {
                             $('#model-select').empty();
                             $('#model-select').append('<option value="">{{ translate('Select Model') }}</option>');
                         
-                            data.forEach(function (model) {
-                                $('#model-select').append('<option value="' + model.id + '">' + model.name + '</option>');
-                            });
+                            // data.forEach(function (model) {
+                            //     $('#model-select').append('<option value="' + model.id + '">' + model.name + '</option>');
+                            // });
                         
                             $('#model-select').selectpicker('refresh');
                         } else {
