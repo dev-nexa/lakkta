@@ -816,13 +816,4 @@
         </div>
     </div>
 @endsection
-<style>
-    .aiz-carousel .carousel-box img {
-        max-height: 80px; 
-        height: auto;     
-        width: auto;     
-    }
-    .aiz-carousel .carousel-box p {
-        font-size: 12px;  
-    }
- </style>
+
