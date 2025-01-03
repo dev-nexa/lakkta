@@ -160,12 +160,33 @@
 
     <!-- Featured Categories -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+    <style>
+        /* تخصيص الكلاس car-categories-title */
+        .car-categories-title {
+            font-family: 'Poppins', sans-serif;  /* تطبيق خط Poppins */
+            font-size: 20px;  /* حجم الخط */
+            font-weight: 700;  /* سمك الخط */
+            color: #333;  /* اللون الأساسي للنص */
+            transition: color 0.3s ease, transform 0.3s ease;  /* إضافة تأثير عند التفاعل */
+        }
+
+        /* تأثير عند التمرير على النص */
+        .car-categories-title:hover {
+            color: #007bff;  /* تغيير اللون عند التمرير */
+            transform: translateY(-5px);  /* إزاحة خفيفة للنص عند التمرير */
+        }
+    </style>
 
     @if (count($featured_categories) > 0)
         <section class="mb-2 mb-md-3 mt-2 mt-md-3">
             <div class="container">
-                <h3 class="text-center fs-16 fs-md-20 fw-700 mb-2 mb-sm-0">{{ translate('Our categories') }}</h3>
+                <h3 class="text-center fs-16 fs-md-20 fw-700 mb-2 mb-sm-0 car-categories-title">
+                    {{ translate('Car Categories') }}
+                </h3>
+                
                 <br/>
                 <!-- الفئات -->
                 <div class="bg-white px-sm-3">
