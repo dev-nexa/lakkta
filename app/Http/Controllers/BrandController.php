@@ -40,13 +40,21 @@ class BrandController extends Controller
     public function getBrandsByCategory(Request $request)
     {
         $categoryId = $request->input('category_id');
-        if (!$categoryId) {
-            return response()->json(['error' => 'Category ID is required'], 400);
-        }
+    
+    if (!$categoryId) {
+        return response()->json(['error' => 'Category ID is required'], 400);
+    }
 
-        $brands = Brand::where('category_id', $categoryId)->get();
+    // الحصول على البراندات المرتبطة بالكاتيجوري
+    $category = Category::find($categoryId);
 
-        return response()->json($brands);
+    if (!$category) {
+        return response()->json(['error' => 'Category not found'], 404);
+    }
+
+    $brands = $category->brands; // استخدام العلاقة المعرّفة في النموذج
+
+    return response()->json($brands);
     }   
 
 
