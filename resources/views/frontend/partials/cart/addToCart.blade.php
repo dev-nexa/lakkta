@@ -260,7 +260,7 @@
                         @endif
                     @endif
                     <button type="button" class="btn btn-secondary rounded-0 out-of-stock fw-600 d-none" disabled>
-                        <i class="la la-cart-arrow-down"></i>{{ translate('Out of Stock')}}
+                        <i class="la la-cart-arrow-down"></i>{{ translate('Sold')}}
                     </button>
                 </div> --}}
 

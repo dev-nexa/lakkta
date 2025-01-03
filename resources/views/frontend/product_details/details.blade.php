@@ -685,7 +685,7 @@ $min_bid_amount = $highest_bid != null ? $highest_bid + 1 : $detailedProduct->st
     </button> TODO--}}
     @endif
     <button type="button" class="btn btn-secondary out-of-stock fw-600 d-none" disabled>
-        <i class="la la-cart-arrow-down"></i> {{ translate('Out of Stock') }}
+        <i class="la la-cart-arrow-down"></i> {{ translate('Sold') }}
     </button>
     @elseif ($detailedProduct->digital == 1)
     {{-- <button type="button"

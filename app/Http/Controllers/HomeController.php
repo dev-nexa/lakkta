@@ -515,7 +515,7 @@ class HomeController extends Controller
             if ($quantity >= 1 && $product->min_qty < $quantity) {
                 $quantity = translate('In Stock');
             } else {
-                $quantity = translate('Out Of Stock');
+                $quantity = translate('Sold');
             }
         }
 

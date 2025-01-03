@@ -88,7 +88,7 @@ class ProductController extends Controller
             if ($stock_qty >= 1 && $product->min_qty < $stock_qty) {
                 $stock_txt = translate('In Stock');
             } else {
-                $stock_txt = translate('Out Of Stock');
+                $stock_txt = translate('Sold');
             }
         }
 

@@ -8,7 +8,7 @@
 
 @section('meta')
 @php
-$availability = "out of stock";
+$availability = "Sold";
 $qty = 0;
 if($detailedProduct->variant_product) {
 foreach ($detailedProduct->stocks as $key => $stock) {
