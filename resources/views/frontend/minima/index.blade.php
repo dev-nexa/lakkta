@@ -785,8 +785,9 @@
                             </div>
                             <!-- Brands Section -->
                             <div class="aiz-carousel arrow-x-0 arrow-inactive-none" data-rows="3" data-items="3"
-                                data-xxl-items="3" data-xl-items="3" data-lg-items="4" data-md-items="3"
-                                data-sm-items="2" data-xs-items="1.4" data-arrows="true" data-dots="false">
+                            data-xxl-items="3" data-xl-items="3" data-lg-items="4" data-md-items="3"
+                            data-sm-items="2" data-xs-items="1" data-arrows="true" data-dots="false">
+                          
                                 @php
                                     $top_brands = json_decode(get_setting('top_brands'));
                                     $brands = get_brands($top_brands);
@@ -806,6 +807,7 @@
                                         </a>
                                     </div>
                                 @endforeach
+                               
                             </div>
                         </div>
                     </section>
@@ -813,5 +815,14 @@
             </div>
         </div>
     </div>
-
 @endsection
+<style>
+    .aiz-carousel .carousel-box img {
+        max-height: 80px; 
+        height: auto;     
+        width: auto;     
+    }
+    .aiz-carousel .carousel-box p {
+        font-size: 12px;  
+    }
+ </style>
