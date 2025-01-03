@@ -957,6 +957,8 @@ $(document).ready(function () {
                         if (data.length > 0) {
                             $('#brand-select').empty();
                             $('#brand-select').append('<option value="">{{ translate('Select Brand') }}</option>');
+                            $('#model-select').empty();
+                            $('#model-select').append('<option value="">{{ translate('Select Model') }}</option>');
                         
                             data.forEach(function (brand) {
                                 $('#brand-select').append('<option value="' + brand.id + '">' + brand.name + '</option>');
@@ -966,6 +968,8 @@ $(document).ready(function () {
                         } else {
                             $('#brand-select').empty().append('<option value="">{{ translate('No Brands Available') }}</option>');
                             $('#brand-select').selectpicker('refresh');
+                            $('#model-select').empty().append('<option value="">{{ translate('No Models Available') }}</option>');
+                            $('#model-select').selectpicker('refresh');
                         }
                     },
                     error: function (xhr) {

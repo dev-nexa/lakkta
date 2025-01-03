@@ -65,9 +65,7 @@ use App\Http\Controllers\BrandController;
  */
 
 
-Route::get('/get-models-by-category-brand', [ModelController::class, 'getModelsByCategoryBrand'])->name('get.models.by.category.brand');
 Route::get('/get-brands-by-category', [BrandController::class, 'getBrandsByCategory'])->name('get-brands-by-category');
-Route::get('/get-models-by-category-brand', [ModelController::class, 'getModelsByCategoryBrand'])->name('get.models.by.category.brand');
 Route::get('/get-models-by-brand', [ModelController::class, 'getModelsByBrand'])->name('get-models-by-brand');
 
 Route::controller(DemoController::class)->group(function () {

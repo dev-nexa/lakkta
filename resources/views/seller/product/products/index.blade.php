@@ -1,4 +1,5 @@
 @extends('seller.layouts.app')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @section('panel_content')
 
@@ -99,7 +100,8 @@
                                 <th data-breakpoints="md">{{ translate('Approval')}}</th>
                             @endif
                             <th data-breakpoints="md">{{ translate('Published')}}</th>
-                            <th data-breakpoints="md">{{ translate('Featured')}}</th>
+                            {{--  TODO <th data-breakpoints="md">{{ translate('Featured')}}</th> --}}
+                            <th data-breakpoints="md">{{ translate('Is sold')}}</th>
                             <th data-breakpoints="md" class="text-right">{{ translate('Options')}}</th>
                         </tr>
                     </thead>
@@ -119,6 +121,9 @@
                                     <a href="{{ route('product', $product->slug) }}" target="_blank" class="text-reset">
                                         {{ $product->getTranslation('name') }}
                                     </a>
+                                    @if($product->is_sold)
+                                        <span class="text-danger" style="font-size: 0.8rem;">{{ translate('Sold') }}</span>
+                                    @endif
                                 </td>
                                 {{-- <td>
                                     @if ($product->main_category != null)
@@ -150,16 +155,35 @@
                                         <span class="slider round"></span>
                                     </label>
                                 </td>
-                                <td>
+                                {{-- TODO <td>
                                     <label class="aiz-switch aiz-switch-success mb-0">
                                         <input onchange="update_featured(this)" value="{{ $product->id }}" type="checkbox" <?php if($product->seller_featured == 1) echo "checked";?> >
                                         <span class="slider round"></span>
                                     </label>
-                                </td>
+                                </td> --}}
+                                <td>
+                                    <label class="aiz-switch aiz-switch-success mb-0" style="{{ $product->is_sold == 1 ? 'opacity: 0.5; pointer-events: none;' : '' }}">
+                                        <input onchange="confirmSoldUpdate(this)" 
+                                               value="{{ $product->id }}" 
+                                               type="checkbox" 
+                                               {{ $product->is_sold == 1 ? 'checked disabled' : '' }}>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>                                
                                 <td class="text-right">
-                                <a class="btn btn-soft-info btn-icon btn-circle btn-sm" href="{{route('seller.products.edit', ['id'=>$product->id, 'lang'=>env('DEFAULT_LANGUAGE')])}}" title="{{ translate('Edit') }}">
-                                    <i class="las la-edit"></i>
-                                </a>
+                                    @if($product->is_sold == 0)
+                                    <a class="btn btn-soft-info btn-icon btn-circle btn-sm" 
+                                       href="{{route('seller.products.edit', ['id'=>$product->id, 'lang'=>env('DEFAULT_LANGUAGE')])}}" 
+                                       title="{{ translate('Edit') }}">
+                                        <i class="las la-edit"></i>
+                                    </a>
+                                @else
+                                    <button class="btn btn-soft-secondary btn-icon btn-circle btn-sm" 
+                                            title="{{ translate('Cannot edit sold products') }}" 
+                                            disabled>
+                                        <i class="las la-edit"></i>
+                                    </button>
+                                @endif
                                 <a href="{{route('seller.products.duplicate', $product->id)}}" class="btn btn-soft-success btn-icon btn-circle btn-sm"  title="{{ translate('Duplicate') }}">
                                     <i class="las la-copy"></i>
                                 </a>
@@ -190,6 +214,28 @@
 @section('script')
     <script type="text/javascript">
 
+        function confirmSoldUpdate(el) {
+            var action = el.checked ? "{{ translate('Do you want to mark this product as sold') }}" : "{{ translate('Do you want to mark this product as unsold') }}";
+            var status = el.checked ? 1 : 0;
+
+            Swal.fire({
+                title: "{{ translate('Are you sure') }}?",
+                text: `${action}`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "{{ translate('Yes, proceed!') }}",
+                cancelButtonText: "{{ translate('Cancel') }}"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    update_sold(el);
+                } else {
+                    el.checked = !el.checked;
+                }
+            });
+        }
+
         $(document).on("change", ".check-all", function() {
             if(this.checked) {
                 // Iterate each checkbox
@@ -214,6 +260,25 @@
             $.post('{{ route('seller.products.featured') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status}, function(data){
                 if(data == 1){
                     AIZ.plugins.notify('success', '{{ translate('Featured products updated successfully') }}');
+                }
+                else{
+                    AIZ.plugins.notify('danger', '{{ translate('Something went wrong') }}');
+                    location.reload();
+                }
+            });
+        }
+
+        function update_sold(el){
+            if(el.checked){
+                var status = 1;
+            }
+            else{
+                var status = 0;
+            }
+            console.log(el.value);
+            $.post('{{ route('seller.products.sold') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status}, function(data){
+                if(data == 1){
+                    AIZ.plugins.notify('success', '{{ translate('Sold status products updated successfully') }}');
                 }
                 else{
                     AIZ.plugins.notify('danger', '{{ translate('Something went wrong') }}');

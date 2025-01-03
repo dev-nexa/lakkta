@@ -75,6 +75,18 @@ class ProductController extends Controller
         return view('seller.product.products.create', compact('categories'));
     }
 
+    public function updateSold(Request $request)
+    {
+        $product = Product::findOrFail($request->id);
+        $product->is_sold = $request->status;
+        if ($product->save()) {
+            Artisan::call('view:clear');
+            Artisan::call('cache:clear');
+            return 1;
+        }
+        return 0;
+    }
+
     public function store(ProductRequest $request)
     {
         if (addon_is_activated('seller_subscription')) {
@@ -84,9 +96,16 @@ class ProductController extends Controller
             }
         }
 
-        $product = $this->productService->store($request->except([
-            '_token', 'sku', 'choice', 'tax_id', 'tax', 'tax_type', 'flash_deal_id', 'flash_discount', 'flash_discount_type'
-        ]));
+        $product = $this->productService->store(array_merge(
+            $request->except([
+                '_token', 'sku', 'choice', 'tax_id', 'tax', 'tax_type', 'flash_deal_id', 'flash_discount', 'flash_discount_type'
+            ]),
+            [
+                'is_sold' => $request->input('is_sold', false),
+                'registration' => $request->input('registration'),
+                'manufacture' => $request->input('manufacture'),
+            ]
+        ));
         $request->merge(['product_id' => $product->id]);
 
         ///Product categories
