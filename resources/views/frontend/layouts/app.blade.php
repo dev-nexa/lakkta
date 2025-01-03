@@ -258,11 +258,11 @@
 
     <div class="aiz-custom-alert {{ get_setting('custom_alert_location') }}">
         @foreach ($custom_alerts as $custom_alert)
-            @if($custom_alert->id == 1)
+            @if($custom_alert->id == 2)
                 <div class="aiz-cookie-alert mb-3" style="box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.24);">
                     <div class="p-3 px-lg-2rem rounded-0" style="background: {{ $custom_alert->background_color }};">
                         <div class="text-{{ $custom_alert->text_color }} mb-3">
-                            {!! $custom_alert->description !!}
+                            {!! translate($custom_alert->description) !!}
                         </div>
                         <button class="btn btn-block btn-primary rounded-0 aiz-cookie-accept">
                             {{ translate('Ok. I Understood') }}
@@ -276,7 +276,7 @@
                             <div class="@if ($custom_alert->type == 'small') d-flex @endif">
                                 <img class="@if ($custom_alert->type == 'small') h-140px w-120px img-fit @else w-100 @endif" src="{{ uploaded_asset($custom_alert->banner) }}" alt="custom_alert">
                                 <div class="text-{{ $custom_alert->text_color }} p-2rem">
-                                    {!! $custom_alert->description !!}
+                                    {!! translate($custom_alert->description) !!}
                                 </div>
                             </div>
                         </a>
