@@ -40,21 +40,20 @@ class BrandController extends Controller
     public function getBrandsByCategory(Request $request)
     {
         $categoryId = $request->input('category_id');
-    
-    if (!$categoryId) {
-        return response()->json(['error' => 'Category ID is required'], 400);
-    }
+        
+        if (!$categoryId) {
+            return response()->json(['error' => 'Category ID is required'], 400);
+        }
 
-    // الحصول على البراندات المرتبطة بالكاتيجوري
-    $category = Category::find($categoryId);
+        $category = Category::find($categoryId);
 
-    if (!$category) {
-        return response()->json(['error' => 'Category not found'], 404);
-    }
+        if (!$category) {
+            return response()->json(['error' => 'Category not found'], 404);
+        }
 
-    $brands = $category->brands; // استخدام العلاقة المعرّفة في النموذج
+        $brands = $category->brands;
 
-    return response()->json($brands);
+        return response()->json($brands);
     }   
 
 
@@ -143,13 +142,20 @@ class BrandController extends Controller
         $brand->logo = $request->logo;
         $brand->save();
 
+        $allCategoryIds = [];
+
         if ($request->has('existing_categories')) {
-            $brand->categories()->sync($request->existing_categories);
+            $allCategoryIds = array_merge($allCategoryIds, $request->existing_categories);
         }
-    
+
         if ($request->has('categories')) {
-            $brand->categories()->syncWithoutDetaching($request->categories);
+            $allCategoryIds = array_merge($allCategoryIds, $request->categories);
         }
+
+        $subcategoryIds = Category::whereIn('parent_id', $allCategoryIds)->pluck('id')->toArray();
+        $allCategoryIds = array_merge($allCategoryIds, $subcategoryIds);
+
+        $brand->categories()->sync(array_unique($allCategoryIds));
 
         $brand_translation = BrandTranslation::firstOrNew(['lang' => $request->lang, 'brand_id' => $brand->id]);
         $brand_translation->name = $request->name;
