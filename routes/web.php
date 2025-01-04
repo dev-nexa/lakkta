@@ -97,7 +97,7 @@ Route::group(['middleware' => ['prevent-back-history','handle-demo-login']], fun
     Auth::routes(['verify' => true]);
 });
 
-// Login 
+// Login test 
 Route::controller(LoginController::class)->group(function () {
     Route::get('/logout', 'logout');
     Route::get('/social-login/redirect/{provider}', 'redirectToProvider')->name('social.login');
