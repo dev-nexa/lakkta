@@ -790,4 +790,28 @@ $refund_sticker = get_setting('refund_sticker');
         <div class="aiz-share"></div>
     </div>
 </div>
+<style>
+    .aiz-share .jssocials-share {
+        display: inline-block; /* جعل الأيقونات بجانب بعضها */
+        margin: 0 5px; /* تقليل المسافات بين الأيقونات */
+        padding: 0; /* إزالة أي حشو داخلي */
+        background-color: transparent; /* إزالة الخلفية */
+        border: none; /* إزالة أي حدود */
+        transition: none; /* تعطيل تأثير الحركة */
+    }
+
+    .aiz-share .jssocials-share:hover {
+        background-color: transparent; /* تعطيل تأثير الخلفية عند التمرير */
+        transform: none; /* تعطيل تأثير التكبير عند التمرير */
+    }
+
+    .aiz-share .jssocials-share a {
+        color: #333; /* لون الأيقونات الافتراضي */
+        font-size: 18px; /* حجم الأيقونات */
+        text-decoration: none; /* إزالة أي خط تحت الأيقونات */
+    }
+</style>
+
+
+
 </div>
