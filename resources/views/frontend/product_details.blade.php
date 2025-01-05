@@ -300,11 +300,9 @@ $min_bid_amount = $highest_bid != null ? $highest_bid+1 : $detailedProduct->star
         $temp.val(url).select();
         try {
             document.execCommand("copy");
-            AIZ.plugins.notify('success', '{{ translate('
-                Link copied to clipboard ') }}');
+            AIZ.plugins.notify('success', '{{ translate('Link copied to clipboard ') }}');
         } catch (err) {
-            AIZ.plugins.notify('danger', '{{ translate('
-                Oops, unable to copy ') }}');
+            AIZ.plugins.notify('danger', '{{ translate('Oops, unable to copy ') }}');
         }
         $temp.remove();
         // if (document.selection) {
@@ -335,19 +333,16 @@ $min_bid_amount = $highest_bid != null ? $highest_bid+1 : $detailedProduct->star
 
     function call_now() {
         // Assuming the phone number is stored in a variable
-        var phoneNumber = "+963964594375";
+        var phoneNumber = "{{ $detailedProduct->user->shop->phone }}";
         window.location.href = "tel:" + phoneNumber;
     }
 
     function send_whatsapp_message() {
-        // Assuming the WhatsApp number is stored in a variable
-        var whatsappNumber = "+963964594375";
-        var product_url = "";
-        var message = "Hello, I am interested in your product: " + product_url;
+        var whatsappNumber = "{{ $detailedProduct->user->shop->phone }}";
+        var message = "مرحباً، أنا مهتم بالمنتج: {{ $detailedProduct->getTranslation('name') }} المعروض في متجر {{ $detailedProduct->user->shop->name }}. يُمكنك مشاهدة المنتج عبر الرابط التالي: https://lakkta.com/product/{{ $detailedProduct->getTranslation('name') }}. لدي بعض الاستفسارات وأرغب بالتواصل. شكراً!";
         var url = "https://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + encodeURIComponent(message);
         window.open(url, "_blank");
     }
-
 
     // Pagination using ajax
     $(window).on('hashchange', function() {

@@ -65,7 +65,19 @@
                                             </span>
                                             @endif
                                         </div>
-
+                                        <!-- Phone-->
+                                        <div class="form-group">
+                                            <label>{{ translate('Shop Phone') }}</label>
+                                            <input type="phone"
+                                                class="form-control rounded-0{{ $errors->has('phone') ? ' is-invalid' : '' }}"
+                                                value="{{ old('email') }}" placeholder="{{ translate('Phone') }}"
+                                                name="phone" required>
+                                            @if ($errors->has('phone'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('phone') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
                                         <!-- Password -->
                                         <div class="form-group mb-0">
                                             <label for="password" class="fs-12 fw-700 text-soft-dark">{{ translate('Password') }}</label>
