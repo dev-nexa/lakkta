@@ -10,11 +10,13 @@
             }
         @endphp
         <!-- Image -->
+        {{-- TODO MALIK --}}
         <a href="{{ $product_url }}" class="d-block h-100">
             <img class="lazyload mx-auto img-fit has-transition"
-                src="{{ get_image($product->thumbnail) }}"
-                alt="{{ $product->getTranslation('name') }}" title="{{ $product->getTranslation('name') }}"
-                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
+            src="{{ get_image($product->thumbnail) }}"
+            alt="{{ $product->getTranslation('name') }}" 
+            style="width: 100%; height: 200px; object-fit: cover;" 
+            onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">        
         </a>
 
         <!-- Discount percentage tag -->
