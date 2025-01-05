@@ -171,7 +171,7 @@
             <div class="d-flex align-items-center justify-content-center position-relative">
                 <span class="line-right"></span>
                 <h3 class="text-center fs-16 fs-md-20 fw-700 mb-2 mb-sm-0 car-categories-title">
-                    {{ translate('Cars Categories') }}
+                    {{ translate('Featured Cars Categories') }}
                 </h3>
                 <span class="line-left"></span>
             </div>
