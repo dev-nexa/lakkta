@@ -70,7 +70,7 @@
                                             <label>{{ translate('Shop Phone') }}</label>
                                             <input type="phone"
                                                 class="form-control rounded-0{{ $errors->has('phone') ? ' is-invalid' : '' }}"
-                                                value="{{ old('email') }}" placeholder="{{ translate('Phone') }}"
+                                                value="{{ old('Phone') }}" placeholder="{{ translate('Phone') }}"
                                                 name="phone" required>
                                             @if ($errors->has('phone'))
                                             <span class="invalid-feedback" role="alert">
@@ -116,12 +116,12 @@
                                             <div class="d-flex">
                                                 <div class="custom-control custom-radio mr-3">
                                                     <input type="radio" id="seller-type-merchant" name="seller_type"
-                                                        class="custom-control-input" value="merchant" checked>
+                                                        class="custom-control-input" value="0" checked>
                                                     <label class="custom-control-label" for="seller-type-merchant">{{ translate('Authorized Merchant') }}</label>
                                                 </div>
                                                 <div class="custom-control custom-radio">
                                                     <input type="radio" id="seller-type-advertiser" name="seller_type"
-                                                        class="custom-control-input" value="advertiser">
+                                                        class="custom-control-input" value="1">
                                                     <label class="custom-control-label" for="seller-type-advertiser">{{ translate('Individual Advertiser') }}</label>
                                                 </div>
                                             </div>

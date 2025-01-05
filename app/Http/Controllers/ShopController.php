@@ -69,6 +69,8 @@ class ShopController extends Controller
             $shop = new Shop;
             $shop->user_id = $user->id;
             $shop->name = $request->shop_name;
+            $shop->phone = $request->phone;
+            $shop->shop_type = $request->seller_type;
             $shop->address = $request->address;
             $shop->slug = preg_replace('/\s+/', '-', str_replace("/", " ", $request->shop_name));
             $shop->save();

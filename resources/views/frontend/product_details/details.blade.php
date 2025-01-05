@@ -150,15 +150,25 @@
     <!--Year of make-->
     @if ($detailedProduct->registration != NULL)
     <div class="d-flex flex-wrap align-items-center mb-3">
-        <span class="text-secondary fs-14 fw-400 mr-4 w-80px">{{ translate('registration') }}</span><br>
-        <div class="text-reset hov-text-primary fs-14 fw-700 mb-3">{{ $detailedProduct->registration }}</div>
+        <span class="text-secondary fs-14 fw-400 mr-4 w-80px">
+            {{ translate('manufacture') }}
+        </span>
+        <br>
+        <div class="text-reset hov-text-primary fs-14 fw-700 mb-3">
+            {{ $detailedProduct->manufacture }}
+        </div>
     </div>
     @endif
     @if ($detailedProduct->manufacture != NULL)
-    <div class="d-flex flex-wrap align-items-center mb-3">
-        <span class="text-secondary fs-14 fw-400 mr-4 w-80px">{{ translate('manufacture') }}</span><br>
-        <div class="text-reset hov-text-primary fs-14 fw-700 mb-3">{{ $detailedProduct->manufacture }}</div>
-    </div>
+        <div class="d-flex flex-wrap align-items-center mb-3">
+            <span class="text-secondary fs-14 fw-400 mr-4 w-80px">
+                {{ translate('registration') }}
+            </span>
+            <br>
+            <div class="text-reset hov-text-primary fs-14 fw-700 mb-3">
+                {{ $detailedProduct->registration }}
+            </div>
+        </div>
     @endif
     {{-- Warranty --}}
     @if ($detailedProduct->has_warranty == 1 && $detailedProduct->warranty_id != null)
