@@ -335,14 +335,15 @@ $min_bid_amount = $highest_bid != null ? $highest_bid+1 : $detailedProduct->star
 
     function call_now() {
         // Assuming the phone number is stored in a variable
-        var phoneNumber = "+1234567890";
+        var phoneNumber = "+963964594375";
         window.location.href = "tel:" + phoneNumber;
     }
 
     function send_whatsapp_message() {
         // Assuming the WhatsApp number is stored in a variable
-        var whatsappNumber = "+1234567890";
-        var message = "Hello, I am interested in your product.";
+        var whatsappNumber = "+963964594375";
+        var product_url = "";
+        var message = "Hello, I am interested in your product: " + product_url;
         var url = "https://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + encodeURIComponent(message);
         window.open(url, "_blank");
     }
