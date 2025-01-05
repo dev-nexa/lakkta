@@ -565,7 +565,7 @@ $topbar_banner_asset = uploaded_asset($topbar_banner);
                         style="padding-top: 12px;padding-bottom: 12px; width:270px; cursor: pointer;">
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
-                                <span class="fw-700 fs-16 text-white mr-3">{{ translate('Categories') }}</span>
+                                <span class="fw-700 fs-16 text-white mr-3">{{ translate('Cars Categories') }}</span>
                                 <a href="{{ route('categories.all') }}" class="text-reset categoriesAll">
                                     <span class="d-none d-lg-inline-block text-white animate-underline-white">({{
                                         translate('See All') }})</span>

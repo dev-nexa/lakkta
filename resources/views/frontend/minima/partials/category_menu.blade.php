@@ -31,7 +31,7 @@
             $childCategories = $parentCategory ? $parentCategory->childrenCategories : collect();
         @endphp
 
-        @if ($parentCategory)
+        {{-- @if ($parentCategory)
             <li class="category-nav-element border border-top-0" data-id="{{ $parentCategory->id }}">
                 <a href="{{ route('products.category', $parentCategory->slug) }}"
                     class="text-truncate text-dark px-4 fs-14 d-block hov-column-gap-1">
@@ -43,7 +43,7 @@
                     <span class="cat-name has-transition">{{ $parentCategory->getTranslation('name') }}</span>
                 </a>
             </li>
-        @endif
+        @endif --}}
 
         @foreach ($childCategories as $childCategory)
             @php
