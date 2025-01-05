@@ -92,6 +92,13 @@
             <a href="{{ $product_url }}" class="d-block text-reset hov-text-primary"
                 title="{{ $product->getTranslation('name') }}">{{ $product->getTranslation('name') }}</a>
         </h3>
+        @if ($product->is_sold == 1)
+            <div class="text-center mt-2">
+                <span class="fw-600 text-danger" style="font-size: 14px; background-color: #f8d7da; padding: 5px 10px; border-radius: 5px;">
+                    {{ translate('Sold') }}
+                </span>
+            </div>
+        @endif
         <div class="fs-14 d-flex justify-content-center mt-3">
             @if ($product->auction_product == 0)
                 <!-- Previous price -->
@@ -102,7 +109,15 @@
                 @endif
                 <!-- price -->
                 <div class="">
-                    <span class="fw-700 text-primary">{{ home_discounted_base_price($product) }}</span>
+                    @if ($product->is_sold == 1)
+                        <span class="fw-700 text-primary" style="text-decoration: line-through;">
+                            {{ home_discounted_base_price($product) }}
+                        </span>
+                    @else
+                        <span class="fw-700 text-primary">
+                            {{ home_discounted_base_price($product) }}
+                        </span>
+                    @endif
                 </div>
             @endif
             @if ($product->auction_product == 1)
