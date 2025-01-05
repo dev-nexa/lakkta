@@ -53,6 +53,49 @@ class CategoryController extends Controller
         return view('backend.product.categories.create', compact('categories'));
     }
 
+    public function getChildCategories($slug)
+    {
+        // البحث عن الفئة باستخدام slug
+        $parentCategory = Category::where('slug', $slug)->first();
+    
+        if (!$parentCategory) {
+            return response()->json([], 404); // إذا لم يتم العثور على الفئة
+        }
+    
+        // جلب الفئات الأبناء
+        $childCategories = Category::where('parent_id', $parentCategory->id)
+            ->get(['id', 'slug', 'name']); // يمكنك تعديل الحقول حسب الحاجة
+    
+        return response()->json($childCategories);
+    }
+    
+
+
+    public function checkCarCategory(Request $request)
+    {
+        $category = Category::with('categories')->find($request->category_id);
+
+        $isCarCategory = $this->isCarOrChildCategory($category);
+
+        return response()->json(['isCarCategory' => $isCarCategory]);
+    }
+
+    private function isCarOrChildCategory($category)
+    {
+        if ($category->name == 'cars') {
+            return true;
+        }
+    
+        while ($category->parentCategory) {
+            if ($category->parentCategory->name == 'cars') {
+                return true;
+            }
+            $category = $category->parentCategory;
+        }
+    
+        return false;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
