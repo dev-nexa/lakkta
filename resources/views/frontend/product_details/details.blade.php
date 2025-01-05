@@ -421,6 +421,8 @@
                     </div>
                 @endif
 
+                <br>
+
                 <!-- Color Options -->
                 @if ($detailedProduct->colors != null && count(json_decode($detailedProduct->colors)) > 0)
                     <div class="row no-gutters mb-3">
