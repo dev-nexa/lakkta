@@ -96,9 +96,22 @@
         <div class="col-sm-10">
             <div class="d-flex align-items-center">
                 <!-- Discount Price -->
-                <strong class="fs-20 fw-800 text-primary">
-                    {{ home_discounted_price($detailedProduct) }}
-                </strong>
+                @if ($detailedProduct->is_sold == 1)
+                    <strong class="fs-20 fw-800 text-primary" style="text-decoration: line-through;">
+                        {{ home_discounted_price($detailedProduct) }}
+                    </strong>
+                @else
+                    <strong class="fs-20 fw-800 text-primary">
+                        {{ home_discounted_price($detailedProduct) }}
+                    </strong>
+                @endif
+
+                @if ($detailedProduct->is_sold == 1)
+                    <span class="fw-600 text-danger ml-3" 
+                          style="font-size: 14px; background-color: #f8d7da; padding: 5px 10px; border-radius: 5px;">
+                        {{ translate('Sold') }}
+                    </span>
+                @endif
                 <!-- Unit -->
                 {{-- @if ($detailedProduct->unit != null)
                         <span class="opacity-70">/{{ $detailedProduct->getTranslation('unit') }}</span>
