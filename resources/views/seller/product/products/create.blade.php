@@ -81,7 +81,7 @@
                                     </select>
                                 </div>
                             </div>
-                        
+                            
                             <!-- Brand -->
                             <div class="form-group row" id="brand">
                                 <label class="col-md-3 col-from-label">
@@ -111,35 +111,36 @@
                             <input type="hidden" name="category_id" id="category_id_hidden">
                             <input type="hidden" name="category_ids[]" id="category_ids_hidden">
                             
-                            <div class="form-group row">
-                                <label class="col-md-3 col-from-label">
-                                    <i class="fas fa-calendar-alt mr-2"></i>
-                                    {{ translate('Year of manufacture') }} <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-md-6">
-                                    <input type="number" lang="en" min="1900" value="1900" step="1"
-                                        placeholder="{{ translate('Year of manufacture') }}" name="manufacture" class="form-control"
-                                        required>
+                            <div id="car-fields" style="display: none;">
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-from-label">
+                                        <i class="fas fa-calendar-alt mr-2"></i>
+                                        {{ translate('Year of manufacture') }} <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="number" lang="en" min="1900" step="1"
+                                               placeholder="{{ translate('Year of manufacture') }}" name="manufacture" class="form-control" id="manufacture">
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-from-label">
+                                        <i class="fas fa-book mr-2"></i>
+                                        {{ translate('Registration year') }} <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="number" lang="en" min="1900" step="1"
+                                               placeholder="{{ translate('Registration year') }}" name="registration" class="form-control" id="registration">
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-3 col-from-label">
-                                    <i class="fas fa-book mr-2"></i>
-                                    {{ translate('Registration year') }} <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-md-6">
-                                    <input type="number" lang="en" min="1900" value="1900" step="1"
-                                        placeholder="{{ translate('Registration year') }}" name="registration" class="form-control"
-                                        required>
-                                </div>
-                            </div>
+                            
 
                             @if (addon_is_activated('pos_system'))
                                 <!-- Barcode -->
                                 <div class="form-group row">
                                     <label class="col-md-3 col-from-label">
-                                        <i class="fas fa-barcode mr-2"></i> <!-- أيقونة الباركود -->
+                                        <i class="fas fa-barcode mr-2"></i> 
                                         {{ translate('Barcode') }}
                                     </label>
                                     <div class="col-md-8">
@@ -155,7 +156,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="mb-0 h6">
-                                <i class="fas fa-images mr-2"></i> <!-- أيقونة الصور -->
+                                <i class="fas fa-images mr-2"></i>
                                 {{ translate('Product Images') }}
                             </h5>
                         </div>
@@ -168,7 +169,7 @@
                             <!-- Gallery Images -->
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="signinSrEmail">
-                                    <i class="fas fa-image mr-2"></i> <!-- أيقونة معرض الصور -->
+                                    <i class="fas fa-image mr-2"></i>
                                     {{ translate('Gallery Images') }}
                                 </label>
                                 <div class="col-md-8">
@@ -1055,6 +1056,32 @@ $(document).ready(function () {
             if ($this.prop('checked') && ($('#treeview input:radio:checked').length == 0)) {
                 let val = $this.val();
                 $('#treeview input:radio[value='+val+']').prop('checked',true);
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('#category_id').on('change', function () {
+            const selectedCategoryId = $(this).val();
+
+            if (selectedCategoryId) {
+                $.ajax({
+                    url: '{{ route('seller.check-car-category') }}',
+                    method: 'GET',
+                    data: { category_id: selectedCategoryId },
+                    success: function (response) {
+                        if (response.isCarCategory) {
+                            $('#car-fields').slideDown();
+                        } else {
+                            $('#car-fields').slideUp();
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            } else {
+                $('#car-fields').slideUp();
             }
         });
     });
