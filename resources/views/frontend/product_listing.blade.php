@@ -181,7 +181,7 @@
                                                             onchange="filter()"
                                                         >
                                                         <span class="aiz-square-check"></span>
-                                                        <span class="fs-14 fw-400 text-dark">{{ $attribute_value->value }}</span>
+                                                        <span class="fs-14 fw-400 text-dark">{{ translate($attribute_value->value) }}</span>
                                                     </label>
                                                 @endforeach
                                             </div>
@@ -273,7 +273,7 @@
                                         <i class="la la-filter la-2x"></i>
                                     </button>
                                 </div>
-                                {{-- <div class="col-6 col-lg-auto mb-3 w-lg-200px mr-xl-4 mr-lg-3">
+                                <div class="col-6 col-lg-auto mb-3 w-lg-200px mr-xl-4 mr-lg-3">
                                     @if (Route::currentRouteName() != 'products.brand')
                                         <select class="form-control form-control-sm aiz-selectpicker rounded-0" data-live-search="true" name="brand" onchange="filter()">
                                             <option value="">{{ translate('Brands')}}</option>
@@ -282,7 +282,7 @@
                                             @endforeach
                                         </select>
                                     @endif
-                                </div> --}}
+                                </div>
                                 <div class="col-6 col-lg-auto mb-3 w-lg-200px">
                                     <select class="form-control form-control-sm aiz-selectpicker rounded-0" name="sort_by" onchange="filter()">
                                         <option value="">{{ translate('Sort by')}}</option>

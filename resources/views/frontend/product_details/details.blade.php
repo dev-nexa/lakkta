@@ -154,25 +154,23 @@
             </div>
         </div>
     </div>
-    <!--Year of make-->
+    <!-- Year of make -->
     @if ($detailedProduct->registration != NULL)
-        <div class="d-flex flex-wrap align-items-center mb-3">
-            <span class="text-secondary fs-14 fw-400 mr-4 w-80px">
+        <div class="d-flex align-items-center mb-3">
+            <span class="text-secondary fs-14 fw-400 mr-4" style="min-width: 80px;">
                 {{ translate('manufacture') }}
             </span>
-            <br>
-            <div class="text-reset hov-text-primary fs-14 fw-700 mb-3">
+            <div class="text-reset hov-text-primary fs-14 fw-700">
                 {{ $detailedProduct->manufacture }}
             </div>
         </div>
     @endif
     @if ($detailedProduct->manufacture != NULL)
-        <div class="d-flex flex-wrap align-items-center mb-3">
-            <span class="text-secondary fs-14 fw-400 mr-4 w-80px">
+        <div class="d-flex align-items-center mb-3">
+            <span class="text-secondary fs-14 fw-400 mr-4" style="min-width: 80px;">
                 {{ translate('registration') }}
             </span>
-            <br>
-            <div class="text-reset hov-text-primary fs-14 fw-700 mb-3">
+            <div class="text-reset hov-text-primary fs-14 fw-700">
                 {{ $detailedProduct->registration }}
             </div>
         </div>
