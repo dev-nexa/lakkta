@@ -101,6 +101,11 @@
                 </span>
             </div>
         @endif
+        <div class="text-center mt-2">
+            <small class="text-muted" style="font-size: 12px;">
+                <i class="las la-eye"></i> {{ $product->view_count }} {{ translate('views') }}
+            </small>
+        </div>
         <div class="fs-14 d-flex justify-content-center mt-3">
             @if ($product->auction_product == 0)
                 <!-- Previous price -->

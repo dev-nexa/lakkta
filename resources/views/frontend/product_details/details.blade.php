@@ -18,7 +18,14 @@
                     {{ renderStarRating($detailedProduct->rating) }}
                 </span>
                 <span class="ml-1 opacity-50 fs-14">({{ $total }}
-                    {{ translate('reviews') }})</span>
+                    {{ translate('reviews') }})
+                </span>
+                
+                @if ($detailedProduct->view_count)
+                    <span class="ml-3 opacity-50 fs-14">
+                        <i class="las la-eye"></i> {{ $detailedProduct->view_count }} {{ translate('views') }}
+                    </span>
+                @endif
             </div>
         @endif
         <!-- Estimate Shipping Time -->
@@ -149,15 +156,15 @@
     </div>
     <!--Year of make-->
     @if ($detailedProduct->registration != NULL)
-    <div class="d-flex flex-wrap align-items-center mb-3">
-        <span class="text-secondary fs-14 fw-400 mr-4 w-80px">
-            {{ translate('manufacture') }}
-        </span>
-        <br>
-        <div class="text-reset hov-text-primary fs-14 fw-700 mb-3">
-            {{ $detailedProduct->manufacture }}
+        <div class="d-flex flex-wrap align-items-center mb-3">
+            <span class="text-secondary fs-14 fw-400 mr-4 w-80px">
+                {{ translate('manufacture') }}
+            </span>
+            <br>
+            <div class="text-reset hov-text-primary fs-14 fw-700 mb-3">
+                {{ $detailedProduct->manufacture }}
+            </div>
         </div>
-    </div>
     @endif
     @if ($detailedProduct->manufacture != NULL)
         <div class="d-flex flex-wrap align-items-center mb-3">
@@ -434,7 +441,7 @@
 
             @if ($detailedProduct->digital == 0)
                 <!-- Choice Options -->
-                @if ($detailedProduct->choice_options != null)
+                @if ($detailedProduct->choice_options != null && count(json_decode($detailedProduct->choice_options)) > 0)
                     <div class="attribute-container d-flex flex-wrap align-items-center">
                         @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
                             <div class="attribute d-flex align-items-center mr-3 mb-3">
@@ -454,9 +461,9 @@
                         @endforeach
                     </div>
                 @endif
-
+                
                 <br>
-
+                
                 <!-- Color Options -->
                 @if ($detailedProduct->colors != null && count(json_decode($detailedProduct->colors)) > 0)
                     <div class="row no-gutters mb-3">
@@ -471,8 +478,7 @@
                                         <input type="radio" name="color"
                                             value="{{ get_single_color_name($color) }}"
                                             @if ($key == 0) checked @endif>
-                                        <span
-                                            class="aiz-megabox-elem rounded-0 d-flex align-items-center justify-content-center p-1">
+                                        <span class="aiz-megabox-elem rounded-0 d-flex align-items-center justify-content-center p-1">
                                             <span class="size-25px d-inline-block rounded"
                                                 style="background: {{ $color }};"></span>
                                         </span>
@@ -482,52 +488,54 @@
                         </div>
                     </div>
                 @endif
-
+                
                 <!-- Quantity + Add to cart -->
-                {{-- <div class="row no-gutters mb-3">
-                    <div class="col-sm-2">
-                        <div class="text-secondary fs-14 fw-400 mt-2">{{ translate('Quantity') }}</div>
-                    </div>
-                    <div class="col-sm-10">
-                        <div class="product-quantity d-flex align-items-center">
-                            <div class="row no-gutters align-items-center aiz-plus-minus mr-3" style="width: 130px;">
-                                <button class="btn col-auto btn-icon btn-sm btn-light rounded-0" type="button"
-                                    data-type="minus" data-field="quantity" disabled="">
-                                    <i class="las la-minus"></i>
-                                </button>
-                                <input type="number" name="quantity"
-                                    class="col border-0 text-center flex-grow-1 fs-16 input-number" placeholder="1"
-                                    value="{{ $detailedProduct->min_qty }}" min="{{ $detailedProduct->min_qty }}"
-                                    max="10" lang="en">
-                                <button class="btn col-auto btn-icon btn-sm btn-light rounded-0" type="button"
-                                    data-type="plus" data-field="quantity">
-                                    <i class="las la-plus"></i>
-                                </button>
-                            </div>
-                            @php
-                                $qty = 0;
-                                foreach ($detailedProduct->stocks as $key => $stock) {
-                                    $qty += $stock->qty;
-                                }
-                            @endphp
-                            <div class="avialable-amount opacity-60">
-                                @if ($detailedProduct->stock_visibility_state == 'quantity')
-                                    (<span id="available-quantity">{{ $qty }}</span>
-                                    {{ translate('available') }})
-                                @elseif($detailedProduct->stock_visibility_state == 'text' && $qty >= 1)
-                                    (<span id="available-quantity">{{ translate('In Stock') }}</span>)
-                                @endif
+                @if ($detailedProduct->choice_options != null || $detailedProduct->colors != null)
+                    <div class="row no-gutters mb-3" id="quantity-section" style="display: none;">
+                        {{-- <div class="col-sm-2">
+                            <div class="text-secondary fs-14 fw-400 mt-2">{{ translate('Quantity') }}</div>
+                        </div> --}}
+                        <div class="col-sm-10">
+                            <div class="product-quantity d-flex align-items-center">
+                                <div class="row no-gutters align-items-center aiz-plus-minus mr-3" style="width: 130px;">
+                                    <button class="btn col-auto btn-icon btn-sm btn-light rounded-0" type="button"
+                                        data-type="minus" data-field="quantity" disabled="">
+                                        <i class="las la-minus"></i>
+                                    </button>
+                                    <input type="number" name="quantity"
+                                        class="col border-0 text-center flex-grow-1 fs-16 input-number" placeholder="1"
+                                        value="{{ $detailedProduct->min_qty }}" min="{{ $detailedProduct->min_qty }}"
+                                        max="10" lang="en">
+                                    <button class="btn col-auto btn-icon btn-sm btn-light rounded-0" type="button"
+                                        data-type="plus" data-field="quantity">
+                                        <i class="las la-plus"></i>
+                                    </button>
+                                </div>
+                                @php
+                                    $qty = 0;
+                                    foreach ($detailedProduct->stocks as $key => $stock) {
+                                        $qty += $stock->qty;
+                                    }
+                                @endphp
+                                <div class="avialable-amount opacity-60">
+                                    @if ($detailedProduct->stock_visibility_state == 'quantity')
+                                        (<span id="available-quantity">{{ $qty }}</span>
+                                        {{ translate('available') }})
+                                    @elseif($detailedProduct->stock_visibility_state == 'text' && $qty >= 1)
+                                        (<span id="available-quantity">{{ translate('In Stock') }}</span>)
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                @endif
             @else
                 <!-- Quantity -->
                 <input type="hidden" name="quantity" value="1">
             @endif
 
             <!-- Total Price -->
-            {{-- <div class="row no-gutters pb-3 d-none" id="chosen_price_div">
+            <div class="row no-gutters pb-3 d-none" id="chosen_price_div">
                 <div class="col-sm-2">
                     <div class="text-secondary fs-14 fw-400 mt-1">{{ translate('Total Price') }}</div>
                 </div>
@@ -538,8 +546,7 @@
                         </strong>
                     </div>
                 </div>
-            </div> --}}
-
+            </div>
         </form>
     @endif
 

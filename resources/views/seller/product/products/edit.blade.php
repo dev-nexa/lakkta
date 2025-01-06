@@ -117,27 +117,27 @@
                     <input type="hidden" name="category_id" id="category_id_hidden">
                     <input type="hidden" name="category_ids[]" id="category_ids_hidden">
 
-                    <div class="form-group row">
-                        <label class="col-md-3 col-from-label">
-                            <i class="fas fa-calendar-alt mr-2"></i>
-                            {{ translate('Year of manufacture') }} <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-md-6">
-                            <input type="number" lang="en" min="1900" value="{{$product->manufacture}}" step="1"
-                                placeholder="{{ translate('Year of manufacture') }}" name="manufacture" class="form-control"
-                                required>
+                    <div id="car-fields" style="display: none;">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-from-label">
+                                <i class="fas fa-calendar-alt mr-2"></i>
+                                {{ translate('Year of manufacture') }} <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-md-6">
+                                <input type="number" lang="en" min="1900" step="1"
+                                       placeholder="{{ translate('Year of manufacture') }}" name="manufacture" class="form-control" id="manufacture">
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-md-3 col-from-label">
-                            <i class="fas fa-book mr-2"></i>
-                            {{ translate('Registration year') }} <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-md-6">
-                            <input type="number" lang="en" min="1900" value="{{$product->registration}}" step="1"
-                                placeholder="{{ translate('Registration year') }}" name="registration" class="form-control"
-                                required>
+                    
+                        <div class="form-group row">
+                            <label class="col-md-3 col-from-label">
+                                <i class="fas fa-book mr-2"></i>
+                                {{ translate('Registration year') }} <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-md-6">
+                                <input type="number" lang="en" min="1900" step="1"
+                                       placeholder="{{ translate('Registration year') }}" name="registration" class="form-control" id="registration">
+                            </div>
                         </div>
                     </div>
                 
@@ -1003,118 +1003,144 @@
 <script src="{{ static_asset('assets/js/hummingbird-treeview.js') }}"></script>
 
 <script type="text/javascript">
-$(document).ready(function () {
-    $('#category_id').on('change', function () {
-        const categoryId = $(this).val(); 
+    $(document).ready(function () {
+        $('#category_id').on('change', function () {
+            const categoryId = $(this).val(); 
 
-            if (categoryId) {
-                $('#category_id_hidden').val(categoryId);
+                if (categoryId) {
+                    $('#category_id_hidden').val(categoryId);
 
-                $('#category_ids_hidden').val(categoryId);
-            } else {
-                $('#category_id_hidden').val('');
-                $('#category_ids_hidden').val('');
-            }
+                    $('#category_ids_hidden').val(categoryId);
+                } else {
+                    $('#category_id_hidden').val('');
+                    $('#category_ids_hidden').val('');
+                }
+            });
         });
+
+        $(document).ready(function () {
+        const oldCategoryId = "{{ $product->category_id ?? '' }}";
+        const oldBrandId = "{{ $product->brand_id ?? '' }}";
+        const oldModelId = "{{ $product->model_id ?? '' }}";
+
+        function fetchBrands(categoryId, selectedBrandId = null) {
+            if (categoryId) {
+                $.ajax({
+                    url: '{{ route('get-brands-by-category') }}',
+                    method: 'GET',
+                    data: { category_id: categoryId },
+                    success: function (data) {
+                        const brandSelect = $('#brand-select');
+                        brandSelect.empty().append('<option value="">{{ translate("Select Brand") }}</option>');
+
+                        if (data.length > 0) {
+                            data.forEach(function (brand) {
+                                const selected = (selectedBrandId == brand.id) ? 'selected' : '';
+                                brandSelect.append(`<option value="${brand.id}" ${selected}>${brand.name}</option>`);
+                            });
+                        } else {
+                            $('#brand-select').empty().append('<option value="">{{ translate('No Brands Available') }}</option>');
+                            $('#brand-select').selectpicker('refresh');
+                            $('#model-select').empty().append('<option value="">{{ translate('No Models Available') }}</option>');
+                            $('#model-select').selectpicker('refresh');
+                        }
+
+                        brandSelect.selectpicker('refresh');
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            } else {
+                $('#brand-select').empty().append('<option value="">{{ translate('Select Brand') }}</option>');
+                $('#brand-select').selectpicker('refresh');
+            }
+        }
+
+        // جلب النماذج بناءً على العلامة التجارية
+        function fetchModels(brandId, selectedModelId = null) {
+            if (brandId) {
+                $.ajax({
+                    url: '{{ route('get-models-by-brand') }}',
+                    method: 'GET',
+                    data: { brand_id: brandId },
+                    success: function (data) {
+                        const modelSelect = $('#model-select');
+                        modelSelect.empty().append('<option value="">{{ translate("Select Model") }}</option>');
+
+                        if (data.length > 0) {
+                            data.forEach(function (model) {
+                                const selected = (selectedModelId == model.id) ? 'selected' : '';
+                                modelSelect.append(`<option value="${model.id}" ${selected}>${model.name}</option>`);
+                            });
+                        } else {
+                            $('#model-select').empty().append('<option value="">{{ translate('No Models Available') }}</option>');
+                            $('#model-select').selectpicker('refresh');
+                        }
+
+                        modelSelect.selectpicker('refresh');
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            }
+        }
+
+        // عند تغيير الفئة
+        $('#category_id').on('change', function () {
+            const categoryId = $(this).val();
+            fetchBrands(categoryId); // جلب العلامات التجارية
+            $('#model-select').empty().append('<option value="">{{ translate("Select Model") }}</option>').selectpicker('refresh'); // إعادة تعيين النماذج
+        });
+
+        // عند تغيير العلامة التجارية
+        $('#brand-select').on('change', function () {
+            const brandId = $(this).val();
+            fetchModels(brandId); // جلب النماذج
+        });
+
+        // تعيين القيم المحفوظة عند تحميل الصفحة
+        if (oldCategoryId) {
+            $('#category_id').val(oldCategoryId).trigger('change');
+            setTimeout(() => {
+                if (oldBrandId) {
+                    fetchBrands(oldCategoryId, oldBrandId);
+                    setTimeout(() => {
+                        if (oldModelId) {
+                            fetchModels(oldBrandId, oldModelId);
+                        }
+                    }, 500); // مهلة قصيرة لضمان تحميل العلامات التجارية أولاً
+                }
+            }, 500); // مهلة قصيرة لضمان تحميل الفئة أولاً
+        }
     });
 
     $(document).ready(function () {
-    const oldCategoryId = "{{ $product->category_id ?? '' }}";
-    const oldBrandId = "{{ $product->brand_id ?? '' }}";
-    const oldModelId = "{{ $product->model_id ?? '' }}";
+        $('#category_id').on('change', function () {
+            const selectedCategoryId = $(this).val();
 
-    function fetchBrands(categoryId, selectedBrandId = null) {
-        if (categoryId) {
-            $.ajax({
-                url: '{{ route('get-brands-by-category') }}',
-                method: 'GET',
-                data: { category_id: categoryId },
-                success: function (data) {
-                    const brandSelect = $('#brand-select');
-                    brandSelect.empty().append('<option value="">{{ translate("Select Brand") }}</option>');
-                    
-                    if (data.length > 0) {
-                        data.forEach(function (brand) {
-                            const selected = (selectedBrandId == brand.id) ? 'selected' : '';
-                            brandSelect.append(`<option value="${brand.id}" ${selected}>${brand.name}</option>`);
-                        });
-                    } else {
-                        $('#brand-select').empty().append('<option value="">{{ translate('No Brands Available') }}</option>');
-                        $('#brand-select').selectpicker('refresh');
-                        $('#model-select').empty().append('<option value="">{{ translate('No Models Available') }}</option>');
-                        $('#model-select').selectpicker('refresh');
+            if (selectedCategoryId) {
+                $.ajax({
+                    url: '{{ route('seller.check-car-category') }}',
+                    method: 'GET',
+                    data: { category_id: selectedCategoryId },
+                    success: function (response) {
+                        if (response.isCarCategory) {
+                            $('#car-fields').slideDown();
+                        } else {
+                            $('#car-fields').slideUp();
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
                     }
-
-                    brandSelect.selectpicker('refresh');
-                },
-                error: function (xhr) {
-                    console.error('Error:', xhr.responseText);
-                }
-            });
-        } else {
-            $('#brand-select').empty().append('<option value="">{{ translate('Select Brand') }}</option>');
-            $('#brand-select').selectpicker('refresh');
-        }
-    }
-
-    // جلب النماذج بناءً على العلامة التجارية
-    function fetchModels(brandId, selectedModelId = null) {
-        if (brandId) {
-            $.ajax({
-                url: '{{ route('get-models-by-brand') }}',
-                method: 'GET',
-                data: { brand_id: brandId },
-                success: function (data) {
-                    const modelSelect = $('#model-select');
-                    modelSelect.empty().append('<option value="">{{ translate("Select Model") }}</option>');
-                    
-                    if (data.length > 0) {
-                        data.forEach(function (model) {
-                            const selected = (selectedModelId == model.id) ? 'selected' : '';
-                            modelSelect.append(`<option value="${model.id}" ${selected}>${model.name}</option>`);
-                        });
-                    } else {
-                        $('#model-select').empty().append('<option value="">{{ translate('No Models Available') }}</option>');
-                        $('#model-select').selectpicker('refresh');
-                    }
-
-                    modelSelect.selectpicker('refresh');
-                },
-                error: function (xhr) {
-                    console.error('Error:', xhr.responseText);
-                }
-            });
-        }
-    }
-
-    // عند تغيير الفئة
-    $('#category_id').on('change', function () {
-        const categoryId = $(this).val();
-        fetchBrands(categoryId); // جلب العلامات التجارية
-        $('#model-select').empty().append('<option value="">{{ translate("Select Model") }}</option>').selectpicker('refresh'); // إعادة تعيين النماذج
-    });
-
-    // عند تغيير العلامة التجارية
-    $('#brand-select').on('change', function () {
-        const brandId = $(this).val();
-        fetchModels(brandId); // جلب النماذج
-    });
-
-    // تعيين القيم المحفوظة عند تحميل الصفحة
-    if (oldCategoryId) {
-        $('#category_id').val(oldCategoryId).trigger('change');
-        setTimeout(() => {
-            if (oldBrandId) {
-                fetchBrands(oldCategoryId, oldBrandId);
-                setTimeout(() => {
-                    if (oldModelId) {
-                        fetchModels(oldBrandId, oldModelId);
-                    }
-                }, 500); // مهلة قصيرة لضمان تحميل العلامات التجارية أولاً
+                });
+            } else {
+                $('#car-fields').slideUp();
             }
-        }, 500); // مهلة قصيرة لضمان تحميل الفئة أولاً
-    }
-});
+        });
+    });
 
     $(document).ready(function (){
         show_hide_shipping_div();

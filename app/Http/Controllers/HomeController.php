@@ -258,6 +258,12 @@ class HomeController extends Controller
             session(['link' => url()->current()]);
         }
 
+        $product = Product::where('slug', $slug)->first();
+        $view = $product->view_count;
+        $view += 1;
+        $product->view_count = $view;
+        $product->save();
+
         $detailedProduct  = Product::with('reviews', 'brand', 'stocks', 'user', 'user.shop')->where('auction_product', 0)->where('slug', $slug)->where('approved', 1)->first();
 
         if ($detailedProduct != null && $detailedProduct->published) {
