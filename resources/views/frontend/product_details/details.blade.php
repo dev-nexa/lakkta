@@ -86,117 +86,117 @@
         </div>
     </div>
 
-
-    <!-- Brand Logo & Name -->
-    @if ($detailedProduct->brand != null)
-    <div class="d-flex flex-wrap align-items-center mb-3">
-        <span class="text-secondary fs-14 fw-400 mr-4">{{ translate('Brand') }}</span>
-        <a href="{{ route('products.brand', $detailedProduct->brand->slug) }}"
-            class="text-reset hov-text-primary fs-14 fw-700">{{ $detailedProduct->brand->name }}</a>
-    </div>
-    @endif
-    
     <table class="table w-100">
-    <tr>
-        <td class="text-secondary fs-14 fw-400 w-25">{{ translate('Price') }}</td>
-        <td>
-            <div class="d-flex align-items-center">
-                @if ($detailedProduct->is_sold == 1)
-                    <strong class="fs-20 fw-800 text-primary" style="text-decoration: line-through;">
-                        {{ home_discounted_price($detailedProduct) }}
-                    </strong>
-                @else
-                    <strong class="fs-20 fw-800 text-primary">
-                        {{ home_discounted_price($detailedProduct) }}
-                    </strong>
-                @endif
-                &nbsp;&nbsp;
-                @if ($detailedProduct->is_sold == 1)
-                    <span class="fw-600 text-danger" style="font-size: 14px; background-color: #f8d7da; padding: 5px 10px; border-radius: 5px;">
-                        {{ translate('Sold') }}
-                    </span>
-                @endif
-                @if (addon_is_activated('club_point') && $detailedProduct->earn_point > 0)
-                    <div class="ml-2 bg-secondary-base d-flex justify-content-center align-items-center px-3 py-1"
-                        style="width: fit-content; margin-left: 5px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                            <g id="Group_23922" data-name="Group 23922" transform="translate(-973 -633)">
-                                <circle id="Ellipse_39" data-name="Ellipse 39" cx="8" cy="8" r="8" transform="translate(973 633)" fill="#fff" />
-                                <g id="Group_23920" data-name="Group 23920" transform="translate(973 633)">
-                                    <path id="Path_28698" data-name="Path 28698" d="M10.222,4H5.778L4,6.667,8,12l4-5.333Z" transform="translate(0 0)" fill="#f3af3d" />
-                                    <path id="Path_28699" data-name="Path 28699" d="M7.11,4h-1.333L4,6.667,8,12,5.11,6.667Z" transform="translate(0 0)" fill="#f3af3d" opacity="0.5" />
-                                    <path id="Path_28700" data-name="Path 28700" d="M16.888,4h1.333L20,6.667,16,12l2.222-5.333Z" transform="translate(-7.993 0)" fill="#f3af3d" />
-                            </g>
-                        </svg>
-                        <small class="fs-13 fw-600 text-white ml-2">{{ translate('Club Point') }}: {{ $detailedProduct->earn_point }}</small>
-                    </div>
-                @endif
-            </div>
-        </td>
-    </tr>
+        <!-- Brand Logo & Name -->
+        @if ($detailedProduct->brand != null)
+            <tr>
+                <td class="text-secondary fs-14 fw-400 w-25">{{ translate('Brand') }}</td>
+                <td>
+                    <a href="{{ route('products.brand', $detailedProduct->brand->slug) }}"
+                        class="text-reset hov-text-primary fs-14 fw-700">{{ $detailedProduct->brand->name }}</a>
+                </td>
+            </tr>
+        @endif
     
-    <!-- Year of make -->
-    @if ($detailedProduct->registration != NULL)
         <tr>
-            <td class="text-secondary fs-14 fw-400">{{ translate('manufacture') }}</td>
-            <td class="text-reset hov-text-primary fs-14 fw-700">
-                {{ $detailedProduct->manufacture }}
-            </td>
-        </tr>
-    @endif
-    
-    @if ($detailedProduct->manufacture != NULL)
-        <tr>
-            <td class="text-secondary fs-14 fw-400">{{ translate('registration') }}</td>
-            <td class="text-reset hov-text-primary fs-14 fw-700">
-                {{ $detailedProduct->registration }}
-            </td>
-        </tr>
-    @endif
-    
-    <!-- Warranty -->
-    @if ($detailedProduct->has_warranty == 1 && $detailedProduct->warranty_id != null)
-        <tr>
-            <td class="text-secondary fs-14 fw-400">{{ translate('Warranty') }}</td>
+            <td class="text-secondary fs-14 fw-400 w-25">{{ translate('Price') }}</td>
             <td>
-                <img src="{{ uploaded_asset($detailedProduct->warranty->logo) }}" height="40">
-                <span class="border border-secondary-base btn fs-12 ml-3 px-3 py-1 rounded-1 text-secondary">
-                    {{ $detailedProduct->warranty->getTranslation('text')}}
-                    @if($detailedProduct->warranty_note_id != null)
-                        <span href="javascript:void(1);" 
-                            data-toggle="modal" data-target="#warranty-note-modal"
-                            class="border-bottom border-bottom-4 ml-2 text-secondary-base">
-                            {{ translate('View Details') }}
+                <div class="d-flex align-items-center">
+                    @if ($detailedProduct->is_sold == 1)
+                        <strong class="fs-20 fw-800 text-primary" style="text-decoration: line-through;">
+                            {{ home_discounted_price($detailedProduct) }}
+                        </strong>
+                    @else
+                        <strong class="fs-20 fw-800 text-primary">
+                            {{ home_discounted_price($detailedProduct) }}
+                        </strong>
+                    @endif
+                    &nbsp;&nbsp;
+                    @if ($detailedProduct->is_sold == 1)
+                        <span class="fw-600 text-danger" style="font-size: 14px; background-color: #f8d7da; padding: 5px 10px; border-radius: 5px;">
+                            {{ translate('Sold') }}
                         </span>
                     @endif
-                </span>
+                    @if (addon_is_activated('club_point') && $detailedProduct->earn_point > 0)
+                        <div class="ml-2 bg-secondary-base d-flex justify-content-center align-items-center px-3 py-1"
+                            style="width: fit-content; margin-left: 5px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                <g id="Group_23922" data-name="Group 23922" transform="translate(-973 -633)">
+                                    <circle id="Ellipse_39" data-name="Ellipse 39" cx="8" cy="8" r="8" transform="translate(973 633)" fill="#fff" />
+                                    <g id="Group_23920" data-name="Group 23920" transform="translate(973 633)">
+                                        <path id="Path_28698" data-name="Path 28698" d="M10.222,4H5.778L4,6.667,8,12l4-5.333Z" transform="translate(0 0)" fill="#f3af3d" />
+                                        <path id="Path_28699" data-name="Path 28699" d="M7.11,4h-1.333L4,6.667,8,12,5.11,6.667Z" transform="translate(0 0)" fill="#f3af3d" opacity="0.5" />
+                                        <path id="Path_28700" data-name="Path 28700" d="M16.888,4h1.333L20,6.667,16,12l2.222-5.333Z" transform="translate(-7.993 0)" fill="#f3af3d" />
+                                </g>
+                            </svg>
+                            <small class="fs-13 fw-600 text-white ml-2">{{ translate('Club Point') }}: {{ $detailedProduct->earn_point }}</small>
+                        </div>
+                    @endif
+                </div>
             </td>
         </tr>
-    @endif
     
-    <!-- Seller Info -->
-    @if ($detailedProduct->added_by == 'seller' && get_setting('vendor_system_activation') == 1)
-        <tr>
-            <td class="text-secondary fs-14 fw-400">{{ translate('Sold by') }}</td>
-            <td>
-                <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}"
-                    class="text-reset hov-text-primary fs-14 fw-700">{{ $detailedProduct->user->shop->name }}</a>
-            </td>
-        </tr>
-        <tr>
-            <td class="text-secondary fs-14 fw-400">{{ translate('Phone') }}</td>
-            <td>
-                <a href="tel: {{ $detailedProduct->user->shop->phone }}"
-                    class="text-reset hov-text-primary fs-14 fw-700">{{ $detailedProduct->user->shop->phone }}</a>
-            </td>
-        </tr>
-    @else
-        <tr>
-            <td colspan="2" class="mb-0 fs-14 fw-700">{{ translate('Inhouse product') }}</td>
-        </tr>
-    @endif
-    </table>
-
+        <!-- Year of make -->
+        @if ($detailedProduct->registration != NULL)
+            <tr>
+                <td class="text-secondary fs-14 fw-400">{{ translate('manufacture') }}</td>
+                <td class="text-reset hov-text-primary fs-14 fw-700">
+                    {{ $detailedProduct->manufacture }}
+                </td>
+            </tr>
+        @endif
+    
+        @if ($detailedProduct->manufacture != NULL)
+            <tr>
+                <td class="text-secondary fs-14 fw-400">{{ translate('registration') }}</td>
+                <td class="text-reset hov-text-primary fs-14 fw-700">
+                    {{ $detailedProduct->registration }}
+                </td>
+            </tr>
+        @endif
+    
+        <!-- Warranty -->
+        @if ($detailedProduct->has_warranty == 1 && $detailedProduct->warranty_id != null)
+            <tr>
+                <td class="text-secondary fs-14 fw-400">{{ translate('Warranty') }}</td>
+                <td>
+                    <img src="{{ uploaded_asset($detailedProduct->warranty->logo) }}" height="40">
+                    <span class="border border-secondary-base btn fs-12 ml-3 px-3 py-1 rounded-1 text-secondary">
+                        {{ $detailedProduct->warranty->getTranslation('text')}}
+                        @if($detailedProduct->warranty_note_id != null)
+                            <span href="javascript:void(1);" 
+                                data-toggle="modal" data-target="#warranty-note-modal"
+                                class="border-bottom border-bottom-4 ml-2 text-secondary-base">
+                                {{ translate('View Details') }}
+                            </span>
+                        @endif
+                    </span>
+                </td>
+            </tr>
+        @endif
+    
+        <!-- Seller Info -->
+        @if ($detailedProduct->added_by == 'seller' && get_setting('vendor_system_activation') == 1)
+            <tr>
+                <td class="text-secondary fs-14 fw-400">{{ translate('Sold by') }}</td>
+                <td>
+                    <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}"
+                        class="text-reset hov-text-primary fs-14 fw-700">{{ $detailedProduct->user->shop->name }}</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-secondary fs-14 fw-400">{{ translate('Phone') }}</td>
+                <td>
+                    <a href="tel: {{ $detailedProduct->user->shop->phone }}"
+                        class="text-reset hov-text-primary fs-14 fw-700">{{ $detailedProduct->user->shop->phone }}</a>
+                </td>
+            </tr>
+        @else
+            <tr>
+                <td colspan="2" class="mb-0 fs-14 fw-700">{{ translate('Inhouse product') }}</td>
+            </tr>
+        @endif
+    </table>    
         <!-- Message to seller -->
         @if (get_setting('conversation_system') == 1)
             <div class="">
@@ -226,7 +226,6 @@
                 <a href="javascript:void(1);" onclick='showSizeChartDetail({{ $sizeChartId }}, "{{ $sizeChartName }}")' class="animate-underline-primary">{{ translate('Show size guide') }}</a>
             </div>
         @endif
-    </div>
     <hr>
     <!-- For auction product -->
     @if ($detailedProduct->auction_product)
