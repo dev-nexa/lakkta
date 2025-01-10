@@ -57,7 +57,7 @@
     
                     <!-- Dropdown Section -->
                     @if ($category->childrenCategories->count() > 0)
-                        <div id="category-children-{{ $key }}" class="collapse">
+                        <div id="category-children-{{ $key }}">
                             <div class="category-children px-4 py-3">
                                 <div class="row justify-content-center">
                                     @foreach ($category->childrenCategories as $child_category)
