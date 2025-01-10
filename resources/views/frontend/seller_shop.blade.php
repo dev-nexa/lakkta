@@ -512,8 +512,8 @@
                                                     data-range-value-min="@if(get_products_count($shop->user->id) < 1) 0 @else {{ get_product_min_unit_price($shop->user->id) }} @endif"
                                                     data-range-value-max="@if(get_products_count($shop->user->id) < 1) 0 @else {{ get_product_max_unit_price($shop->user->id) }} @endif"
                                                 ></div>
-
-                                                <div class="row mt-2">
+                                    
+                                                <div class="row mt-2" dir="ltr">
                                                     <div class="col-6">
                                                         <span class="range-slider-value value-low fs-14 fw-600 opacity-70"
                                                             @if ($min_price != null)
@@ -545,6 +545,7 @@
                                         <input type="hidden" name="min_price" value="">
                                         <input type="hidden" name="max_price" value="">
                                     </div>
+                                    
 
                                     <!-- Ratings -->
                                     <div class="bg-white border mb-4 mx-3 mx-xl-0 mt-3 mt-xl-0">
