@@ -79,11 +79,12 @@ class ContactController extends Controller
                 'phone' => $request->phone,
                 'content' => $request->content,
             ]);
+            flash(translate('Query has been sent successfully'))->success();
+            return redirect()->route('thank.you.page'); // Redirect to thank you page
         } catch (\Exception $e) {
             flash(translate('Something Went wrong'))->error();
             return back();
         }
-        flash(translate('Query has been sent successfully'))->success();
-        return back();
     }
+
 }
