@@ -64,7 +64,7 @@
                                         <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3 text-center">
                                             <div class="child-category-box p-3 border rounded bg-light">
                                                 <!-- Sub-category Image -->
-                                                <a href="{{ route('products.category', $category->slug) }}" class="text-dark category-name-link">
+                                                <a href="{{ route('products.category', $child_category->slug) }}" class="text-dark category-name-link">
                                                     <div class="category-img-wrapper size-60px overflow-hidden rounded-circle p-1 border mx-auto mb-2">
                                                         <img src="{{ uploaded_asset($child_category->banner) }}" alt="" class="img-fit h-100 w-100">
                                                     </div>
