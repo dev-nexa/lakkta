@@ -459,29 +459,32 @@
 <div id="section_featured" class="">
 
 </div>
-<!-- Buttons malik -->
 <!-- Buttons Malik -->
-<div class="button-container_1">
-    <a href="https://lakkta.com/search?sort_by=newest" class="btn_1 btn-primary_1">
-        <i class="fas fa-car"></i> &nbsp; <span>{{ translate('All Cars') }}</span>
+<div class="button-container_2">
+    <a href="https://lakkta.com/search?sort_by=newest" class="btn_2 btn-primary_2">
+         <span>{{ translate('All Cars') }}</span>&nbsp;<i class="fas fa-car"></i>
     </a>
-    <a href="https://lakkta.com/brands" class="btn_1 btn-primary_1">
-        <i class="fas fa-tags"></i> &nbsp; <span>{{ translate('All Brands ') }}</span>
+    <a href="https://lakkta.com/brands" class="btn_2 btn-primary_2">
+         <span>{{ translate('All Brands') }}</span>&nbsp;<i class="fas fa-tags"></i>
     </a>
 </div>
 <style>
-    .button-container_1 {
+    .button-container_2 {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: auto; /* Set height to auto to match the buttons' height */
         background-color: #f8f9fa;
     }
-    .btn_1 {
+    .btn_2 {
         display: inline-flex;
         align-items: center;
+        justify-content: center; /* Center content horizontally */
         padding: 15px 30px;
-        margin: 10px;
+        margin-left: 15px; /* Add space between buttons */
+        margin-right: 15px; /* Add space between buttons */
+        margin-top: 0;
+        margin-bottom: 0;
         font-size: 16px;
         font-weight: bold;
         text-transform: uppercase;
@@ -492,17 +495,18 @@
         cursor: pointer;
         transition: background-color 0.3s ease;
     }
-    .btn_1 i {
-        margin-right: 15px; /* Space between icon and label */
+    .btn_2 span {
+        margin-left: 10px; /* Add space between text and icon */
     }
-    .btn-primary_1 {
+    .btn-primary_2 {
         background-color: #007665;
     }
-    .btn-primary_1:hover {
+    .btn-primary_2:hover {
         background-color: #F39200;
+        color: #fff; /* Keep text color white on hover */
     }
     @media (max-width: 768px) {
-        .btn_1 {
+        .btn_2 {
             padding: 10px 20px;
             font-size: 14px;
         }
