@@ -97,63 +97,48 @@
     @endif
 
     <div class="row no-gutters mb-3">
-        <div class="col-sm-2">
+        <div class="col-4 col-sm-2">
             <div class="text-secondary fs-14 fw-400">{{ translate('Price') }}</div>
         </div>
-        <div class="col-sm-10">
+        <div class="col-8 col-sm-10">
             <div class="d-flex align-items-center">
                 <!-- Discount Price -->
                 @if ($detailedProduct->is_sold == 1)
-                    <strong class="fs-20 fw-800 text-primary" style="text-decoration: line-through;">
+                    <strong class="fs-20 fw-800 text-primary" style="text-decoration: line-through; margin-left: -24px;">
                         {{ home_discounted_price($detailedProduct) }}
                     </strong>
                 @else
-                    <strong class="fs-20 fw-800 text-primary">
+                    <strong class="fs-20 fw-800 text-primary" style="margin-left: -24px">
                         {{ home_discounted_price($detailedProduct) }}
                     </strong>
                 @endif
-
+    
                 @if ($detailedProduct->is_sold == 1)
-                    <span class="fw-600 text-danger ml-3" 
-                          style="font-size: 14px; background-color: #f8d7da; padding: 5px 10px; border-radius: 5px;">
+                    <span class="fw-600 text-danger" 
+                          style="font-size: 14px; background-color: #f8d7da; padding: 5px 10px; border-radius: 5px; margin-left: -24px">
                         {{ translate('Sold') }}
                     </span>
                 @endif
-                <!-- Unit -->
-                {{-- @if ($detailedProduct->unit != null)
-                        <span class="opacity-70">/{{ $detailedProduct->getTranslation('unit') }}</span>
-                @endif TODO --}}
                 <!-- Club Point -->
                 @if (addon_is_activated('club_point') && $detailedProduct->earn_point > 0)
-                <div class="ml-2 bg-secondary-base d-flex justify-content-center align-items-center px-3 py-1"
-                    style="width: fit-content;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                        viewBox="0 0 16 16">
-                        <g id="Group_23922" data-name="Group 23922" transform="translate(-973 -633)">
-                            <circle id="Ellipse_39" data-name="Ellipse 39" cx="8"
-                                cy="8" r="8" transform="translate(973 633)"
-                                fill="#fff" />
-                            <g id="Group_23920" data-name="Group 23920"
-                                transform="translate(973 633)">
-                                <path id="Path_28698" data-name="Path 28698"
-                                    d="M10.222,4H5.778L4,6.667,8,12l4-5.333Z" transform="translate(0 0)"
-                                    fill="#f3af3d" />
-                                <path id="Path_28699" data-name="Path 28699"
-                                    d="M7.11,4h-1.333L4,6.667,8,12,5.11,6.667Z" transform="translate(0 0)"
-                                    fill="#f3af3d" opacity="0.5" />
-                                <path id="Path_28700" data-name="Path 28700"
-                                    d="M16.888,4h1.333L20,6.667,16,12l2.222-5.333Z" transform="translate(-7.993 0)"
-                                    fill="#f3af3d" />
+                    <div class="ml-2 bg-secondary-base d-flex justify-content-center align-items-center px-3 py-1"
+                        style="width: fit-content; margin-left: 5px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                            <g id="Group_23922" data-name="Group 23922" transform="translate(-973 -633)">
+                                <circle id="Ellipse_39" data-name="Ellipse 39" cx="8" cy="8" r="8" transform="translate(973 633)" fill="#fff" />
+                                <g id="Group_23920" data-name="Group 23920" transform="translate(973 633)">
+                                    <path id="Path_28698" data-name="Path 28698" d="M10.222,4H5.778L4,6.667,8,12l4-5.333Z" transform="translate(0 0)" fill="#f3af3d" />
+                                    <path id="Path_28699" data-name="Path 28699" d="M7.11,4h-1.333L4,6.667,8,12,5.11,6.667Z" transform="translate(0 0)" fill="#f3af3d" opacity="0.5" />
+                                    <path id="Path_28700" data-name="Path 28700" d="M16.888,4h1.333L20,6.667,16,12l2.222-5.333Z" transform="translate(-7.993 0)" fill="#f3af3d" />
+                                </g>
                             </g>
-                        </g>
-                    </svg>
-                    <small class="fs-13 fw-600 text-white ml-2">{{ translate('Club Point') }}:
-                        {{ $detailedProduct->earn_point }}</small>
-                </div>
+                        </svg>
+                        <small class="fs-13 fw-600 text-white ml-2">{{ translate('Club Point') }}: {{ $detailedProduct->earn_point }}</small>
+                    </div>
                 @endif
             </div>
         </div>
-    </div>
+    </div>    
     <!-- Year of make -->
     @if ($detailedProduct->registration != NULL)
         <div class="d-flex align-items-center mb-3">
@@ -194,40 +179,42 @@
     @endif
     <!-- Seller Info -->
     <div class="d-flex flex-wrap align-items-center">
-        <div class="d-flex align-items-center mr-4">
+        <div class="d-flex flex-column align-items-start mr-4">
             <!-- Shop Name -->
             @if ($detailedProduct->added_by == 'seller' && get_setting('vendor_system_activation') == 1)
-                <span class="text-secondary fs-14 fw-400 mr-4 w-80px">{{ translate('Sold by') }}</span>
-                <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}"
-                    class="text-reset hov-text-primary fs-14 fw-700">{{ $detailedProduct->user->shop->name }}</a>
+                <div>
+                    <span class="text-secondary fs-14 fw-400 mr-4 w-80px">{{ translate('Sold by') }}</span>
+                    <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}"
+                        class="text-reset hov-text-primary fs-14 fw-700">{{ $detailedProduct->user->shop->name }}</a>
+                </div>
+                <br>
+                <div>
+                    <span class="text-secondary fs-14 fw-400 mr-4 w-80px">{{ translate('Phone') }}</span>
+                    <a href="tel: {{ $detailedProduct->user->shop->phone }}"
+                        class="text-reset hov-text-primary fs-14 fw-700">{{ $detailedProduct->user->shop->phone }}</a>
+                </div>
+                <br>
             @else
                 <p class="mb-0 fs-14 fw-700">{{ translate('Inhouse product') }}</p>
             @endif
         </div>
-        <!-- Messase to seller -->
+        <!-- Message to seller -->
         @if (get_setting('conversation_system') == 1)
-            <br />
             <div class="">
-                <!-- Message to seller -->
-                @if (get_setting('conversation_system') == 1)
-                    <br />
-                    <div class="">
-                        <div class="d-flex flex-wrap align-items-center">
-                            <button class="btn btn-sm btn-call mr-3 mb-3" onclick="call_now()">
-                                <i class="fas fa-phone-alt mr-2"></i>
-                                {{ translate('Call Now') }}
-                            </button>
-                            <button class="btn btn-sm btn-whatsapp mr-3 mb-3" onclick="send_whatsapp_message()">
-                                <i class="fab fa-whatsapp mr-2"></i>
-                                {{ translate('Send Message on WhatsApp') }}
-                            </button>
-                            <button class="btn btn-sm btn-message mr-3 mb-3" onclick="show_chat_modal()">
-                                <i class="fas fa-comment-alt mr-2"></i>
-                                {{ translate('Message Seller') }}
-                            </button>
-                        </div>
-                    </div>
-                @endif
+                <div class="d-flex flex-wrap align-items-center">
+                    <button class="btn btn-sm btn-call mr-3 mb-3" onclick="call_now()">
+                        <i class="fas fa-phone-alt mr-2"></i>
+                        {{ translate('Call Now') }}
+                    </button>
+                    <button class="btn btn-sm btn-whatsapp mr-3 mb-3" onclick="send_whatsapp_message()">
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        {{ translate('Send Message on WhatsApp') }}
+                    </button>
+                    <button class="btn btn-sm btn-message mr-3 mb-3" onclick="show_chat_modal()">
+                        <i class="fas fa-comment-alt mr-2"></i>
+                        {{ translate('Message Seller') }}
+                    </button>
+                </div>
             </div>
         @endif
         <!-- Size guide -->
@@ -236,14 +223,12 @@
             $sizeChartName = ($detailedProduct->main_category && $detailedProduct->main_category->sizeChart) ? $detailedProduct->main_category->sizeChart->name : null;
         @endphp
         @if($sizeChartId != 0)
-            <div class=" ml-4">
+            <div class="ml-4">
                 <a href="javascript:void(1);" onclick='showSizeChartDetail({{ $sizeChartId }}, "{{ $sizeChartName }}")' class="animate-underline-primary">{{ translate('Show size guide') }}</a>
             </div>
         @endif
     </div>
-
     <hr>
-
     <!-- For auction product -->
     @if ($detailedProduct->auction_product)
         <div class="row no-gutters mb-3">
