@@ -94,7 +94,8 @@
                             </th>
                             <th width="30%">{{ translate('Name')}}</th>
                             {{-- <th data-breakpoints="md">{{ translate('Category')}}</th> --}}
-                            <th data-breakpoints="md">{{ translate('Current Qty')}}</th>
+                             {{-- TODO --}}
+                            {{-- <th data-breakpoints="md">{{ translate('Current Qty')}}</th> --}}
                             <th>{{ translate('Base Price')}}</th>
                             @if(get_setting('product_approve_by_admin') == 1)
                                 <th data-breakpoints="md">{{ translate('Approval')}}</th>
@@ -130,7 +131,8 @@
                                         {{ $product->main_category->getTranslation('name') }}
                                     @endif
                                 </td> --}}
-                                <td>
+                                {{-- TODO --}}
+                                {{-- <td>
                                     @php
                                         $qty = 0;
                                         foreach ($product->stocks as $key => $stock) {
@@ -138,7 +140,7 @@
                                         }
                                         echo $qty;
                                     @endphp
-                                </td>
+                                </td> --}}
                                 <td>{{ $product->unit_price }}</td>
                                 @if(get_setting('product_approve_by_admin') == 1)
                                     <td>
