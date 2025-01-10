@@ -241,13 +241,13 @@
                 </li>
 
                 {{-- Payment History --}}
-                {{-- <li class="aiz-side-nav-item">
+                <li class="aiz-side-nav-item">
                     <a href="{{ route('seller.payments.index') }}"
                         class="aiz-side-nav-link {{ areActiveRoutes(['seller.payments.index']) }}">
                         <i class="las la-history aiz-side-nav-icon"></i>
-                        <span class="aiz-side-nav-text">{{ translate('Payment History') }}</span>
+                        <span class="aiz-side-nav-text">{{ translate('Payment Information') }}</span>
                     </a>
-                </li> --}}
+                </li>
 
                 {{-- Money Withdraw --}}
                 {{-- <li class="aiz-side-nav-item">

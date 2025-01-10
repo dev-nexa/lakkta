@@ -1,4 +1,5 @@
-@extends('seller.layouts.app')
+{{-- This page was showing payment history and I will change it to payment information. --}}
+{{-- @extends('seller.layouts.app')
 
 @section('panel_content')
     <div class="card">
@@ -40,4 +41,42 @@
         @endif
     </div>
 
+@endsection --}}
+@extends('seller.layouts.app')
+
+@section('panel_content')
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0 h6">{{ translate('Payment Information') }}</h5>
+        </div>
+        <div class="card-body">
+            <h6>{{ translate('Merchant Payment Information') }}</h6>
+            <p>{{ translate('Payment Instructions') }}</p>
+            <ul>
+                <li>{{ translate('Payment via Al-Haram') }}: {{ translate('Account Number') }}: 123456789</li>
+                <li>{{ translate('Payment via Al-Qadmus') }}: {{ translate('Account Number') }}: 234567890</li>
+                <li>{{ translate('Payment via Al-Fouad') }}: {{ translate('Account Number') }}: 345678901</li>
+                <li>{{ translate('Payment via Al-Baraka Bank') }}: {{ translate('Account Number') }}: 987654321</li>
+                <li>{{ translate('Payment via Islamic Bank') }}: {{ translate('Account Number') }}: 456789012</li>
+                <li>{{ translate('Payment via Al-Sham Bank') }}: {{ translate('Account Number') }}: 567890123</li>
+            </ul>
+            <p>{{ translate('Amount') }}: 25 {{ translate('USD per month') }}</p>
+            <p>{{ translate('Please contact the support team at 0993329401 to confirm the payment process.') }}</p>
+        </div>
+        <div class="card-body">
+            <h6>{{ translate('Individual Advertiser Payment Information') }}</h6>
+            <p>{{ translate('Payment Instructions') }}</p>
+            <ul>
+                <li>{{ translate('Payment via Al-Haram') }}: {{ translate('Account Number') }}: 123456789</li>
+                <li>{{ translate('Payment via Al-Qadmus') }}: {{ translate('Account Number') }}: 234567890</li>
+                <li>{{ translate('Payment via Al-Fouad') }}: {{ translate('Account Number') }}: 345678901</li>
+                <li>{{ translate('Payment via Al-Baraka Bank') }}: {{ translate('Account Number') }}: 987654321</li>
+                <li>{{ translate('Payment via Islamic Bank') }}: {{ translate('Account Number') }}: 456789012</li>
+                <li>{{ translate('Payment via Al-Sham Bank') }}: {{ translate('Account Number') }}: 567890123</li>
+            </ul>
+            <p>{{ translate('Amount') }}: 5 {{ translate('USD per post') }}</p>
+            <p>{{ translate('Please contact the support team at 0993329401 to confirm the payment process.') }}</p>
+        </div>
+    </div>
 @endsection
+
