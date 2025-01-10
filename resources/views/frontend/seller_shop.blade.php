@@ -503,7 +503,7 @@
                                     <!-- Price range -->
                                     <div class="bg-white border mb-3">
                                         <div class="fs-16 fw-700 p-3">
-                                            {{ translate('Price range')}}
+                                            {{ translate('Price range in $')}}
                                         </div>
                                         <div class="p-3 mr-3">
                                             <div class="aiz-range-slider">

@@ -107,7 +107,7 @@
                                 <!-- Price range -->
                                 <div class="bg-white border mb-3">
                                     <div class="fs-16 fw-700 p-3">
-                                        {{ translate('Price range')}}
+                                        {{ translate('Price range in $')}}
                                     </div>
                                     <div class="p-3 mr-3">
                                         @php
@@ -120,7 +120,7 @@
                                                 data-range-value-max="@if($product_count < 1) 0 @else {{ get_product_max_unit_price() }} @endif"
                                             ></div>
 
-                                            <div class="row mt-2">
+                                            <div class="row mt-2" dir="ltr">
                                                 <div class="col-6">
                                                     <span class="range-slider-value value-low fs-14 fw-600 opacity-70"
                                                         @if (isset($min_price))
