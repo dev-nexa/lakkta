@@ -58,9 +58,9 @@
                     $delivery_viewed = get_count_by_delivery_viewed();
                     $payment_status_viewed = get_count_by_payment_status_viewed();
                 @endphp
-
+                {{-- TODO --}}
                 <!-- Purchase History -->
-                <li class="aiz-side-nav-item">
+                {{-- <li class="aiz-side-nav-item">
                     <a href="{{ route('purchase_history.index') }}"
                         class="aiz-side-nav-link {{ areActiveRoutes(['purchase_history.index', 'purchase_history.details']) }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
@@ -80,7 +80,7 @@
                             <span class="badge badge-inline badge-success">{{ translate('New') }}</span>
                         @endif
                     </a>
-                </li>
+                </li> --}}
 
                 <!-- Downloads -->
                 <li class="aiz-side-nav-item">

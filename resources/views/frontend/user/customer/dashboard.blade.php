@@ -44,6 +44,7 @@
             <div class="h-100">
                 <div class="row h-100 @if(get_setting('wallet_system') != 1 && addon_is_activated('club_point')) row-cols-md-2 @endif row-cols-1">
                     <!-- Expenditure summary -->
+                    {{-- TODO
                     <div class="col">
                         <div class="p-4 bg-primary @if(!addon_is_activated('club_point')) h-100 @endif" style="margin-bottom: 2rem;">
                             <div class="d-flex align-items-center pb-4 ">
@@ -65,7 +66,7 @@
                                 <i class="las la-angle-right fs-14"></i>
                             </a>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Club Point summary -->
                     @if (addon_is_activated('club_point'))
@@ -105,8 +106,9 @@
         <div class="col-xl-4 col-md-6 mb-4">
             <div class="px-4 bg-white border h-100">
                 <!-- Cart summary -->
+                {{-- TODO --}}
                 <div class="d-flex align-items-center py-4 border-bottom">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+                    {{-- <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
                         <g id="Group_25000" data-name="Group 25000" transform="translate(-1367 -427)">
                         <path id="Path_32314" data-name="Path 32314" d="M24,0A24,24,0,1,1,0,24,24,24,0,0,1,24,0Z" transform="translate(1367 427)" fill="#d43533"/>
                         <g id="Group_24770" data-name="Group 24770" transform="translate(1382.999 443)">
@@ -117,14 +119,15 @@
                             </g>
                         </g>
                         </g>
-                    </svg>
-                    <div class="ml-3 d-flex flex-column justify-content-between">
+                    </svg> --}}
+                    {{-- <div class="ml-3 d-flex flex-column justify-content-between">
                         @php
                             $cart = get_user_cart();
                         @endphp
-                        <span class="fs-20 fw-700 mb-1">{{ count($cart) > 0 ? sprintf("%02d", count($cart)) : 0 }}</span>
-                        <span class="fs-14 fw-400 text-secondary">{{ translate('Products in Cart') }}</span>
-                    </div>
+                        <span class="fs-20 fw-700 mb-1">{{ count($cart) > 0 ? sprintf("%02d", count($cart)) : 0 }}</span> --}}
+                        
+                        {{-- <span class="fs-14 fw-400 text-secondary">{{ translate('Products in Cart') }}</span>
+                    </div> --}} 
                 </div>
 
                 <!-- Wishlist summary -->
@@ -147,7 +150,7 @@
                 </div>
 
                 <!-- Order summary -->
-                <div class="d-flex align-items-center py-4">
+                {{-- <div class="d-flex align-items-center py-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
                         <g id="Group_25000" data-name="Group 25000" transform="translate(-1367 -576)">
                         <path id="Path_32315" data-name="Path 32315" d="M24,0A24,24,0,1,1,0,24,24,24,0,0,1,24,0Z" transform="translate(1367 576)" fill="#85b567"/>
@@ -161,7 +164,7 @@
                         <span class="fs-20 fw-700 mb-1">{{ $total > 0 ? sprintf("%02d", $total) : 0 }}</span>
                         <span class="fs-14 fw-400 text-secondary">{{ translate('Total Products Ordered') }}</span>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
         </div>
