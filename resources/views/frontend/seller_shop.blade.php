@@ -110,6 +110,7 @@
                                 </div>
                                 <!-- Address -->
                                 <div class="location fs-12 opacity-70 text-dark mt-1">{{ $shop->address }}</div>
+                                <div class="location fs-12 opacity-70 text-dark mt-1">{{ $shop->phone }}</div>
                             </div>
                         </div>
                     </div>
@@ -121,6 +122,7 @@
                                     <div class="fs-10 fw-400 text-secondary">{{ translate('Member Since') }}</div>
                                     <div class="mt-1 fs-16 fw-700 text-secondary">{{ date('d M Y',strtotime($shop->created_at)) }}</div>
                                 </div>
+                                
                                 <!-- Social Links -->
                                 @if ($shop->facebook || $shop->instagram || $shop->google || $shop->twitter || $shop->youtube)
                                     <div class="pl-md-3 pr-lg-3 mt-2 mt-md-0 border-lg-right">
@@ -169,6 +171,34 @@
                                         </ul>
                                     </div>
                                 @endif
+                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                                <div class="pl-md-3 pr-lg-3 mt-2 mt-md-0 border-lg-right">
+                                    <span class="fs-10 fw-400 text-secondary">{{ translate('Contact') }} / {{ $shop->phone }}</span><br>
+                                    <ul class="social-md colored-light list-inline mb-0 mt-1">
+                                        <li class="list-inline-item mr-2">
+                                            <button class="btn btn-success" style="border-radius: 50%; padding: 1px; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center;" onclick="send_whatsapp_message()">
+                                                <i class="fa fa-whatsapp"></i>
+                                            </button>
+                                        </li>
+                                        <li class="list-inline-item mr-2">
+                                            <button class="btn btn-primary mr-2" style="border-radius: 50%; padding: 1px; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center;" onclick="call_now()">
+                                                <i class="fa fa-phone"></i>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <script>
+                                    function call_now() {
+                                        var phoneNumber = "{{ $shop->phone }}";
+                                        window.location.href = "tel:" + phoneNumber;
+                                    }
+                                    function send_whatsapp_message() {
+                                        var whatsappNumber = "{{ $shop->phone }}";
+                                        var message = "مرحباً، أنا مهتم بمتجر {{ $shop->name }} وأرغب بالتواصل. شكراً!";
+                                        var url = "https://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + encodeURIComponent(message);
+                                        window.open(url, "_blank");
+                                    }
+                                </script>
                             </div>
                             <!-- follow -->
                             <div class="d-flex justify-content-md-end pl-lg-3 pt-3 pt-lg-0">
@@ -195,6 +225,19 @@
             </div>
         </div>
     </section>
+    <script>
+        function call_now() {
+            var phoneNumber = "{{ $shop->phone }}";
+            window.location.href = "tel:" + phoneNumber;
+        }
+    
+        function send_whatsapp_message() {
+            var whatsappNumber = "{{ $shop->phone }}";
+            var message = "مرحباً، أنا مهتم بمتجر {{ $shop->name }} وأرغب بالتواصل. شكراً!";
+            var url = "https://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + encodeURIComponent(message);
+            window.open(url, "_blank");
+        }
+    </script>
 
     @if (!isset($type))
 
