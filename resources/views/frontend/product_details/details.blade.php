@@ -112,10 +112,9 @@
                         {{ home_discounted_price($detailedProduct) }}
                     </strong>
                 @endif
-    
+                &nbsp;&nbsp;
                 @if ($detailedProduct->is_sold == 1)
-                    <span class="fw-600 text-danger" 
-                          style="font-size: 14px; background-color: #f8d7da; padding: 5px 10px; border-radius: 5px; margin-left: -24px">
+                    <span class="fw-600 text-danger" style="font-size: 14px; background-color: #f8d7da; padding: 5px 10px; border-radius: 5px;">
                         {{ translate('Sold') }}
                     </span>
                 @endif
