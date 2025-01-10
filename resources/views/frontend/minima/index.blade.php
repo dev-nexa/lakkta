@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 @extends('frontend.layouts.app')
 
 @section('content')
@@ -458,7 +459,55 @@
 <div id="section_featured" class="">
 
 </div>
-
+<!-- Buttons malik -->
+<!-- Buttons Malik -->
+<div class="button-container_1">
+    <a href="https://lakkta.com/search?sort_by=newest" class="btn_1 btn-primary_1">
+        <i class="fas fa-car"></i> &nbsp; <span>{{ translate('All Cars') }}</span>
+    </a>
+    <a href="https://lakkta.com/brands" class="btn_1 btn-primary_1">
+        <i class="fas fa-tags"></i> &nbsp; <span>{{ translate('All Brands ') }}</span>
+    </a>
+</div>
+<style>
+    .button-container_1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f8f9fa;
+    }
+    .btn_1 {
+        display: inline-flex;
+        align-items: center;
+        padding: 15px 30px;
+        margin: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .btn_1 i {
+        margin-right: 15px; /* Space between icon and label */
+    }
+    .btn-primary_1 {
+        background-color: #007665;
+    }
+    .btn-primary_1:hover {
+        background-color: #F39200;
+    }
+    @media (max-width: 768px) {
+        .btn_1 {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+    }
+</style>
 <!-- Banner Section 2 -->
 @php $homeBanner2Images = get_setting('home_banner2_images', null, $lang); @endphp
 @if ($homeBanner2Images != null)
