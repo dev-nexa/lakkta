@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 @extends('frontend.layouts.app')
 
 @section('content')
@@ -459,59 +458,7 @@
 <div id="section_featured" class="">
 
 </div>
-<!-- Buttons Malik -->
-<div class="button-container_2">
-    <a href="https://lakkta.com/search?sort_by=newest" class="btn_2 btn-primary_2">
-         <span>{{ translate('All Cars') }}</span>&nbsp;<i class="fas fa-car"></i>
-    </a>
-    <a href="https://lakkta.com/brands" class="btn_2 btn-primary_2">
-         <span>{{ translate('All Brands') }}</span>&nbsp;<i class="fas fa-tags"></i>
-    </a>
-</div>
-<style>
-    .button-container_2 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: auto; /* Set height to auto to match the buttons' height */
-        background-color: #f8f9fa;
-    }
-    .btn_2 {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center; /* Center content horizontally */
-        padding: 15px 30px;
-        margin-left: 15px; /* Add space between buttons */
-        margin-right: 15px; /* Add space between buttons */
-        margin-top: 0;
-        margin-bottom: 0;
-        font-size: 16px;
-        font-weight: bold;
-        text-transform: uppercase;
-        text-align: center;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    .btn_2 span {
-        margin-left: 10px; /* Add space between text and icon */
-    }
-    .btn-primary_2 {
-        background-color: #007665;
-    }
-    .btn-primary_2:hover {
-        background-color: #F39200;
-        color: #fff; /* Keep text color white on hover */
-    }
-    @media (max-width: 768px) {
-        .btn_2 {
-            padding: 10px 20px;
-            font-size: 14px;
-        }
-    }
-</style>
+
 <!-- Banner Section 2 -->
 @php $homeBanner2Images = get_setting('home_banner2_images', null, $lang); @endphp
 @if ($homeBanner2Images != null)
