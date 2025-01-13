@@ -150,7 +150,6 @@
                                 </div>
                             @endif
                         </div>
-                        
                     </div>
                     
                     <div class="card">
@@ -215,9 +214,6 @@
                         </div>
                     </div>
                     
-                    
-                    
-                    
                     <div class="card">
                         <div class="card-header">
                             <h5 class="mb-0 h6">
@@ -280,7 +276,7 @@
                                 </label>
                                 <div class="col-md-8">
                                     <select class="form-control aiz-selectpicker" data-live-search="true" name="colors[]"
-                                        data-selected-text-format="count" id="colors" multiple disabled>
+                                        data-selected-text-format="count" id="colors" multiple >
                                         @foreach (\App\Models\Color::orderBy('name', 'asc')->get() as $key => $color)
                                             <option value="{{ $color->code }}"
                                                 data-content="<span><span class='size-15px d-inline-block mr-2 rounded border' style='background:{{ $color->code }}'></span><span>{{ $color->name }}</span></span>">
@@ -288,9 +284,9 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-1" style="display:none;">
                                     <label class="aiz-switch aiz-switch-success mb-0">
-                                        <input value="1" type="checkbox" name="colors_active">
+                                        <input value="1" type="checkbox" name="colors_active" checked>
                                         <span></span>
                                     </label>
                                 </div>
@@ -1110,24 +1106,23 @@ $(document).ready(function () {
             },
             success: function(data) {
                 var obj = JSON.parse(data);
-                $('#customer_choice_options').append('\
-                    <div class="form-group row">\
-                        <div class="col-md-3">\
-                            <input type="hidden" name="choice_no[]" value="' + i + '">\
-                            <input type="text" class="form-control" name="choice[]" value="' + name +
-                    '" placeholder="{{ translate('Choice Title') }}" readonly>\
-                        </div>\
-                        <div class="col-md-8">\
-                            <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_' + i + '[]" multiple>\
-                                ' + obj + '\
-                            </select>\
-                        </div>\
-                    </div>');
+                $('#customer_choice_options').append(`
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <input type="hidden" name="choice_no[]" value="${i}">
+                            <input type="text" class="form-control" name="choice[]" value="${name}" placeholder="{{ translate('Choice Title') }}" readonly>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_${i}[]" multiple required>
+                                ${obj}
+                            </select>
+                            <span class="text-danger d-none" id="error_choice_${i}">{{ translate('Please select at least one value.') }}</span>
+                        </div>
+                    </div>
+                `);
                 AIZ.plugins.bootstrapSelect('refresh');
             }
         });
-
-
     }
 
     $('input[name="colors_active"]').on('change', function() {

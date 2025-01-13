@@ -104,17 +104,19 @@ class ProductService
             $item = array();
             foreach ($collection['choice_no'] as $key => $no) {
                 $str = 'choice_options_' . $no;
-                $item['attribute_id'] = $no;
-                $attribute_data = array();
-                // foreach (json_decode($request[$str][0]) as $key => $eachValue) {
-                foreach ($collection[$str] as $key => $eachValue) {
-                    // array_push($data, $eachValue->value);
-                    array_push($attribute_data, $eachValue);
-                }
-                unset($collection[$str]);
+                if (isset($collection[$str]) && is_array($collection[$str]) && !empty($collection[$str])) {
+                    $item['attribute_id'] = $no;
+                    $attribute_data = array();
+                    // foreach (json_decode($request[$str][0]) as $key => $eachValue) {
+                    foreach ($collection[$str] as $key => $eachValue) {
+                        // array_push($data, $eachValue->value);
+                        array_push($attribute_data, $eachValue);
+                    }
+                    unset($collection[$str]);
 
-                $item['values'] = $attribute_data;
-                array_push($choice_options, $item);
+                    $item['values'] = $attribute_data;
+                    array_push($choice_options, $item);
+                }
             }
         }
 
