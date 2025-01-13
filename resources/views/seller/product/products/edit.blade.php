@@ -295,10 +295,9 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-lg-1">
+                        <div class="col-md-1" style="display:none;">
                             <label class="aiz-switch aiz-switch-success mb-0">
-                                <input value="1" type="checkbox" name="colors_active"
-                                    <?php if(count(json_decode($product->colors)) > 0) echo "checked";?>>
+                                <input value="1" type="checkbox" name="colors_active" checked>
                                 <span></span>
                             </label>
                         </div>

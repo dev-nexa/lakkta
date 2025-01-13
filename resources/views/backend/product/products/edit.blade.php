@@ -123,33 +123,91 @@
                                                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="{{translate('Product Name')}}" value="{{ $product->getTranslation('name', $lang) }}">
                                             </div>
                                         </div>
-                                        <!-- Brand -->
-                                        <div class="form-group row" id="brand">
-                                            <label class="col-xxl-3 col-from-label fs-13">{{translate('Brand')}}</label>
-                                            <div class="col-xxl-9">
-                                                <select class="form-control aiz-selectpicker" name="brand_id" id="brand_id" data-live-search="true">
-                                                    <option value="">{{ translate('Select Brand') }}</option>
-                                                    @foreach (\App\Models\Brand::all() as $brand)
-                                                    <option value="{{ $brand->id }}" @if($product->brand_id == $brand->id) selected @endif>{{ $brand->getTranslation('name') }}</option>
+                                        <!-- Category -->
+                                        <div class="form-group row">
+                                            <label class="col-xxl-3 col-from-label fs-13">
+                                                {{ translate('Category') }}
+                                            </label>
+                                            <div class="col-md-8">
+                                                <select class="form-control aiz-selectpicker" name="category_id" id="category_id" data-live-search="true" required>
+                                                    <option value="">{{ translate('Select Category') }}</option>
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}" class="category-option" data-parent-id="{{ $category->parent_id }}">
+                                                            {{ $category->getTranslation('name') }}
+                                                        </option>
+
+                                                        @foreach ($category->childrenCategories as $childCategory)
+                                                            <option value="{{ $childCategory->id }}" class="subcategory-option" data-parent-id="{{ $category->id }}">
+                                                                &nbsp;&nbsp;&nbsp;-- {{ $childCategory->getTranslation('name') }}
+                                                            </option>
+                                                        @endforeach
                                                     @endforeach
                                                 </select>
-                                                <small class="text-muted">{{translate("You can choose a brand if you'd like to display your product by brand.")}}</small>
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Brand -->
+                                        <div class="form-group row" id="brand">
+                                            <label class="col-xxl-3 col-from-label fs-13">
+                                                {{ translate('Brand') }}
+                                            </label>
+                                            <div class="col-md-8">
+                                                <select class="form-control aiz-selectpicker" name="brand_id" id="brand-select" data-live-search="true">
+                                                    <option value="">{{ translate('Select Brand') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Model -->
+                                        <div class="form-group row" id="model">
+                                            <label class="col-xxl-3 col-from-label fs-13">
+                                                {{ translate('Model') }}
+                                            </label>
+                                            <div class="col-md-8">
+                                                <select class="form-control aiz-selectpicker" name="model_id" id="model-select" data-live-search="true">
+                                                    <option value="">{{ translate('Select Model') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    
+                                        <input type="hidden" name="category_id" id="category_id_hidden">
+                                        <input type="hidden" name="category_ids[]" id="category_ids_hidden">
+
+                                        <div id="car-fields" style="display: none;">
+                                            <div class="form-group row">
+                                                <label class="col-xxl-3 col-from-label fs-13">
+                                                    {{ translate('Year of manufacture') }} <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input type="number" lang="en" min="1900" step="1"
+                                                           placeholder="{{ translate('Year of manufacture') }}" name="manufacture" class="form-control" id="manufacture">
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="form-group row">
+                                                <label class="col-xxl-3 col-from-label fs-13">
+                                                    {{ translate('Registration year') }} <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input type="number" lang="en" min="1900" step="1"
+                                                           placeholder="{{ translate('Registration year') }}" name="registration" class="form-control" id="registration">
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- Unit -->
-                                        <div class="form-group row">
+                                        {{-- <div class="form-group row">
                                             <label class="col-xxl-3 col-from-label fs-13">{{translate('Unit')}} <span class="text-danger">*</span></label>
                                             <div class="col-xxl-9">
                                                 <input type="text" class="form-control @error('unit') is-invalid @enderror" name="unit" placeholder="{{ translate('Unit (e.g. KG, Pc etc)') }}" value="{{$product->getTranslation('unit', $lang)}}">
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <!-- Weight -->
-                                        <div class="form-group row">
+                                        {{-- <div class="form-group row">
                                             <label class="col-xxl-3 col-from-label fs-13">{{translate('Weight')}} <small>({{ translate('In Kg') }})</small></label>
                                             <div class="col-xxl-9">
                                                 <input type="number" class="form-control" name="weight" value="{{ $product->weight }}" step="0.01" placeholder="0.00">
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <!-- Quantity -->
                                         <div class="form-group row">
                                             <label class="col-xxl-3 col-from-label fs-13">{{translate('Minimum Purchase Qty')}} <span class="text-danger">*</span></label>
@@ -159,13 +217,13 @@
                                             </div>
                                         </div>
                                         <!-- Tags -->
-                                        <div class="form-group row">
+                                        {{-- <div class="form-group row">
                                             <label class="col-xxl-3 col-from-label fs-13">{{translate('Tags')}}</label>
                                             <div class="col-xxl-9">
                                                 <input type="text" class="form-control aiz-tag-input" name="tags[]" id="tags" value="{{ $product->tags }}" placeholder="{{ translate('Type to add a tag') }}" data-role="tagsinput">
                                                 <small class="text-muted">{{translate('This is used for search. Input those words by which cutomer can find this product.')}}</small>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         @if (addon_is_activated('pos_system'))
                                         <!-- Barcode -->
@@ -179,7 +237,7 @@
                                     </div>
 
                                     <!-- Product Category -->
-                                    <div class="col-xxl-5 col-xl-6">
+                                    {{-- <div class="col-xxl-5 col-xl-6">
                                         <div class="card @if($errors->has('category_ids') || $errors->has('category_id')) border border-danger @endif">
                                             <div class="card-header">
                                                 <h5 class="mb-0 h6">{{ translate('Product Category') }}</h5>
@@ -207,7 +265,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <!-- Description -->
@@ -475,9 +533,9 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-1" style="display:none;">
                                         <label class="aiz-switch aiz-switch-success mb-0">
-                                            <input value="1" type="checkbox" name="colors_active" <?php if (count(json_decode($product->colors)) > 0) echo "checked"; ?> >
+                                            <input value="1" type="checkbox" name="colors_active" checked>
                                             <span></span>
                                         </label>
                                     </div>
@@ -568,11 +626,14 @@
 
                                 <div id="show-hide-div">
                                     <!-- Quantity -->
-                                    <div class="form-group row" id="quantity">
+                                    {{-- <div class="form-group row" id="quantity">
                                         <label class="col-md-3 col-from-label">{{translate('Quantity')}} <span class="text-danger">*</span></label>
                                         <div class="col-md-6">
                                             <input type="number" lang="en" value="{{ optional($product->stocks->first())->qty }}" step="1" placeholder="{{translate('Quantity')}}" name="current_stock" class="form-control">
                                         </div>
+                                    </div> --}}
+                                    <div id="show-hide-div" style="display: none;">
+                                        <input type="hidden" name="current_stock" value="1">
                                     </div>
                                     <!-- SKU -->
                                     <div class="form-group row">
@@ -1002,14 +1063,153 @@
 @section('script')
 <!-- Treeview js -->
 <script src="{{ static_asset('assets/js/hummingbird-treeview.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#category_id').on('change', function () {
+            const categoryId = $(this).val(); 
 
+                if (categoryId) {
+                    $('#category_id_hidden').val(categoryId);
+
+                    $('#category_ids_hidden').val(categoryId);
+                } else {
+                    $('#category_id_hidden').val('');
+                    $('#category_ids_hidden').val('');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+        const oldCategoryId = "{{ $product->category_id ?? '' }}";
+        const oldBrandId = "{{ $product->brand_id ?? '' }}";
+        const oldModelId = "{{ $product->model_id ?? '' }}";
+
+        function fetchBrands(categoryId, selectedBrandId = null) {
+            if (categoryId) {
+                $.ajax({
+                    url: '{{ route('get-brands-by-category') }}',
+                    method: 'GET',
+                    data: { category_id: categoryId },
+                    success: function (data) {
+                        const brandSelect = $('#brand-select');
+                        brandSelect.empty().append('<option value="">{{ translate("Select Brand") }}</option>');
+
+                        if (data.length > 0) {
+                            data.forEach(function (brand) {
+                                const selected = (selectedBrandId == brand.id) ? 'selected' : '';
+                                brandSelect.append(`<option value="${brand.id}" ${selected}>${brand.name}</option>`);
+                            });
+                        } else {
+                            $('#brand-select').empty().append('<option value="">{{ translate('No Brands Available') }}</option>');
+                            $('#brand-select').selectpicker('refresh');
+                            $('#model-select').empty().append('<option value="">{{ translate('No Models Available') }}</option>');
+                            $('#model-select').selectpicker('refresh');
+                        }
+
+                        brandSelect.selectpicker('refresh');
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            } else {
+                $('#brand-select').empty().append('<option value="">{{ translate('Select Brand') }}</option>');
+                $('#brand-select').selectpicker('refresh');
+            }
+        }
+
+        // جلب النماذج بناءً على العلامة التجارية
+        function fetchModels(brandId, selectedModelId = null) {
+            if (brandId) {
+                $.ajax({
+                    url: '{{ route('get-models-by-brand') }}',
+                    method: 'GET',
+                    data: { brand_id: brandId },
+                    success: function (data) {
+                        const modelSelect = $('#model-select');
+                        modelSelect.empty().append('<option value="">{{ translate("Select Model") }}</option>');
+
+                        if (data.length > 0) {
+                            data.forEach(function (model) {
+                                const selected = (selectedModelId == model.id) ? 'selected' : '';
+                                modelSelect.append(`<option value="${model.id}" ${selected}>${model.name}</option>`);
+                            });
+                        } else {
+                            $('#model-select').empty().append('<option value="">{{ translate('No Models Available') }}</option>');
+                            $('#model-select').selectpicker('refresh');
+                        }
+
+                        modelSelect.selectpicker('refresh');
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            }
+        }
+
+        // عند تغيير الفئة
+        $('#category_id').on('change', function () {
+            const categoryId = $(this).val();
+            fetchBrands(categoryId); // جلب العلامات التجارية
+            $('#model-select').empty().append('<option value="">{{ translate("Select Model") }}</option>').selectpicker('refresh'); // إعادة تعيين النماذج
+        });
+
+        // عند تغيير العلامة التجارية
+        $('#brand-select').on('change', function () {
+            const brandId = $(this).val();
+            fetchModels(brandId); // جلب النماذج
+        });
+
+        // تعيين القيم المحفوظة عند تحميل الصفحة
+        if (oldCategoryId) {
+            $('#category_id').val(oldCategoryId).trigger('change');
+            setTimeout(() => {
+                if (oldBrandId) {
+                    fetchBrands(oldCategoryId, oldBrandId);
+                    setTimeout(() => {
+                        if (oldModelId) {
+                            fetchModels(oldBrandId, oldModelId);
+                        }
+                    }, 500); // مهلة قصيرة لضمان تحميل العلامات التجارية أولاً
+                }
+            }, 500); // مهلة قصيرة لضمان تحميل الفئة أولاً
+        }
+    });
+
+    $(document).ready(function () {
+        $('#category_id').on('change', function () {
+            const selectedCategoryId = $(this).val();
+
+            if (selectedCategoryId) {
+                $.ajax({
+                    url: '{{ route('check-car-category') }}',
+                    method: 'GET',
+                    data: { category_id: selectedCategoryId },
+                    success: function (response) {
+                        if (response.isCarCategory) {
+                            $('#car-fields').slideDown();
+                        } else {
+                            $('#car-fields').slideUp();
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            } else {
+                $('#car-fields').slideUp();
+            }
+        });
+    });
+</script>
 <script type="text/javascript">
     $(document).ready(function (){
         show_hide_shipping_div();
 
         $("#treeview").hummingbird();
         var main_id = '{{ $product->category_id != null ? $product->category_id : 0 }}';
-        var selected_ids = '{{ implode(",",$old_categories) }}';
+        
         if (selected_ids != '') {
             const myArray = selected_ids.split(",");
             for (let i = 0; i < myArray.length; i++) {
