@@ -102,7 +102,7 @@
                     </div>
                 
                     <!-- Model -->
-                    <div class="form-group row" id="model">
+                    {{-- <div class="form-group row" id="model">
                         <label class="col-md-3 col-from-label">
                             <i class="fas fa-car-alt mr-2"></i> <!-- أيقونة النموذج -->
                             {{ translate('Model') }}
@@ -112,7 +112,7 @@
                                 <option value="">{{ translate('Select Model') }}</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                 
                     <input type="hidden" name="category_id" id="category_id_hidden">
                     <input type="hidden" name="category_ids[]" id="category_ids_hidden">
