@@ -87,6 +87,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'prevent-ba
         Route::get('/categories/destroy/{id}', 'destroy')->name('categories.destroy');
         Route::post('/categories/featured', 'updateFeatured')->name('categories.featured');
         Route::post('/categories/categoriesByType', 'categoriesByType')->name('categories.categories-by-type');
+        Route::get('/check-car-category', [App\Http\Controllers\CategoryController::class, 'checkCarCategory'])->name('check-car-category');
+
 
         // category-wise discount set
         Route::get('/categories-wise-product-discount', 'categoriesWiseProductDiscount')->name('categories_wise_product_discount');
