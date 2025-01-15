@@ -12,21 +12,12 @@
         <!-- Image -->
         {{-- TODO MALIK --}}
         <a href="{{ $product_url }}" class="d-block h-100">
-            <img class="lazyload mx-auto img-fit has-transition product-image"
+            <img class="lazyload mx-auto img-fit has-transition"
                  src="{{ get_image($product->thumbnail) }}"
                  alt="{{ $product->getTranslation('name') }}"
+                 style="width: 100%; height: 200px; object-fit: cover; aspect-ratio: 1 / 1;"
                  onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
-        </a>        
-
-        <style>
-            .product-image {
-                width: 100%;
-                height: 250px;
-                object-fit: cover;
-                display: block;
-            }
-        </style>
-
+        </a>
         <!-- Discount percentage tag -->
         @if (discount_in_percentage($product) > 0)
             <span class="absolute-top-left bg-primary ml-1 mt-1 fs-11 fw-700 text-white w-35px text-center"
