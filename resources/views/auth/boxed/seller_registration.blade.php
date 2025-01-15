@@ -141,6 +141,27 @@
                                             @endif
                                         </div>
 
+                                        <!-- Shop City -->
+                                        <div id="shop-city-group" class="form-group">
+                                            <label for="shop_city" class="fs-12 fw-700 text-soft-dark">{{ translate('Shop City') }}</label>
+                                            <select 
+                                                class="form-control select2 rounded-0{{ $errors->has('shop_city') ? ' is-invalid' : '' }}" 
+                                                name="shop_city" 
+                                                id="shop_city">
+                                                <option value="">{{ translate('Select City') }}</option>
+                                                @foreach ($city as $city)
+                                                    <option value="{{ $city->id }}" {{ old('shop_city') == $city->name ? 'selected' : '' }}>
+                                                        {{ translate($city->name) }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @if ($errors->has('shop_city'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('shop_city') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+
                                         <!-- Address -->
                                         <div class="form-group">
                                             <label for="address" class="fs-12 fw-700 text-soft-dark">{{ translate('Address') }}</label>

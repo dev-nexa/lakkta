@@ -23,4 +23,10 @@ class Shop extends Model
   public function followers(){
     return $this->hasMany(FollowSeller::class);
   }
+  public function city()
+  {
+    return $this->belongsTo(City::class, 'shop_city');
+  }
+
+
 }

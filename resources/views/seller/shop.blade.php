@@ -50,6 +50,26 @@
                     </div>
                 </div>
                 <div class="row">
+                    <label class="col-md-2 col-form-label">
+                        {{ translate('Shop City') }} <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-md-10">
+                        <select id="shop_city" class="form-control select2" name="shop_city" required>
+                            @if ($shop->city)
+                                <option value="{{ $shop->shop_city }}" selected>
+                                    {{ $cities->firstWhere('id', $shop->shop_city)->name ?? '' }}
+                                </option>
+                            @endif
+                            @foreach ($cities as $city)
+                                <option value="{{ $city->id }}">
+                                    {{ $city->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
                     <label class="col-md-2 col-form-label">{{ translate('Shop Address') }} <span class="text-danger text-danger">*</span></label>
                     <div class="col-md-10">
                         <input type="text" class="form-control mb-3" placeholder="{{ translate('Address')}}" name="address" value="{{ $shop->address }}" required>

@@ -672,6 +672,13 @@
                                         </a>
                                     </li>
                                 @endcan
+                                @can('view_all_seller')
+                                    <li class="aiz-side-nav-item">
+                                        <a href="{{ route('seller.city') }}" class="aiz-side-nav-link">
+                                            <span class="aiz-side-nav-text">{{ translate('Seller City') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
                                 @can('view_all_seller_rating_and_followers')
                                     <li class="aiz-side-nav-item">
                                         <a href="{{ route('sellers.rating_followers') }}" class="aiz-side-nav-link">

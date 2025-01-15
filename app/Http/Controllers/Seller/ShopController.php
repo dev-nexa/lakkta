@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Models\BusinessSetting;
+use App\Models\SellerCity;
 use Illuminate\Http\Request;
 use App\Models\Shop;
 use App\Models\User;
@@ -15,7 +16,8 @@ class ShopController extends Controller
     public function index()
     {
         $shop = Auth::user()->shop;
-        return view('seller.shop', compact('shop'));
+        $cities = SellerCity::all();
+        return view('seller.shop', compact('shop', 'cities'));
     }
 
     public function update(Request $request)
@@ -28,6 +30,7 @@ class ShopController extends Controller
             }
 
             $shop->name             = $request->name;
+            $shop->shop_city             = $request->shop_city;
             $shop->address          = $request->address;
             $shop->phone            = $request->phone;
             $shop->slug             = preg_replace('/\s+/', '-', $request->name) . '-' . $shop->id;

@@ -6,6 +6,7 @@ use App\Http\Requests\SellerRegistrationRequest;
 use App\Models\Shop;
 use App\Models\User;
 use App\Models\BusinessSetting;
+use App\Models\SellerCity;
 use Auth;
 use Hash;
 use App\Utility\EmailUtility;
@@ -27,7 +28,8 @@ class ShopController extends Controller
     public function index()
     {
         $shop = Auth::user()->shop;
-        return view('seller.shop', compact('shop'));
+        $cities = SellerCity::all(); 
+        return view('seller.shop', compact('shop', 'cities'));
     }
 
     /**
@@ -47,7 +49,8 @@ class ShopController extends Controller
                 return back();
             }
         } else {
-            return view('auth.'.get_setting('authentication_layout_select').'.seller_registration');
+            $city = SellerCity::all();
+            return view('auth.'.get_setting('authentication_layout_select').'.seller_registration',compact('city'));
         }
     }
 
@@ -70,6 +73,7 @@ class ShopController extends Controller
             $shop->user_id = $user->id;
             $shop->name = $request->shop_name;
             $shop->phone = $request->phone;
+            $shop->shop_city = $request->shop_city;
             $shop->shop_type = $request->seller_type;
             $shop->address = $request->address;
             $shop->slug = preg_replace('/\s+/', '-', str_replace("/", " ", $request->shop_name));

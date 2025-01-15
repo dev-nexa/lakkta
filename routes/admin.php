@@ -46,6 +46,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\Seller\SellerCityController;
 use App\Http\Controllers\SellerWithdrawRequestController;
 use App\Http\Controllers\SizeChartController;
 use App\Http\Controllers\StaffController;
@@ -79,6 +80,15 @@ Route::controller(UpdateController::class)->group(function () {
 
 Route::get('/admin', [AdminController::class, 'admin_dashboard'])->name('admin.dashboard')->middleware(['auth', 'admin', 'prevent-back-history']);
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'prevent-back-history']], function () {
+
+    // Seller City
+    Route::controller(SellerCityController::class)->group(function () {
+        Route::get('/sellers/city', 'index')->name('seller.city');
+        Route::post('/sellers/city/store', 'store')->name('seller.city.store');
+        Route::get('/sellers/city/edit/{id}', 'edit')->name('seller.city.edit');
+        Route::PATCH('/sellers/city/update/{id}', 'update')->name('seller.city.update');
+        Route::get('/sellers/city/destroy/{id}', 'destroy')->name('seller.city.destroy');
+    });
 
     // category
     Route::resource('categories', CategoryController::class);
