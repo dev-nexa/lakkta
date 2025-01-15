@@ -94,18 +94,19 @@
             <a href="{{ $product_url }}" class="d-block text-reset hov-text-primary"
                 title="{{ $product->getTranslation('name') }}">{{ $product->getTranslation('name') }}</a>
         </h3>
-        @if ($product->is_sold == 1)
-            <div class="text-center mt-2">
-                <span class="fw-600 text-danger" style="font-size: 14px; background-color: #f8d7da; padding: 5px 10px; border-radius: 5px;">
+        
+        <div class="text-center mt-2 d-flex justify-content-center align-items-center gap-2">
+            <small class="text-muted" style="font-size: 12px; display: inline-flex; align-items: center;">
+                <i class="las la-eye"></i> &nbsp; {{ $product->view_count }} {{ translate('views') }}
+            </small>
+            @if ($product->is_sold == 1)
+                &nbsp;|&nbsp;
+                <span class="fw-600 text-danger" style="font-size: 11px;">
                     {{ translate('Sold') }}
                 </span>
-            </div>
-        @endif
-        <div class="text-center mt-2">
-            <small class="text-muted" style="font-size: 12px;">
-                <i class="las la-eye"></i> {{ $product->view_count }} {{ translate('views') }}
-            </small>
+            @endif
         </div>
+        
         <div class="fs-14 d-flex justify-content-center mt-3">
             @if ($product->auction_product == 0)
                 <!-- Previous price -->
