@@ -1114,7 +1114,7 @@ $(document).ready(function () {
                         </div>
                         <div class="col-md-8">
                             <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_${i}[]" multiple required>
-                                ${obj}->getTranslation('name')
+                                {{${obj}->getTranslation('name')}}
                             </select>
                             <span class="text-danger d-none" id="error_choice_${i}">{{ translate('Please select at least one value.') }}</span>
                         </div>
