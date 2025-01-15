@@ -82,12 +82,12 @@ class CategoryController extends Controller
 
     private function isCarOrChildCategory($category)
     {
-        if ($category->name == 'Cars') {
+        if ($category->name == 'سيارات') {
             return true;
         }
     
         while ($category->parentCategory) {
-            if ($category->parentCategory->name == 'Cars') {
+            if ($category->parentCategory->name == 'سيارات') {
                 return true;
             }
             $category = $category->parentCategory;
