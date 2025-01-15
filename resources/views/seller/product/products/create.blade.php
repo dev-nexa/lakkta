@@ -925,45 +925,6 @@
 <!-- Treeview js -->
 <script src="{{ static_asset('assets/js/hummingbird-treeview.js') }}"></script>
 
-<script>
-    document.querySelectorAll('[data-toggle="aizuploader"]').forEach(function(inputElement) {
-        inputElement.addEventListener('change', function(event) {
-            const fileInput = event.target.querySelector('input.selected-files');
-            const filePreview = event.target.parentElement.querySelector('.file-preview');
-            
-            if (fileInput && filePreview) {
-                const files = fileInput.files;
-                Array.from(files).forEach(function(file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const img = new Image();
-                        img.src = e.target.result;
-
-                        img.onload = function() {
-                            const canvas = document.createElement('canvas');
-                            const ctx = canvas.getContext('2d');
-
-                            canvas.width = 900;
-                            canvas.height = 900;
-
-                            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-                            const resizedImageURL = canvas.toDataURL(file.type);
-                            const previewImg = document.createElement('img');
-                            previewImg.src = resizedImageURL;
-                            previewImg.style.width = '100px';
-                            previewImg.style.margin = '5px';
-
-                            filePreview.appendChild(previewImg);
-                        };
-                    };
-                    reader.readAsDataURL(file);
-                });
-            }
-        });
-    });
-</script>
-
 <script type="text/javascript">
 $(document).ready(function () {
     $('#category_id').on('change', function () {
