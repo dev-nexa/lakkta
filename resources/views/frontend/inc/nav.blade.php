@@ -64,7 +64,7 @@ $topbar_banner_asset = uploaded_asset($topbar_banner);
 
                         <a href="javascript:void(0)" class="dropdown-toggle text-secondary fs-12 py-2"
                             data-toggle="dropdown" data-display="static">
-                            {{ $system_currency->name }}
+                            {{ translate($system_currency->name) }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
                             @foreach (get_all_active_currency() as $key => $currency)
