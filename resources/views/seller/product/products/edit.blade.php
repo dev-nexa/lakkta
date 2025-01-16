@@ -53,7 +53,7 @@
                     <!-- Product Name -->
                     <div class="form-group row">
                         <label class="col-lg-3 col-from-label">
-                            <i class="fas fa-car-side mr-2"></i> <!-- أيقونة اسم المنتج -->
+                            <i class="fas fa-car-side mr-2"></i>
                             {{translate('Product Name')}} 
                             <i class="las la-language text-danger" title="{{translate('Translatable')}}"></i>
                         </label>
@@ -67,7 +67,7 @@
                     <!-- Category -->
                     <div class="form-group row">
                         <label class="col-md-3 col-from-label">
-                            <i class="fas fa-th-list mr-2"></i> <!-- أيقونة الفئة -->
+                            <i class="fas fa-th-list mr-2"></i>
                             {{ translate('Category') }}
                         </label>
                         <div class="col-md-8">
@@ -91,7 +91,7 @@
                     <!-- Brand -->
                     <div class="form-group row" id="brand">
                         <label class="col-md-3 col-from-label">
-                            <i class="fas fa-industry mr-2"></i> <!-- أيقونة العلامة التجارية -->
+                            <i class="fas fa-industry mr-2"></i>
                             {{ translate('Brand') }}
                         </label>
                         <div class="col-md-8">
@@ -104,7 +104,7 @@
                     <!-- Model -->
                     {{-- <div class="form-group row" id="model">
                         <label class="col-md-3 col-from-label">
-                            <i class="fas fa-car-alt mr-2"></i> <!-- أيقونة النموذج -->
+                            <i class="fas fa-car-alt mr-2"></i>
                             {{ translate('Model') }}
                         </label>
                         <div class="col-md-8">
@@ -145,7 +145,7 @@
                     @if (addon_is_activated('pos_system'))
                     <div class="form-group row">
                         <label class="col-lg-3 col-from-label">
-                            <i class="fas fa-barcode mr-2"></i> <!-- أيقونة الباركود -->
+                            <i class="fas fa-barcode mr-2"></i>
                             {{translate('Barcode')}}
                         </label>
                         <div class="col-lg-8">
@@ -160,7 +160,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">
-                        <i class="fas fa-images mr-2"></i> <!-- أيقونة الصور -->
+                        <i class="fas fa-images mr-2"></i>
                         {{translate('Product Images')}}
                     </h5>
                 </div>
@@ -173,7 +173,7 @@
                     <!-- Gallery Images -->
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="signinSrEmail">
-                            <i class="fas fa-image mr-2"></i> <!-- أيقونة معرض الصور -->
+                            <i class="fas fa-image mr-2"></i>
                             {{translate('Gallery Images')}}
                         </label>
                         <div class="col-md-8">
@@ -197,7 +197,7 @@
                     <!-- Thumbnail Image -->
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="signinSrEmail">
-                            <i class="fas fa-file-image mr-2"></i> <!-- أيقونة الصورة المصغرة -->
+                            <i class="fas fa-file-image mr-2"></i>
                             {{translate('Thumbnail Image')}}
                         </label>
                         <div class="col-md-8">
@@ -222,7 +222,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">
-                        <i class="fas fa-video mr-2"></i> <!-- أيقونة الفيديو -->
+                        <i class="fas fa-video mr-2"></i>
                         {{translate('Product Videos')}}
                     </h5>
                 </div>
@@ -235,7 +235,7 @@
                     <!-- Video Provider -->
                     <div class="form-group row">
                         <label class="col-lg-3 col-from-label">
-                            <i class="fas fa-play-circle mr-2"></i> <!-- أيقونة مقدم الفيديو -->
+                            <i class="fas fa-play-circle mr-2"></i>
                             {{translate('Video Provider')}}
                         </label>
                         <div class="col-lg-8">
@@ -256,7 +256,7 @@
                     <!-- Video Link -->
                     <div class="form-group row">
                         <label class="col-lg-3 col-from-label">
-                            <i class="fas fa-link mr-2"></i> <!-- أيقونة رابط الفيديو -->
+                            <i class="fas fa-link mr-2"></i>
                             {{translate('Video Link')}}
                         </label>
                         <div class="col-lg-8">
@@ -266,11 +266,11 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">
-                        <i class="fas fa-layer-group mr-2"></i> <!-- أيقونة التباين -->
+                        <i class="fas fa-layer-group mr-2"></i>
                         {{translate('Product Variation')}}
                     </h5>
                 </div>
@@ -279,82 +279,82 @@
                         <i class="fas fa-info-circle mr-2"></i>
                         {{ translate('Define product variations such as colors, sizes, or other attributes to better showcase your product.') }}
                     </p>
-            
-                    <!-- Colors Section -->
                     <div class="form-group row">
                         <label class="col-lg-3 col-form-label">
-                            <i class="fas fa-palette mr-2"></i> <!-- أيقونة الألوان -->
+                            <i class="fas fa-palette mr-2"></i>
                             {{ translate('Colors') }}
                         </label>
                         <div class="col-lg-8">
-                            <select class="form-control aiz-selectpicker" data-live-search="true" data-selected-text-format="count" name="colors[]" id="colors" multiple>
+                            <select class="form-control aiz-selectpicker" data-live-search="true"
+                                data-selected-text-format="count" name="colors[]" id="colors" multiple>
                                 @foreach (\App\Models\Color::orderBy('name', 'asc')->get() as $key => $color)
-                                    <option value="{{ $color->code }}"
-                                        data-content="<span><span class='size-15px d-inline-block mr-2 rounded border' style='background:{{ $color->code }}'></span><span>{{ $color->name }}</span></span>"
-                                        <?php if(in_array($color->code, json_decode($product->colors))) echo 'selected'?>></option>
+                                <option value="{{ $color->code }}"
+                                    data-content="<span><span class='size-15px d-inline-block mr-2 rounded border' style='background:{{ $color->code }}'></span><span>{{ $color->name }}</span></span>"
+                                    <?php if(in_array($color->code, json_decode($product->colors))) echo 'selected'?>></option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-1" style="display:none;">
+                        <div class="col-lg-1">
                             <label class="aiz-switch aiz-switch-success mb-0">
-                                <input value="1" type="checkbox" name="colors_active" checked>
+                                <input value="1" type="checkbox" name="colors_active"
+                                    <?php if(count(json_decode($product->colors)) > 0) echo "checked";?>>
                                 <span></span>
                             </label>
                         </div>
                     </div>
-            
-                    <!-- Attributes Section -->
+
                     <div class="form-group row">
                         <label class="col-lg-3 col-form-label">
-                            <i class="fas fa-cogs mr-2"></i> <!-- أيقونة الخصائص -->
+                            <i class="fas fa-cogs mr-2"></i>
                             {{ translate('Attributes') }}
                         </label>
                         <div class="col-lg-8">
-                            <select name="choice_attributes[]" data-live-search="true" data-selected-text-format="count" id="choice_attributes" class="form-control aiz-selectpicker" multiple data-placeholder="{{ translate('Choose Attributes') }}">
+                            <select name="choice_attributes[]" data-live-search="true" data-selected-text-format="count"
+                                id="choice_attributes" class="form-control aiz-selectpicker" multiple
+                                data-placeholder="{{ translate('Choose Attributes') }}">
                                 @foreach (\App\Models\Attribute::all() as $key => $attribute)
-                                    <option value="{{ $attribute->id }}" @if($product->attributes != null && in_array($attribute->id, json_decode($product->attributes, true))) selected @endif>
-                                        {{ $attribute->getTranslation('name') }}
-                                    </option>
+                                <option value="{{ $attribute->id }}" @if($product->attributes != null &&
+                                    in_array($attribute->id, json_decode($product->attributes, true))) selected
+                                    @endif>{{ $attribute->getTranslation('name') }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-            
-                    <!-- Helper Text -->
-                    <div>
-                        <p>
-                            <i class="fas fa-info-circle mr-2"></i> <!-- أيقونة المساعدة -->
-                            {{ translate('Choose the attributes of this product and then input values for each attribute.') }}
-                        </p>
+
+                    <div class="">
+                        <p>{{ translate('Choose the attributes of this product and then input values of each attribute') }}</p>
+                        <br>
                     </div>
-            
-                    <!-- Dynamic Attributes Section -->
+
                     <div class="customer_choice_options" id="customer_choice_options">
                         @foreach (json_decode($product->choice_options) as $key => $choice_option)
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label">
-                                    {{ \App\Models\Attribute::find($choice_option->attribute_id)->getTranslation('name') }}
-                                </label>
-                                <div class="col-lg-8">
-                                    <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_{{ $choice_option->attribute_id }}[]" multiple>
-                                        @foreach (\App\Models\AttributeValue::where('attribute_id', $choice_option->attribute_id)->get() as $row)
-                                            <option value="{{ $row->value }}" @if( in_array($row->value, $choice_option->values)) selected @endif>
-                                                {{ $row->value }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                        <div class="form-group row">
+                            <div class="col-lg-3">
+                                <input type="hidden" name="choice_no[]" value="{{ $choice_option->attribute_id }}">
+                                <input type="text" class="form-control" name="choice[]"
+                                    value="{{ \App\Models\Attribute::find($choice_option->attribute_id)->getTranslation('name') }}"
+                                    placeholder="{{ translate('Choice Title') }}" disabled>
                             </div>
+                            <div class="col-lg-8">
+                                <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_{{ $choice_option->attribute_id }}[]" multiple>
+                                    @foreach (\App\Models\AttributeValue::where('attribute_id', $choice_option->attribute_id)->get() as $row)
+                                        <option value="{{ $row->value }}" @if( in_array($row->value, $choice_option->values)) selected @endif>
+                                            {{ $row->value }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                {{-- <input type="text" class="form-control aiz-tag-input" name="choice_options_{{ $choice_option->attribute_id }}[]" placeholder="{{ translate('Enter choice values') }}" value="{{ implode(',', $choice_option->values) }}" data-on-change="update_sku"> --}}
+                            </div>
+                        </div>
                         @endforeach
                     </div>
                 </div>
             </div>
-            
-            
+
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">
-                        <i class="fas fa-money-bill-alt mr-2"></i> <!-- أيقونة السعر -->
+                        <i class="fas fa-money-bill-alt mr-2"></i>
                         {{ translate('Product Price') }}
                     </h5>
                 </div>
@@ -367,7 +367,7 @@
                     <!-- Unit Price -->
                     <div class="form-group row">
                         <label class="col-lg-3 col-from-label">
-                            <i class="fas fa-dollar-sign mr-2"></i> <!-- أيقونة السعر -->
+                            <i class="fas fa-dollar-sign mr-2"></i>
                             {{ translate('Unit Price') }}
                         </label>
                         <div class="col-lg-6">
@@ -379,7 +379,7 @@
                     <!-- Discount -->
                     <div class="form-group row">
                         <label class="col-lg-3 col-from-label">
-                            <i class="fas fa-percent mr-2"></i> <!-- أيقونة الخصم -->
+                            <i class="fas fa-percent mr-2"></i>
                             {{ translate('Discount') }}
                         </label>
                         <div class="col-lg-6">
@@ -400,7 +400,7 @@
             
                     <!-- Hidden Stock Value -->
                     <div id="show-hide-div" style="display: none;">
-                        <input type="hidden" name="current_stock" value="1"> <!-- القيمة الافتراضية -->
+                        <input type="hidden" name="current_stock" value="1">
                     </div>
             
                     <div class="sku_combination" id="sku_combination"></div>
@@ -410,7 +410,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">
-                        <i class="fas fa-align-left mr-2"></i> <!-- أيقونة الوصف -->
+                        <i class="fas fa-align-left mr-2"></i>
                         {{ translate('Product Description') }}
                     </h5>
                 </div>
@@ -421,7 +421,7 @@
                     </p>
                     <div class="form-group row">
                         <label class="col-lg-3 col-from-label">
-                            <i class="fas fa-pen-nib mr-2"></i> <!-- أيقونة النص -->
+                            <i class="fas fa-pen-nib mr-2"></i>
                             {{ translate('Description') }} 
                             <i class="las la-language text-danger" title="{{ translate('Translatable') }}"></i>
                         </label>
@@ -1205,6 +1205,19 @@
 
 
     }
+
+    $('input[name="colors_active"]').on('change', function() {
+        if(!$('input[name="colors_active"]').is(':checked')){
+            $('#colors').prop('disabled', true);
+            AIZ.plugins.bootstrapSelect('refresh');
+        }
+        else{
+            $('#colors').prop('disabled', false);
+            AIZ.plugins.bootstrapSelect('refresh');
+        }
+        update_sku();
+    });
+
 
     $('input[name="colors_active"]').on('change', function() {
         if(!$('input[name="colors_active"]').is(':checked')){
