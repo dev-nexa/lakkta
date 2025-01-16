@@ -70,7 +70,7 @@ $topbar_banner_asset = uploaded_asset($topbar_banner);
                             @foreach (get_all_active_currency() as $key => $currency)
                             <li>
                                 <a class="dropdown-item @if ($system_currency->code == $currency->code) active @endif"
-                                    href="javascript:void(0)" data-currency="{{ $currency->code }}">{{ $currency->name
+                                    href="javascript:void(0)" data-currency="{{ $currency->code }}">{{ translate($currency->name)
                                     }}
                                     ({{ $currency->symbol }})</a>
                             </li>
