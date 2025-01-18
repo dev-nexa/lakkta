@@ -289,7 +289,8 @@ class ProductController extends Controller
         $html = '';
 
         foreach ($all_attribute_values as $row) {
-            $html .= '<option value="' . $row->value . '">' . $row->value . '</option>';
+            $translated_value = translate($row->value);
+            $html .= '<option value="' . $row->value . '">' . $translated_value . '</option>';
         }
 
         echo json_encode($html);
