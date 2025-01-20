@@ -820,19 +820,18 @@ $classified_products = get_home_page_classified_products(6);
                         </div>
                     </div>
                     <!-- Brands Section -->
-                    <div class="aiz-carousel arrow-x-0 arrow-inactive-none" data-rows="3" data-items="3"
-                        data-xxl-items="3" data-xl-items="3" data-lg-items="4" data-md-items="3" data-sm-items="2"
-                        data-xs-items="1.4" data-arrows="true" data-dots="false">
+                    <div class="aiz-carousel arrow-x-0 arrow-inactive-none" data-rows="3" data-items="2"
+                        data-xxl-items="2" data-xl-items="2" data-lg-items="3" data-md-items="2" data-sm-items="2"
+                        data-xs-items="1" data-arrows="true" data-dots="false">
                         @php
                         $top_brands = json_decode(get_setting('top_brands'));
                         $brands = get_brands($top_brands);
                         @endphp
                         @foreach ($brands as $brand)
-                        <div
-                            class="carousel-box position-relative text-center hov-scale-img has-transition hov-shadow-out z-1">
+                        <div class="carousel-box position-relative text-center hov-scale-img has-transition hov-shadow-out z-1">
                             <a href="{{ route('products.brand', $brand->slug) }}" class="d-block p-sm-2">
                                 <img src="{{ $brand->logo != null ? uploaded_asset($brand->logo) : static_asset('assets/img/placeholder.jpg') }}"
-                                    class="lazyload h-100px h-md-110px mx-auto has-transition p-2 p-sm-4"
+                                    class="lazyload h-80px h-md-100px mx-auto has-transition p-2 p-sm-4"
                                     alt="{{ $brand->getTranslation('name') }}"
                                     onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
                                 <p class="text-center text-dark fs-12 fs-md-14 fw-700 mt-2 mb-2 text-truncate"
@@ -848,6 +847,13 @@ $classified_products = get_home_page_classified_products(6);
             @endif
         </div>
     </div>
+    <script>
+        @media (max-width: 768px) {
+            .aiz-carousel .carousel-box img {
+                height: 60px; 
+            }
+        }
+    </script>
 </div>
 
 @endsection

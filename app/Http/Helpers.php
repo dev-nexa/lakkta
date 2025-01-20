@@ -1756,8 +1756,9 @@ if (!function_exists('get_best_selling_products')) {
         if ($user_id) {
             $product_query = $product_query->where('user_id', $user_id);
         }
-        return filter_products($product_query->orderBy('num_of_sale', 'desc'))->limit($limit)->get();
+        return $product_query->orderBy('view_count', 'desc')->limit($limit)->get();
     }
+
 }
 
 // Get Seller Products
