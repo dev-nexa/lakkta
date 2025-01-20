@@ -181,31 +181,33 @@
                 <div class="swiper swiper-container-1">
                     <div class="swiper-wrapper">
                         @foreach ($featured_categories as $key => $category)
-                            @php
-                                $category_name = $category->getTranslation('name');
-                                $category_link = route('products.category', $category->slug);
-                            @endphp
-                            <div class="swiper-slide">
-                                <a href="{{ $category_link }}" class="text-decoration-none">
-                                    <div class="carousel-box-1 position-relative p-1 has-transition-1 border">
-                                        <div class="h-100 d-flex flex-column justify-content-between">
-                                            <div class="position-relative hov-scale-img-1 overflow-hidden">
-                                                <img src="{{ isset($category->coverImage->file_name) ? my_asset($category->coverImage->file_name) : static_asset('assets/img/placeholder.jpg') }}"
-                                                    alt="{{ $category_name }}"
-                                                    class="img-fit-1 w-100 h-100 has-transition-1"
-                                                    style="aspect-ratio: 1/1;"
-                                                    onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
-                                            </div>
-                                            <div
-                                                class="w-100 d-flex align-items-center justify-content-center bg-overlay-1 text-center">
-                                                <span class="home-category-name-1 animate-underline-white fs-14 fw-600 text-white py-1 px-2 text-truncate">
-                                                    {{ $category_name }}
-                                                </span>
+                            @if (isset($category->products) && $category->products->count() > 0)
+                                @php
+                                    $category_name = $category->getTranslation('name');
+                                    $category_link = route('products.category', $category->slug);
+                                @endphp
+                                <div class="swiper-slide">
+                                    <a href="{{ $category_link }}" class="text-decoration-none">
+                                        <div class="carousel-box-1 position-relative p-1 has-transition-1 border">
+                                            <div class="h-100 d-flex flex-column justify-content-between">
+                                                <div class="position-relative hov-scale-img-1 overflow-hidden">
+                                                    <img src="{{ isset($category->coverImage->file_name) ? my_asset($category->coverImage->file_name) : static_asset('assets/img/placeholder.jpg') }}"
+                                                        alt="{{ $category_name }}"
+                                                        class="img-fit-1 w-100 h-100 has-transition-1"
+                                                        style="aspect-ratio: 1/1;"
+                                                        onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
+                                                </div>
+                                                <div
+                                                    class="w-100 d-flex align-items-center justify-content-center bg-overlay-1 text-center">
+                                                    <span class="home-category-name-1 animate-underline-white fs-14 fw-600 text-white py-1 px-2 text-truncate">
+                                                        {{ $category_name }}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
+                            @endif
                         @endforeach
                     </div>
                     <!-- أزرار التنقل -->
@@ -387,6 +389,7 @@
         }
     }
 </style>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
             const swiper = new Swiper('.swiper-container-1', {
@@ -422,6 +425,11 @@
             });
         });
 </script>
+
+<a href="{{ route('search',['sort_by'=>'newest']) }}" class="btn btn-primary" style="padding: 10px 20px; font-size: 18px;">
+    {{ translate('View All Products') }}
+</a>
+
 <!-- Banner section 1 -->
 @php $homeBanner1Images = get_setting('home_banner1_images', null, $lang); @endphp
 @if ($homeBanner1Images != null)
@@ -744,7 +752,7 @@ $classified_products = get_home_page_classified_products(6);
                         data-xxl-items="3" data-xl-items="2.5" data-lg-items="3.4" data-md-items="2.5" data-sm-items="2"
                         data-xs-items="1.4" data-arrows="true" data-dots="false">
                         @foreach ($best_selers as $key => $seller)
-                        @if ($seller->user != null)
+                        @if ($seller->user != null && isset($seller->user->products) && $seller->user->products->count() > 0)
                         <div
                             class="carousel-box h-100 position-relative text-center has-transition hov-animate-outline">
                             <div class="position-relative px-3 px-xl-2 py-3">
