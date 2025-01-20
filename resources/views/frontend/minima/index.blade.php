@@ -828,9 +828,17 @@ $classified_products = get_home_page_classified_products(6);
                             </div>
                         </div>
                         <!-- Brands Section -->
-                        <div class="aiz-carousel arrow-x-0 arrow-inactive-none" data-rows="3" data-items="2"
-                            data-xxl-items="2" data-xl-items="2" data-lg-items="3" data-md-items="2" data-sm-items="2"
-                            data-xs-items="1" data-arrows="true" data-dots="false">
+                        <div class="aiz-carousel arrow-x-0 arrow-inactive-none" 
+                        data-rows="2" 
+                        data-items="5"
+                        data-xxl-items="5" 
+                        data-xl-items="4" 
+                        data-lg-items="4" 
+                        data-md-items="3.5" 
+                        data-sm-items="3" 
+                        data-xs-items="2.5" 
+                        data-arrows="true" 
+                        data-dots="false">
                             @php
                                 $top_brands = json_decode(get_setting('top_brands'));
                                 $brands = get_brands($top_brands);
