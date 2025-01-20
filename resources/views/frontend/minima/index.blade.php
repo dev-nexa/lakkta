@@ -761,9 +761,17 @@ $classified_products = get_home_page_classified_products(6);
                                 </div>
                             </div>
                             <!-- Sellers Section -->
-                            <div class="aiz-carousel arrow-x-0 arrow-inactive-none" data-rows="3" data-items="4"
-                                data-xxl-items="4" data-xl-items="3" data-lg-items="3.5" data-md-items="3" data-sm-items="2"
-                                data-xs-items="2" data-arrows="true" data-dots="false">
+                            <div class="aiz-carousel arrow-x-0 arrow-inactive-none" 
+                            data-rows="2" 
+                            data-items="5"
+                            data-xxl-items="5" 
+                            data-xl-items="4" 
+                            data-lg-items="4" 
+                            data-md-items="3.5" 
+                            data-sm-items="3" 
+                            data-xs-items="2.5" 
+                            data-arrows="true" 
+                            data-dots="false">
                                 @foreach ($best_selers as $key => $seller)
                                     @if ($seller->user != null && isset($seller->user->products) && $seller->user->products->count() > 0)
                                         <div
@@ -853,6 +861,54 @@ $classified_products = get_home_page_classified_products(6);
                 height: 60px; 
             }
         }
+
+        /* تحسين العرض للشاشات الصغيرة */
+@media (max-width: 1200px) {
+    .carousel-box .size-100px {
+        width: 80px;
+        height: 80px;
+    }
+
+    .carousel-box h2 {
+        font-size: 13px;
+    }
+
+    .carousel-box .rating {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-box .size-100px {
+        width: 70px;
+        height: 70px;
+    }
+
+    .carousel-box h2 {
+        font-size: 12px;
+    }
+
+    .carousel-box .rating {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-box .size-100px {
+        width: 60px;
+        height: 60px;
+    }
+
+    .carousel-box h2 {
+        font-size: 11px;
+    }
+
+    .carousel-box .rating {
+        font-size: 10px;
+    }
+}
+
+
     </script>
 </div>
 
