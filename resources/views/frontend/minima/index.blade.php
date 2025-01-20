@@ -427,7 +427,7 @@
 </script>
 
 <a href="{{ route('search',['sort_by'=>'newest']) }}" class="btn btn-primary" style="padding: 10px 20px; font-size: 18px;">
-    {{ translate('View All Products') }}
+    {{ translate('View All Cars') }}
 </a>
 
 <!-- Banner section 1 -->
