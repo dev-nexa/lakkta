@@ -289,7 +289,7 @@
                                         @foreach ($seller_cities as $shop)
                                             @if($shop->City)
                                                 <option value="{{ $shop->City->name }}" @if(request('city') == $shop->City->name) selected @endif>
-                                                    {{ $shop->City->name }}
+                                                    {{ translate($shop->City->name) }}
                                                 </option>
                                             @endif
                                         @endforeach
