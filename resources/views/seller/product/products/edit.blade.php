@@ -339,7 +339,7 @@
                                 <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_{{ $choice_option->attribute_id }}[]" multiple>
                                     @foreach (\App\Models\AttributeValue::where('attribute_id', $choice_option->attribute_id)->get() as $row)
                                         <option value="{{ $row->value }}" @if( in_array($row->value, $choice_option->values)) selected @endif>
-                                            {{ $row->value }}
+                                            {{ translate($row->value) }}
                                         </option>
                                     @endforeach
                                 </select>

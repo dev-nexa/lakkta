@@ -426,10 +426,23 @@
         });
 </script>
 
-<a href="{{ route('search',['sort_by'=>'newest']) }}" class="btn btn-primary" style="padding: 10px 20px; font-size: 18px;">
-    {{ translate('View All Cars') }}
+<a href="{{ route('search',['sort_by'=>'newest']) }}" 
+    class="btn btn-primary hover-color" 
+    style="padding: 10px 20px; font-size: 18px;">
+     {{ translate('View All Cars') }}
 </a>
+ 
+<style>
+    .hover-color {
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
 
+    .hover-color:hover {
+        background-color: #ff6600;
+        color: #fff;
+    }
+</style>
+ 
 <!-- Banner section 1 -->
 @php $homeBanner1Images = get_setting('home_banner1_images', null, $lang); @endphp
 @if ($homeBanner1Images != null)
