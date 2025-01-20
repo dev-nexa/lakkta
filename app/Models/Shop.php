@@ -25,7 +25,7 @@ class Shop extends Model
   }
   public function city()
   {
-    return $this->belongsTo(City::class, 'shop_city');
+    return $this->belongsTo(SellerCity::class, 'shop_city');
   }
 
 

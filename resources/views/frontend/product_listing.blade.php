@@ -283,6 +283,18 @@
                                         </select>
                                     @endif
                                 </div>
+                                <div class="col-6 col-lg-auto mb-3 w-lg-200px mr-xl-4 mr-lg-3">
+                                    <select class="form-control form-control-sm aiz-selectpicker rounded-0" data-live-search="true" name="city" onchange="filter()">
+                                        <option value="">{{ translate('City') }}</option>
+                                        @foreach ($seller_cities as $shop)
+                                            @if($shop->City)
+                                                <option value="{{ $shop->City->name }}" @if(request('city') == $shop->City->name) selected @endif>
+                                                    {{ $shop->City->name }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>                                                      
                                 <div class="col-6 col-lg-auto mb-3 w-lg-200px">
                                     <select class="form-control form-control-sm aiz-selectpicker rounded-0" name="sort_by" onchange="filter()">
                                         <option value="">{{ translate('Sort by')}}</option>
