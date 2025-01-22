@@ -193,6 +193,43 @@
                                             <button type="submit" class="btn btn-primary btn-block fw-600 rounded-0">{{ translate('Register Your Shop') }}</button>
                                         </div>
                                     </form>
+
+                                    <!-- Social Login -->
+                                    @if(get_setting('google_login') == 1 || get_setting('facebook_login') == 1 || get_setting('twitter_login') == 1 || get_setting('apple_login') == 1)
+                                    <div class="text-center mb-3">
+                                        <span class="bg-white fs-12 text-gray">{{ translate('Or Join With')}}</span>
+                                    </div>
+                                    <ul class="list-inline social colored text-center mb-4">
+                                        @if (get_setting('facebook_login') == 1)
+                                            <li class="list-inline-item">
+                                                <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="facebook">
+                                                    <i class="lab la-facebook-f"></i>
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @if(get_setting('google_login') == 1)
+                                            <li class="list-inline-item">
+                                                <a href="{{ route('social.login', ['provider' => 'google', 'account_type' => 'seller']) }}" class="google">
+                                                    <i class="lab la-google"></i>
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @if (get_setting('twitter_login') == 1)
+                                            <li class="list-inline-item">
+                                                <a href="{{ route('social.login', ['provider' => 'twitter']) }}" class="twitter">
+                                                    <i class="lab la-twitter"></i>
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @if (get_setting('apple_login') == 1)
+                                            <li class="list-inline-item">
+                                                <a href="{{ route('social.login', ['provider' => 'apple']) }}" class="apple">
+                                                    <i class="lab la-apple"></i>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    </ul>
+                                @endif
                                 </div>
 
                                 <!-- Log In -->

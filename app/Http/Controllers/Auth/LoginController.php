@@ -51,6 +51,9 @@ class LoginController extends Controller
         if (request()->get('query') == 'mobile_app') {
             request()->session()->put('login_from', 'mobile_app');
         }
+        if (request()->has('account_type')) {
+            session()->put('account_type', request()->get('account_type'));
+        }
         if ($provider == 'apple') {
             return Socialite::driver("sign-in-with-apple")
                 ->scopes(["name", "email"])
@@ -173,6 +176,7 @@ class LoginController extends Controller
                 $newUser->provider_id = $user->id;
                 $newUser->provider = $provider;
                 $newUser->access_token = $user->token;
+                $newUser->user_type = session('account_type') == 'seller' ? 'seller' : 'user';
                 $newUser->save();
                 //proceed to login
                 auth()->login($newUser, true);
