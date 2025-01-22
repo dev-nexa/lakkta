@@ -71,6 +71,11 @@
             color: #4CAF50;
             text-decoration: none;
         }
+        .contact-info {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -79,6 +84,9 @@
             $logo = get_setting('header_logo');
             $site_name = get_setting('site_name');
             $site_url = url('/');
+            $contact_phone = get_setting('contact_phone');
+            $contact_facebook = get_setting('contact_facebook');
+            $contact_instagram = get_setting('contact_instagram');
         @endphp
 
         <div class="header">
@@ -90,21 +98,23 @@
         <table>
             <thead>
                 <tr>
-                    <th>Product Name</th>
-                    <th>Category</th>
-                    <th>Unit Price</th>
-                    <th>Stock Quantity</th>
-                    <th>Discount</th>
+                    <th>{{ translate('Product Photo') }}</th>
+                    <th>{{ translate('Product Name') }}</th>
+                    <th>{{ translate('Category') }}</th>
+                    <th>{{ translate('Unit Price') }}</th>
+                    <th>{{ translate('Status') }}</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($products as $product)
                     <tr>
+                        <td>
+                            <img src="{{ uploaded_asset($product->image) }}" alt="{{ $product->name }}" style="width: 50px; height: auto; margin-right: 10px;">
+                        </td>
                         <td>{{ $product->name }}</td>
-                        <td>{{ $product->category_id }} <!-- You can replace with category name if you have a relationship --></td>
+                        <td>{{ $product->main_category->getTranslation('name') }}</td>
                         <td>{{ single_price($product->unit_price) }}</td>
-                        <td>{{ $product->current_stock }}</td>
-                        <td>{{ $product->discount }}%</td>
+                        <td>{{ $product->current_stock > 0 ? 'Available' : 'Sold Out' }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -112,6 +122,15 @@
 
         <div class="footer">
             <p>{{ translate('Visit our website:') }} <a href="{{ $site_url }}" target="_blank">{{ $site_url }}</a></p>
+        </div>
+
+        <div class="contact-info">
+            <p>{{ translate('For inquiries, contact us:') }}</p>
+            <p>{{ translate('Phone:') }} {{ $contact_phone }}</p>
+            <p>
+                <a href="{{ $contact_facebook }}" target="_blank">{{ translate('Facebook') }}</a> |
+                <a href="{{ $contact_instagram }}" target="_blank">{{ translate('Instagram') }}</a>
+            </p>
         </div>
     </div>
 </body>
