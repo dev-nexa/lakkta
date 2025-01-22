@@ -191,6 +191,11 @@
                                                 {{translate('Log in as this Seller')}}
                                             </a>
                                         @endcan
+                                        @can('view_seller_profile')
+                                            <a href="{{ route('generate-pdf', ['userId' => $shop->user_id]) }}" class="dropdown-item">
+                                                {{ translate('Download Products PDF') }}
+                                            </a>
+                                        @endcan
                                         @can('pay_to_seller')
                                             <a href="javascript:void();" onclick="show_seller_payment_modal('{{$shop->id}}');" class="dropdown-item">
                                                 {{translate('Go to Payment')}}

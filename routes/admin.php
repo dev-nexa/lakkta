@@ -159,6 +159,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'prevent-ba
         Route::get('/products/destroy/{id}', 'destroy')->name('products.destroy');
         Route::post('/bulk-product-delete', 'bulk_product_delete')->name('bulk-product-delete');
 
+        // Seller product PDF
+        Route::get('generate-pdf/{userId}', [ProductController::class, 'generateProductPDF'])->name('generate-pdf');
+
         Route::post('/products/sku_combination', 'sku_combination')->name('products.sku_combination');
         Route::post('/products/sku_combination_edit', 'sku_combination_edit')->name('products.sku_combination_edit');
         Route::post('/products/add-more-choice-option', 'add_more_choice_option')->name('products.add-more-choice-option');
