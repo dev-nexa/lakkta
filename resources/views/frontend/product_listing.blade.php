@@ -294,7 +294,16 @@
                                             @endif
                                         @endforeach
                                     </select>
-                                </div>                                                      
+                                </div>    
+                                <div class="col-6 col-lg-auto mb-3 w-lg-200px mr-xl-4 mr-lg-3">
+                                    <select class="form-control form-control-sm aiz-selectpicker rounded-0" data-live-search="true" name="status" onchange="filter()">
+                                        <option value="">{{ translate('Status') }}</option>
+                                        <option value="new" @if(request('status') == 'new') selected @endif>{{ translate('New') }}</option>
+                                        <option value="used" @if(request('status') == 'used') selected @endif>{{ translate('Used') }}</option>
+                                        <option value="illegal" @if(request('status') == 'illegal') selected @endif>{{ translate('Illegal') }}</option>
+                                        <option value="snipped" @if(request('status') == 'snipped') selected @endif>{{ translate('Snipped') }}</option>
+                                    </select>
+                                </div>
                                 <div class="col-6 col-lg-auto mb-3 w-lg-200px">
                                     <select class="form-control form-control-sm aiz-selectpicker rounded-0" name="sort_by" onchange="filter()">
                                         <option value="">{{ translate('Sort by')}}</option>

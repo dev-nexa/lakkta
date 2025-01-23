@@ -104,6 +104,8 @@ class ProductController extends Controller
                 'is_sold' => $request->input('is_sold', false),
                 'registration' => $request->input('registration'),
                 'manufacture' => $request->input('manufacture'),
+                'phone' => $request->input('phone_number'),
+                'status' => $request->input('status'),
             ]
         ));
         $request->merge(['product_id' => $product->id]);

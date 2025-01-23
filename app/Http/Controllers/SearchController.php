@@ -155,6 +155,7 @@ class SearchController extends Controller
         $max_price = $request->max_price;
         $seller_id = $request->seller_id;
         $selected_city = $request->city;
+        $status = $request->status;
         $attributes = Attribute::all();
         $selected_attribute_values = array();
         $colors = Color::all();
@@ -186,6 +187,10 @@ class SearchController extends Controller
                     $q->where('name', $selected_city);
                 });
             });
+        }
+
+        if ($status) {
+            $products->where('status', $status);
         }
 
         if ($category_id != null) {

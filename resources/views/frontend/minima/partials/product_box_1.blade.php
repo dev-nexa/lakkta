@@ -128,6 +128,20 @@
                             {{ home_discounted_base_price($product) }}
                         </span>
                     @endif
+                    <!-- Product Condition -->
+                    @if ($product->status != null)
+                        <span class="text-reset hov-text-primary fs-14 fw-700 ml-2">
+                            @if ($product->status == 'new')
+                                {{ translate('New') }}
+                            @elseif ($product->status == 'used')
+                                {{ translate('Used') }}
+                            @elseif ($product->status == 'snipped')
+                                {{ translate('Snipped') }}
+                            @elseif ($product->status == 'illegal')
+                                {{ translate('Illegal') }}
+                            @endif
+                        </span>
+                    @endif
                 </div>
             @endif
             @if ($product->auction_product == 1)

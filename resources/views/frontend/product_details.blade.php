@@ -332,12 +332,12 @@ $min_bid_amount = $highest_bid != null ? $highest_bid+1 : $detailedProduct->star
     }
 
     function call_now() {
-        var phoneNumber = "{{ $detailedProduct->user->shop->phone }}";
+        var phoneNumber = "{{ $detailedProduct->phone ? $detailedProduct->phone : $detailedProduct->user->shop->phone }}";
         window.location.href = "tel:" + phoneNumber;
     }
 
     function send_whatsapp_message() {
-        var whatsappNumber = "{{ $detailedProduct->user->shop->phone }}";
+        var whatsappNumber = "{{ $detailedProduct->phone ? $detailedProduct->phone : $detailedProduct->user->shop->phone }}";
         var currentUrl = window.location.href;
         var message = "مرحباً، أنا مهتم بالمنتج: {{ $detailedProduct->getTranslation('name') }} المعروض في متجر {{ $detailedProduct->user->shop->name }}. يُمكنك مشاهدة المنتج عبر الرابط التالي: " + currentUrl + ". لدي بعض الاستفسارات وأرغب بالتواصل. شكراً!";
         var url = "https://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + encodeURIComponent(message);

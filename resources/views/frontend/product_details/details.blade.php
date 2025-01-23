@@ -135,6 +135,23 @@
                 </div>
             </td>
         </tr>
+
+        @if ($detailedProduct->status != null)
+            <tr>
+                <td class="text-secondary fs-14 fw-400">{{ translate('Condition') }}</td>
+                <td class="text-reset hov-text-primary fs-14 fw-700">
+                    @if ($detailedProduct->status == 'new')
+                        <i class="fas fa-box-open mr-2"></i>{{ translate('New') }}
+                    @elseif ($detailedProduct->status == 'used')
+                        <i class="fas fa-recycle mr-2"></i>{{ translate('Used') }}
+                    @elseif ($detailedProduct->status == 'wrapped')
+                        <i class="fas fa-gift mr-2"></i>{{ translate('Wrapped') }}
+                    @elseif ($detailedProduct->status == 'illegal')
+                        {{ translate('Illegal') }}
+                    @endif
+                </td>
+            </tr>
+        @endif
     
         <!-- Year of make -->
         @if ($detailedProduct->registration != NULL)
@@ -187,9 +204,9 @@
             <tr>
                 <td class="text-secondary fs-14 fw-400">{{ translate('Phone') }}</td>
                 <td>
-                    <a href="tel: {{ $detailedProduct->user->shop->phone }}"
-                        class="text-reset hov-text-primary fs-14 fw-700">{{ $detailedProduct->user->shop->phone }}</a>
-                </td>
+                    <a href="tel: {{ $detailedProduct->phone ? $detailedProduct->phone : $detailedProduct->user->shop->phone }}"
+                        class="text-reset hov-text-primary fs-14 fw-700">{{ $detailedProduct->phone ? $detailedProduct->phone : $detailedProduct->user->shop->phone }}</a>
+                </td>                
             </tr>
         @else
             <tr>

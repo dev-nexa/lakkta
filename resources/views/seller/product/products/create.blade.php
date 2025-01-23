@@ -1,4 +1,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
 
 @extends('seller.layouts.app')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -110,6 +112,132 @@
                         
                             <input type="hidden" name="category_id" id="category_id_hidden">
                             <input type="hidden" name="category_ids[]" id="category_ids_hidden">
+
+                            <!-- Status -->
+                            <div class="form-group row" id="status">
+                                <label class="col-md-3 col-from-label">
+                                    <i class="fas fa-info-circle mr-2"></i>
+                                    {{ translate('Status') }}
+                                </label>
+                                <div class="col-md-8">
+                                    <select class="form-control aiz-selectpicker" name="status" id="status-select" data-live-search="true" required>
+                                        <option value="">{{ translate('Select Status') }}</option>
+                                        <option value="new">{{ translate('New') }}</option>
+                                        <option value="used">{{ translate('Used') }}</option>
+                                        <option value="illegal">{{ translate('Illegal') }}</option>
+                                        <option value="snipped">{{ translate('Snipped') }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Product Phone Number -->
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label">
+                                    <i class="fas fa-phone-alt mr-2"></i> 
+                                    {{ translate('Phone Number') }}
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="tel" id="phone-input" class="form-control phone-input-custom" placeholder="{{ translate('Enter your phone number') }}" value="{{ old('phone_number', $phone_number ?? '') }}">
+                                    <input type="hidden" id="full-phone" name="phone_number" value="{{ old('phone_number', $phone_number ?? '') }}">
+                                </div>
+                            </div>
+
+                            <style>
+                                .phone-input-custom {
+                                    padding-left: 60px !important;
+                                    border-radius: 8px;
+                                    border: 1px solid #ddd;
+                                    height: 50px;
+                                    font-size: 18px;
+                                    transition: all 0.3s ease-in-out;
+                                }
+                            
+                                .phone-input-custom:focus {
+                                    border-color: #007665;
+                                    box-shadow: 0 0 8px rgba(0, 118, 101, 0.3);
+                                }
+                            
+                                .iti {
+                                    width: 100%;
+                                }
+                            
+                                .iti__selected-flag {
+                                    background-color: #007665;
+                                    border-top-left-radius: 8px;
+                                    border-bottom-left-radius: 8px;
+                                    padding: 12px 20px;
+                                }
+                            
+                                .iti__flag-container {
+                                    border-radius: 8px;
+                                }
+                            
+                                .iti__dropdown-content {
+                                    max-height: 300px;
+                                    border-radius: 8px;
+                                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                                }
+                            
+                                .iti__country-list {
+                                    border-radius: 8px;
+                                    background-color: #fff;
+                                    box-shadow: 0 4px 20px rgba(0, 118, 101, 0.2);
+                                    font-size: 16px;
+                                }
+                            
+                                .iti__country {
+                                    padding: 15px;
+                                    transition: all 0.2s ease-in-out;
+                                }
+                            
+                                .iti__country:hover {
+                                    background-color: #007665;
+                                    color: #fff;
+                                }
+                            
+                                .iti__country-name {
+                                    font-weight: bold;
+                                }
+                            </style>
+                            
+                            <script>
+                                var input = document.querySelector("#phone-input");
+                                var hiddenInput = document.querySelector("#full-phone");
+                            
+                                var savedCountry = localStorage.getItem('phone_country') || "sy";
+                            
+                                var iti = intlTelInput(input, {
+                                    initialCountry: savedCountry,
+                                    preferredCountries: ["sy", "ae", "lb", "sa", "jo", "tr"],
+                                    separateDialCode: false,
+                                    nationalMode: false,
+                                    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js",
+                                });
+                            
+                                if (localStorage.getItem('phone_number')) {
+                                    iti.setNumber(localStorage.getItem('phone_number'));
+                                    hiddenInput.value = localStorage.getItem('phone_number');
+                                }
+                            
+                                function updatePhoneNumber() {
+                                    var phoneNumber = iti.getNumber();
+                                    hiddenInput.value = phoneNumber;
+                                    localStorage.setItem('phone_number', phoneNumber);
+                            
+                                    var selectedCountry = iti.getSelectedCountryData().iso2;
+                                    localStorage.setItem('phone_country', selectedCountry);
+                                }
+                            
+                                input.addEventListener("change", updatePhoneNumber);
+                                input.addEventListener("keyup", updatePhoneNumber);
+                            
+                                document.querySelector("form").addEventListener("submit", function(event) {
+                                    if (input.value.trim() === '') {
+                                        iti.setCountry("sy");
+                                        updatePhoneNumber();
+                                    }
+                                });
+                            </script>
                             
                             <div id="car-fields" style="display: none;">
                                 <div class="form-group row">
