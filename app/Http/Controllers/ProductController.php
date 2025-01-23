@@ -283,13 +283,23 @@ class ProductController extends Controller
             return response()->json(['message' => 'No products found for this user.']);
         }
 
+        $user = User::findOrFail($userId);
+        $seller_name = $user->name;
+
+        if (preg_match('/[\x{0600}-\x{06FF}\x{0750}-\x{077F}\x{08A0}-\x{08FF}]/u', $seller_name)) {
+            $file_name = 'منتجات_' . $seller_name . '.pdf';
+        } else {
+            $seller_name_formatted = preg_replace('/[^A-Za-z0-9\-]/', '_', $seller_name);
+            $file_name = 'products_' . $seller_name_formatted . '.pdf';
+        }
+
         $pdf = PDF::loadView('backend.sellers.products_pdf', ['products' => $products,
                 'font_family' => $font_family,
                 'direction' => $direction,
                 'text_align' => $text_align,
                 'not_text_align' => $not_text_align]);
 
-        return $pdf->download('products_list.pdf');
+        return $pdf->download($file_name);
     }
 
     public function add_more_choice_option(Request $request)

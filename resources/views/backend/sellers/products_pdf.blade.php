@@ -173,12 +173,10 @@
         <div class="contact-info">
             <p>{{ translate('For inquiries, contact us at:') }}</p>
             <p>{{ translate('Phone:') }} <strong>{{ $contact_phone }}</strong></p>
-            <div class="social-links">
-                <p>{{ translate('Facebook:') }}</p>
-                <a href="{{ $contact_facebook }}" target="_blank" style="color: #007BFF; text-decoration: none;">{{ $contact_facebook }}</a>
-                
-                <p>{{ translate('Instagram:') }}</p>
-                <a href="{{ $contact_instagram }}" target="_blank" style="color: #007BFF; text-decoration: none;">{{ $contact_instagram }}</a>
+            <div class="">
+                <a href="https://www.facebook.com/profile.php?id=61571441986849" target="_blank" style="color: #007665; text-decoration: none;">{{ translate('Facebook') }}</a>
+                |
+                <a href="https://www.instagram.com/lakktasouq?igsh=dXljYWVkemFhOHll" target="_blank" style="color: #007665; text-decoration: none;">{{ translate('Instagram') }}</a>
             </div>
         </div>
         
