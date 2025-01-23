@@ -144,8 +144,8 @@
                         <i class="fas fa-box-open mr-2"></i>{{ translate('New') }}
                     @elseif ($detailedProduct->status == 'used')
                         <i class="fas fa-recycle mr-2"></i>{{ translate('Used') }}
-                    @elseif ($detailedProduct->status == 'wrapped')
-                        <i class="fas fa-gift mr-2"></i>{{ translate('Wrapped') }}
+                    @elseif ($detailedProduct->status == 'snipped')
+                        <i class="fas fa-gift mr-2"></i>{{ translate('Snipped') }}
                     @elseif ($detailedProduct->status == 'illegal')
                         {{ translate('Illegal') }}
                     @endif
