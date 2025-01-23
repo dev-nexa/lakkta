@@ -155,7 +155,7 @@
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->main_category->getTranslation('name') }}</td>
                         <td>{{ single_price($product->unit_price) }}</td>
-                        <td>{{ $product->current_stock > 0 ? 'Available' : 'Sold Out' }}</td>
+                        <td>{{ $product->current_stock > 0 ? translate('Available') : translate('Sold Out') }}</td>
                         <td>
                             <a href="{{ $productLink }}" target="_blank" style="color: #007BFF; text-decoration: none;">
                                 {{ translate('View Product') }}
