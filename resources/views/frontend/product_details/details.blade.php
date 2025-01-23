@@ -138,7 +138,7 @@
 
         @if ($detailedProduct->status != null)
             <tr>
-                <td class="text-secondary fs-14 fw-400">{{ translate('Condition') }}</td>
+                <td class="text-secondary fs-14 fw-400">{{ translate('Status') }}</td>
                 <td class="text-reset hov-text-primary fs-14 fw-700">
                     @if ($detailedProduct->status == 'new')
                         <i class="fas fa-box-open mr-2"></i>{{ translate('New') }}
