@@ -154,7 +154,7 @@
         @endif
     
         <!-- Year of make -->
-        @if ($detailedProduct->registration != NULL)
+        @if ($detailedProduct->manufacture != NULL)
             <tr>
                 <td class="text-secondary fs-14 fw-400">{{ translate('manufacture') }}</td>
                 <td class="text-reset hov-text-primary fs-14 fw-700">
@@ -163,7 +163,7 @@
             </tr>
         @endif
     
-        @if ($detailedProduct->manufacture != NULL)
+        @if ($detailedProduct->registration != NULL)
             <tr>
                 <td class="text-secondary fs-14 fw-400">{{ translate('registration') }}</td>
                 <td class="text-reset hov-text-primary fs-14 fw-700">
