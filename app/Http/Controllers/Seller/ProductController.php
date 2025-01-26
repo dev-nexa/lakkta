@@ -13,6 +13,7 @@ use App\Models\ProductCategory;
 use App\Models\ProductTranslation;
 use App\Models\Wishlist;
 use App\Models\User;
+use App\Models\Shop;
 use App\Notifications\ShopProductNotification;
 use Artisan;
 use Auth;
@@ -68,11 +69,15 @@ class ProductController extends Controller
                 return back();
             }
         }
+
+        $shop = Shop::where('user_id', Auth::user()->id)->first();
+        $phone_number = $shop ? $shop->phone : '';
+
         $categories = Category::where('parent_id', 0)
             ->where('digital', 0)
             ->with('childrenCategories')
             ->get();
-        return view('seller.product.products.create', compact('categories'));
+        return view('seller.product.products.create', compact('categories','phone_number'));
     }
 
     public function updateSold(Request $request)

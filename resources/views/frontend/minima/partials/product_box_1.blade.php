@@ -128,7 +128,7 @@
                             {{ home_discounted_base_price($product) }}
                         </span>
                     @endif
-                    <!-- Product Condition -->
+                    {{-- <!-- Product Condition -->
                     @if ($product->status != null)
                         <span class="text-reset hov-text-primary fs-14 fw-700 ml-2">
                             @if ($product->status == 'new')
@@ -141,7 +141,7 @@
                                 {{ translate('Illegal') }}
                             @endif
                         </span>
-                    @endif
+                    @endif --}}
                 </div>
             @endif
             @if ($product->auction_product == 1)

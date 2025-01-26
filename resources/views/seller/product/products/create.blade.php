@@ -137,12 +137,64 @@
                                     {{ translate('Phone Number') }}
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="tel" id="phone-input" class="form-control phone-input-custom" placeholder="{{ translate('Enter your phone number') }}" value="{{ old('phone_number', $phone_number ?? '') }}">
+                                    <input type="tel" id="phone-input" class="form-control phone-input-custom" placeholder="{{ translate('Enter your phone number') }}" value="{{ old('phone_number', $phone_number ?? '') }}" required>
                                     <input type="hidden" id="full-phone" name="phone_number" value="{{ old('phone_number', $phone_number ?? '') }}">
                                 </div>
                             </div>
 
                             <style>
+                                .iti {
+                                    width: 100%;
+                                }
+
+                                .iti__selected-flag {
+                                    background-color: #007665;
+                                    border-top-left-radius: 8px;
+                                    border-bottom-left-radius: 8px;
+                                    padding: 12px 20px;
+                                    transition: background-color 0.3s ease-in-out;
+                                }
+
+                                .iti__flag-container {
+                                    border-radius: 8px;
+                                }
+
+                                .iti__dropdown-content {
+                                    max-height: 350px;
+                                    border-radius: 8px;
+                                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+                                    overflow: hidden;
+                                }
+
+                                .iti__country-list {
+                                    border-radius: 8px;
+                                    background-color: #f9f9f9;
+                                    box-shadow: 0 4px 20px rgba(0, 118, 101, 0.2);
+                                    font-size: 16px;
+                                }
+
+                                .iti__country {
+                                    padding: 15px;
+                                    transition: all 0.2s ease-in-out;
+                                    display: flex;
+                                    align-items: center;
+                                }
+
+                                .iti__country:hover {
+                                    background-color: #007665;
+                                    color: #fff;
+                                }
+
+                                .iti__country-name {
+                                    font-weight: bold;
+                                    flex-grow: 1;
+                                }
+
+                                .iti__dial-code {
+                                    font-size: 14px;
+                                    color: #555;
+                                }
+
                                 .phone-input-custom {
                                     padding-left: 60px !important;
                                     border-radius: 8px;
@@ -151,61 +203,21 @@
                                     font-size: 18px;
                                     transition: all 0.3s ease-in-out;
                                 }
-                            
+
                                 .phone-input-custom:focus {
                                     border-color: #007665;
                                     box-shadow: 0 0 8px rgba(0, 118, 101, 0.3);
-                                }
-                            
-                                .iti {
-                                    width: 100%;
-                                }
-                            
-                                .iti__selected-flag {
-                                    background-color: #007665;
-                                    border-top-left-radius: 8px;
-                                    border-bottom-left-radius: 8px;
-                                    padding: 12px 20px;
-                                }
-                            
-                                .iti__flag-container {
-                                    border-radius: 8px;
-                                }
-                            
-                                .iti__dropdown-content {
-                                    max-height: 300px;
-                                    border-radius: 8px;
-                                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-                                }
-                            
-                                .iti__country-list {
-                                    border-radius: 8px;
-                                    background-color: #fff;
-                                    box-shadow: 0 4px 20px rgba(0, 118, 101, 0.2);
-                                    font-size: 16px;
-                                }
-                            
-                                .iti__country {
-                                    padding: 15px;
-                                    transition: all 0.2s ease-in-out;
-                                }
-                            
-                                .iti__country:hover {
-                                    background-color: #007665;
-                                    color: #fff;
-                                }
-                            
-                                .iti__country-name {
-                                    font-weight: bold;
                                 }
                             </style>
                             
                             <script>
                                 var input = document.querySelector("#phone-input");
                                 var hiddenInput = document.querySelector("#full-phone");
-                            
+
+                                var defaultPhoneNumber = "{{ $phone_number }}";
+
                                 var savedCountry = localStorage.getItem('phone_country') || "sy";
-                            
+
                                 var iti = intlTelInput(input, {
                                     initialCountry: savedCountry,
                                     preferredCountries: ["sy", "ae", "lb", "sa", "jo", "tr"],
@@ -213,24 +225,27 @@
                                     nationalMode: false,
                                     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js",
                                 });
-                            
+
                                 if (localStorage.getItem('phone_number')) {
                                     iti.setNumber(localStorage.getItem('phone_number'));
                                     hiddenInput.value = localStorage.getItem('phone_number');
+                                } else if (defaultPhoneNumber) {
+                                    iti.setNumber(defaultPhoneNumber);
+                                    hiddenInput.value = defaultPhoneNumber;
                                 }
-                            
+
                                 function updatePhoneNumber() {
                                     var phoneNumber = iti.getNumber();
                                     hiddenInput.value = phoneNumber;
                                     localStorage.setItem('phone_number', phoneNumber);
-                            
+                                
                                     var selectedCountry = iti.getSelectedCountryData().iso2;
                                     localStorage.setItem('phone_country', selectedCountry);
                                 }
-                            
+
                                 input.addEventListener("change", updatePhoneNumber);
                                 input.addEventListener("keyup", updatePhoneNumber);
-                            
+
                                 document.querySelector("form").addEventListener("submit", function(event) {
                                     if (input.value.trim() === '') {
                                         iti.setCountry("sy");
