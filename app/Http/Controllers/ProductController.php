@@ -277,7 +277,7 @@ class ProductController extends Controller
             $font_family = "freeserif";
         }
 
-        $products = Product::with('main_category')->where('user_id', $userId)->get();
+        $products = Product::with('main_category')->where('user_id', $userId)->where('is_sold', 0)->get();
 
         if ($products->isEmpty()) {
             return response()->json(['message' => 'No products found for this user.']);

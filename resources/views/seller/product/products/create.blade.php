@@ -213,11 +213,11 @@
                             <script>
                                 var input = document.querySelector("#phone-input");
                                 var hiddenInput = document.querySelector("#full-phone");
-
+                            
                                 var defaultPhoneNumber = "{{ $phone_number }}";
-
-                                var savedCountry = localStorage.getItem('phone_country') || "sy";
-
+                            
+                                var savedCountry = "sy";
+                            
                                 var iti = intlTelInput(input, {
                                     initialCountry: savedCountry,
                                     preferredCountries: ["sy", "ae", "lb", "sa", "jo", "tr"],
@@ -225,27 +225,22 @@
                                     nationalMode: false,
                                     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js",
                                 });
-
-                                if (localStorage.getItem('phone_number')) {
-                                    iti.setNumber(localStorage.getItem('phone_number'));
-                                    hiddenInput.value = localStorage.getItem('phone_number');
-                                } else if (defaultPhoneNumber) {
+                            
+                                if (defaultPhoneNumber) {
                                     iti.setNumber(defaultPhoneNumber);
                                     hiddenInput.value = defaultPhoneNumber;
                                 }
-
+                            
                                 function updatePhoneNumber() {
                                     var phoneNumber = iti.getNumber();
                                     hiddenInput.value = phoneNumber;
-                                    localStorage.setItem('phone_number', phoneNumber);
-                                
-                                    var selectedCountry = iti.getSelectedCountryData().iso2;
-                                    localStorage.setItem('phone_country', selectedCountry);
+                            
+                                    <?php $phone_number = "' + phoneNumber + '"; ?>
                                 }
-
+                            
                                 input.addEventListener("change", updatePhoneNumber);
                                 input.addEventListener("keyup", updatePhoneNumber);
-
+                            
                                 document.querySelector("form").addEventListener("submit", function(event) {
                                     if (input.value.trim() === '') {
                                         iti.setCountry("sy");
