@@ -429,7 +429,7 @@
 <a href="{{ route('search',['sort_by'=>'newest']) }}" 
     class="btn btn-primary hover-color" 
     style="padding: 10px 20px; font-size: 18px;">
-     {{ translate('View All Cars') }}
+     {{ translate('View All ') }}
 </a>
  
 <style>
