@@ -428,9 +428,9 @@
 
 <div style="display: flex; justify-content: space-between; gap: 10px;">
     <a href="{{ route('search', ['sort_by' => 'newest']) }}" 
-       class="btn btn-primary hover-color" 
+       class="hover-color" 
        style="flex: 1; padding: 15px 20px; font-size: 18px; text-align: center; 
-              background-color: #ff6600; /* اللون الحالي */
+              background-color: #007665; /* اللون الحالي */
               color: #fff; /* اللون الحالي */
               border: none; border-radius: 10px; 
               box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
@@ -438,9 +438,9 @@
         {{ translate('Used Cars') }}
     </a>
     <a href="{{ route('search', ['sort_by' => 'newest']) }}" 
-       class="btn btn-primary hover-color" 
+       class="hover-color" 
        style="flex: 1; padding: 15px 20px; font-size: 18px; text-align: center; 
-              background-color: #ff6600; /* اللون الحالي */
+              background-color: #007665; /* اللون الحالي */
               color: #fff; /* اللون الحالي */
               border: none; border-radius: 10px; 
               box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
@@ -455,9 +455,10 @@
     }
 
     .hover-color:hover {
-        transform: translateY(-3px); /* رفع الزر قليلاً */
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* زيادة الظل */
-    }
+    background-color: #ff6600 !important; /* إضافة !important للتحقق */
+    transform: translateY(-3px) !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2) !important;
+}
 </style>
  
 <!-- Banner section 1 -->
