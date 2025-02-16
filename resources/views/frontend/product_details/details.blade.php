@@ -21,11 +21,11 @@
                     {{ translate('reviews') }})
                 </span>
                 
-                @if ($detailedProduct->view_count)
+                {{-- @if ($detailedProduct->view_count)
                     <span class="ml-3 opacity-50 fs-14">
                         <i class="las la-eye"></i> {{ $detailedProduct->view_count }} {{ translate('views') }}
                     </span>
-                @endif
+                @endif --}}
             </div>
         @endif
         <!-- Estimate Shipping Time -->
@@ -97,7 +97,7 @@
                 </td>
             </tr>
         @endif
-    
+        @if($product->category_id != 54)
         <tr>
             <td class="text-secondary fs-14 fw-400 w-25">{{ translate('Price') }}</td>
             <td>
@@ -135,6 +135,7 @@
                 </div>
             </td>
         </tr>
+        @endif
 
         @if ($detailedProduct->status != null)
             <tr>
@@ -531,7 +532,8 @@
                 <!-- Quantity -->
                 <input type="hidden" name="quantity" value="1">
             @endif
-
+            @if($product->category_id != 54)
+             
             <!-- Total Price -->
             <div class="row no-gutters pb-3 d-none" id="chosen_price_div">
                 <div class="col-sm-2">
@@ -545,6 +547,7 @@
                     </div>
                 </div>
             </div>
+            @endif 
         </form>
     @endif
 

@@ -98,9 +98,9 @@
         </h3>
         
         <div class="text-center mt-2 d-flex justify-content-center align-items-center gap-2">
-            <small class="text-muted" style="font-size: 12px; display: inline-flex; align-items: center;">
+            {{-- <small class="text-muted" style="font-size: 12px; display: inline-flex; align-items: center;">
                 <i class="las la-eye"></i> &nbsp; {{ $product->view_count }} {{ translate('views') }}
-            </small>
+            </small> --}}
             @if ($product->is_sold == 1)
                 &nbsp;|&nbsp;
                 <span class="fw-600 text-danger" style="font-size: 11px;">
