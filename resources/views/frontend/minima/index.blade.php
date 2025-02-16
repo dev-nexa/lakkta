@@ -432,7 +432,7 @@
 
 <div style="display: flex; justify-content: space-between; gap: 10px; padding: 0 10px;">
     <a href="https://lakkta.com/category/Cars-for-rent-Hy50u" 
-       class="hover-coloor" 
+       class="hover-color" 
        style="flex: 1; padding: 12px 18px; font-size: 16px; text-align: center; 
               background: linear-gradient(135deg, #007665, #005a4d); 
               color: #fff; border: 2px solid transparent; 
@@ -442,7 +442,7 @@
         <i class="fas fa-car" style="margin-right: 8px;"></i> {{ translate('Cars for rent') }}
     </a>
     <a href="{{ route('search', ['sort_by' => 'newest']) }}" 
-       class="hover-coloor" 
+       class="hover-color" 
        style="flex: 1; padding: 12px 18px; font-size: 16px; text-align: center; 
               background: linear-gradient(135deg, #007665, #005a4d); 
               color: #fff; border: 2px solid transparent; 
@@ -455,14 +455,12 @@
 <br>
 <br>
 <style>
-    /* div:hover {
-    color: #ff6600; 
-} */
-    .hover-coloor {
+ 
+    .hover-color {
         transition: all 0.3s ease-in-out;
     }
 
-    .hover-coloor:hover {
+    .hover-color:hover {
         background: linear-gradient(135deg, #ff6600, #e65c00) !important; /* تدرج لوني عند الهوفر */
         transform: translateY(-3px) !important;
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2) !important;
