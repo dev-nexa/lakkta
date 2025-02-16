@@ -426,6 +426,10 @@
         });
 </script>
 
+<div style="text-align: center; font-family: 'Arial', sans-serif; font-size: 20px; font-weight: bold; color: #333; margin-bottom: 20px; transition: color 0.3s ease;">
+    {{ translate('Click to get more cars') }}
+</div>
+
 <div style="display: flex; justify-content: space-between; gap: 10px; padding: 0 10px;">
     <a href="{{ route('search', ['sort_by' => 'newest']) }}" 
        class="hover-color" 
@@ -449,8 +453,11 @@
     </a>
 </div>
 <br>
-
+<br>
 <style>
+    div:hover {
+    color: #ff6600; /* تغيير لون النص عند التحويم */
+}
     .hover-color {
         transition: all 0.3s ease-in-out;
     }
