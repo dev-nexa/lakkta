@@ -426,28 +426,29 @@
         });
 </script>
 
-<div style="display: flex; justify-content: space-between; gap: 10px;">
+<div style="display: flex; justify-content: space-between; gap: 10px; padding: 0 10px;">
     <a href="{{ route('search', ['sort_by' => 'newest']) }}" 
        class="hover-color" 
-       style="flex: 1; padding: 15px 20px; font-size: 18px; text-align: center; 
-              background-color: #007665; /* اللون الحالي */
-              color: #fff; /* اللون الحالي */
-              border: none; border-radius: 10px; 
+       style="flex: 1; padding: 12px 18px; font-size: 16px; text-align: center; 
+              background: linear-gradient(135deg, #007665, #005a4d); 
+              color: #fff; border: 2px solid transparent; 
+              border-radius: 12px; 
               box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
               transition: all 0.3s ease;">
-        {{ translate('Used Cars') }}
+        <i class="fas fa-car" style="margin-right: 8px;"></i> {{ translate('Used Cars') }}
     </a>
     <a href="{{ route('search', ['sort_by' => 'newest']) }}" 
        class="hover-color" 
-       style="flex: 1; padding: 15px 20px; font-size: 18px; text-align: center; 
-              background-color: #007665; /* اللون الحالي */
-              color: #fff; /* اللون الحالي */
-              border: none; border-radius: 10px; 
+       style="flex: 1; padding: 12px 18px; font-size: 16px; text-align: center; 
+              background: linear-gradient(135deg, #007665, #005a4d); 
+              color: #fff; border: 2px solid transparent; 
+              border-radius: 12px; 
               box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
               transition: all 0.3s ease;">
-        {{ translate('View All Cars') }}
+        <i class="fas fa-search" style="margin-right: 8px;"></i> {{ translate('View All Cars') }}
     </a>
 </div>
+<br>
 
 <style>
     .hover-color {
@@ -455,10 +456,10 @@
     }
 
     .hover-color:hover {
-    background-color: #ff6600 !important; /* إضافة !important للتحقق */
-    transform: translateY(-3px) !important;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2) !important;
-}
+        background: linear-gradient(135deg, #ff6600, #e65c00) !important; /* تدرج لوني عند الهوفر */
+        transform: translateY(-3px) !important;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2) !important;
+    }
 </style>
  
 <!-- Banner section 1 -->
