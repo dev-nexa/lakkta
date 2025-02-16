@@ -431,7 +431,7 @@
 </div>
 
 <div style="display: flex; justify-content: space-between; gap: 10px; padding: 0 10px;">
-    <a href="{{ route('search', ['sort_by' => 'newest']) }}" 
+    <a href="https://lakkta.com/category/Cars-for-rent-Hy50u" 
        class="hover-color" 
        style="flex: 1; padding: 12px 18px; font-size: 16px; text-align: center; 
               background: linear-gradient(135deg, #007665, #005a4d); 
