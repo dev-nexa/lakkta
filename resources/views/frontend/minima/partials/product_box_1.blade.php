@@ -130,7 +130,7 @@
                             </span>
                         @endif
                     @else
-                        <span class="fw-700 text-primary" style="text-decoration: line-through;">
+                        <span class="fw-700 text-primary">
                             {{ translate('Please contact the car owner for the price.') }}
                         </span>
                     @endif
