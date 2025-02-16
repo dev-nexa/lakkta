@@ -426,11 +426,26 @@
         });
 </script>
 
-<a href="{{ route('search',['sort_by'=>'newest']) }}" 
-    class="btn btn-primary hover-color" 
-    style="padding: 10px 20px; font-size: 18px;">
-     {{ translate('View All ') }}
-</a>
+<div style="display: flex; justify-content: space-between; gap: 10px;">
+    <a href="{{ route('search', ['sort_by' => 'newest']) }}" 
+       class="btn btn-primary hover-color" 
+       style="flex: 1; padding: 15px 20px; font-size: 18px; text-align: center; 
+              background: linear-gradient(135deg, #6a11cb, #2575fc); 
+              color: white; border: none; border-radius: 10px; 
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+              transition: all 0.3s ease;">
+        {{ translate('Used Cars') }}
+    </a>
+    <a href="{{ route('search', ['sort_by' => 'newest']) }}" 
+       class="btn btn-primary hover-color" 
+       style="flex: 1; padding: 15px 20px; font-size: 18px; text-align: center; 
+              background: linear-gradient(135deg, #ff7e5f, #feb47b); 
+              color: white; border: none; border-radius: 10px; 
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+              transition: all 0.3s ease;">
+        {{ translate('View All Cars') }}
+    </a>
+</div>
  
 <style>
     .hover-color {
