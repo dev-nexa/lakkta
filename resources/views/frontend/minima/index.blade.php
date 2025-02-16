@@ -449,7 +449,7 @@
               border-radius: 12px; 
               box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
               transition: all 0.3s ease;">
-        <i class="fas fa-search" style="margin-right: 8px;"></i> {{ translate('View All Cars') }}
+        <i class="fas fa-search" style="margin-right: 8px;"></i> {{ translate('All Cars') }}
     </a>
 </div>
 <br>
