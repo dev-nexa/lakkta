@@ -129,6 +129,10 @@
                                 {{ home_discounted_base_price($product) }}
                             </span>
                         @endif
+                    @else
+                        <span class="fw-700 text-primary" style="text-decoration: line-through;">
+                            {{ translate('Please contact the car owner for the price.') }}
+                        </span>
                     @endif
                     {{-- <!-- Product Condition -->
                     @if ($product->status != null)
