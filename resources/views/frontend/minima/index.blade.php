@@ -429,24 +429,34 @@
 <div style="display: flex; justify-content: space-between; gap: 10px;">
     <a href="{{ route('search', ['sort_by' => 'newest']) }}" 
        class="btn btn-primary hover-color" 
-       style="flex: 1; padding: 10px 20px; font-size: 18px; text-align: center;">
+       style="flex: 1; padding: 15px 20px; font-size: 18px; text-align: center; 
+              background-color: #ff6600; /* اللون الحالي */
+              color: #fff; /* اللون الحالي */
+              border: none; border-radius: 10px; 
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+              transition: all 0.3s ease;">
         {{ translate('Used Cars') }}
     </a>
     <a href="{{ route('search', ['sort_by' => 'newest']) }}" 
        class="btn btn-primary hover-color" 
-       style="flex: 1; padding: 10px 20px; font-size: 18px; text-align: center;">
+       style="flex: 1; padding: 15px 20px; font-size: 18px; text-align: center; 
+              background-color: #ff6600; /* اللون الحالي */
+              color: #fff; /* اللون الحالي */
+              border: none; border-radius: 10px; 
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+              transition: all 0.3s ease;">
         {{ translate('View All Cars') }}
     </a>
 </div>
- 
+
 <style>
     .hover-color {
-        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
     }
 
     .hover-color:hover {
-        background-color: #ff6600;
-        color: #fff;
+        transform: translateY(-3px); /* رفع الزر قليلاً */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* زيادة الظل */
     }
 </style>
  
