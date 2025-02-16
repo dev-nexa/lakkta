@@ -439,7 +439,7 @@
               border-radius: 12px; 
               box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
               transition: all 0.3s ease;">
-        <i class="fas fa-car" style="margin-right: 8px;"></i> {{ translate('Used Cars') }}
+        <i class="fas fa-car" style="margin-right: 8px;"></i> {{ translate('Cars for rent') }}
     </a>
     <a href="{{ route('search', ['sort_by' => 'newest']) }}" 
        class="hover-color" 
