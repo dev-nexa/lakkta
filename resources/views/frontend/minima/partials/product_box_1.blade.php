@@ -119,14 +119,16 @@
                 @endif
                 <!-- price -->
                 <div class="">
-                    @if ($product->is_sold == 1)
-                        <span class="fw-700 text-primary" style="text-decoration: line-through;">
-                            {{ home_discounted_base_price($product) }}
-                        </span>
-                    @else
-                        <span class="fw-700 text-primary">
-                            {{ home_discounted_base_price($product) }}
-                        </span>
+                    @if($product->category_id != 54)
+                        @if ($product->is_sold == 1)
+                            <span class="fw-700 text-primary" style="text-decoration: line-through;">
+                                {{ home_discounted_base_price($product) }}
+                            </span>
+                        @else
+                            <span class="fw-700 text-primary">
+                                {{ home_discounted_base_price($product) }}
+                            </span>
+                        @endif
                     @endif
                     {{-- <!-- Product Condition -->
                     @if ($product->status != null)
