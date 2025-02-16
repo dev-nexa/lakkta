@@ -97,7 +97,7 @@
                 </td>
             </tr>
         @endif
-        @if($product->category_id != 54)
+        @if($detailedProduct->category_id != 54)
         <tr>
             <td class="text-secondary fs-14 fw-400 w-25">{{ translate('Price') }}</td>
             <td>
@@ -532,7 +532,7 @@
                 <!-- Quantity -->
                 <input type="hidden" name="quantity" value="1">
             @endif
-            @if($product->category_id != 54)
+            @if($detailedProduct->category_id != 54)
              
             <!-- Total Price -->
             <div class="row no-gutters pb-3 d-none" id="chosen_price_div">
