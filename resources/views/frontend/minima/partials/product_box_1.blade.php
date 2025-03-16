@@ -133,6 +133,7 @@
                         <span class="fw-700 text-primary">
                             {{ translate('Please contact the car owner for the price.') }}
                         </span>
+                        {{-- مالك مدني --}}
                     @endif
                     {{-- <!-- Product Condition -->
                     @if ($product->status != null)
